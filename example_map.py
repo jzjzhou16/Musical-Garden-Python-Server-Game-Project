@@ -30,7 +30,7 @@ class ExampleHouse(Map):
         objects.append((door, Coord(14, 7)))
 
         # add a plant
-        plant = PlantFactory.get_plant("Daisy")
+        plant = PlantFactory.get_plant("coin")
         if plant:
             objects.append((plant, Coord(10, 10)))
 
