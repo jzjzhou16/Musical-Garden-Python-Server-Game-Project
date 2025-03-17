@@ -29,10 +29,25 @@ class ExampleHouse(Map):
         door = Door('int_entrance', linked_room="Trottier Town")
         objects.append((door, Coord(14, 7)))
 
-        # add a plant
-        plant = PlantFactory.get_plant("Daisy")
+        # add plant shelf
+        plant = PlantFactory.get_plant("Rose")
         if plant:
             objects.append((plant, Coord(10, 10)))
+        plant = PlantFactory.get_plant("Tulip")
+        if plant:
+            objects.append((plant, Coord(10, 11)))
+        plant = PlantFactory.get_plant("Daisy")
+        if plant:
+            objects.append((plant, Coord(10, 12)))
+        plant = PlantFactory.get_plant("Sunflower")
+        if plant:
+            objects.append((plant, Coord(10, 13)))
+        plant = PlantFactory.get_plant("Lilac")
+        if plant:
+            objects.append((plant, Coord(10, 14)))
+        plant = PlantFactory.get_plant("Orchid")
+        if plant:
+            objects.append((plant, Coord(10, 15)))
 
         garden_grid = GardenGrid("cobblestone")
         objects.append((garden_grid, Coord(5, 3)))
