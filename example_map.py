@@ -18,7 +18,7 @@ class ExampleHouse(Map):
             description="Welcome to the Musical Garden",
             size=(15, 15),
             entry_point=Coord(14, 7),
-            background_tile_image='ice',
+            background_tile_image='sand',
         )
         self.garden_grid = GardenGrid()
     
