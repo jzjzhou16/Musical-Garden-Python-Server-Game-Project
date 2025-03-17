@@ -20,7 +20,7 @@ class ExampleHouse(Map):
             entry_point=Coord(14, 7),
             background_tile_image='sand',
         )
-        self.garden_grid = GardenGrid()
+        self.garden_grid = GardenGrid("cobblestone")
     
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
@@ -34,7 +34,7 @@ class ExampleHouse(Map):
         if plant:
             objects.append((plant, Coord(10, 10)))
 
-        garden_grid = GardenGrid()
+        garden_grid = GardenGrid("cobblestone")
         objects.append((garden_grid, Coord(5, 3)))
 
         return objects

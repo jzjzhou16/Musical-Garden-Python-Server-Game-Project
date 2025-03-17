@@ -8,8 +8,8 @@ if TYPE_CHECKING:
 
 class GardenGrid(MapObject):
     
-    def __init__(self, grid_rows: int = 7, grid_cols: int = 12, cell_size: int = 32) -> None:
-        super().__init__("table", passable = True, z_index = 0)
+    def __init__(self, image_name, grid_rows: int = 7, grid_cols: int = 12, cell_size: int = 32) -> None:
+        super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
         self.grid_rows = grid_rows
         self.grid_cols = grid_cols
         self.cell_size = cell_size
