@@ -1,6 +1,8 @@
 from .imports import *
 from .GardenGrid import GardenGrid
 from typing import TYPE_CHECKING
+from .my_greenhouse_MapObjects import Plant
+from .my_greenhouse_MapObjects import PlantFactory
 
 
 if TYPE_CHECKING:
@@ -26,6 +28,10 @@ class ExampleHouse(Map):
         # add a door
         door = Door('int_entrance', linked_room="Trottier Town")
         objects.append((door, Coord(14, 7)))
+
+        # add a plant
+        plant = Plant("Rose.png")
+        objects.append((plant, Coord(10, 10)))
 
         
         garden_grid = GardenGrid()
