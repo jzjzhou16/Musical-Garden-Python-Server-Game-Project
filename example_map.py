@@ -30,7 +30,7 @@ class ExampleHouse(Map):
         objects.append((door, Coord(14, 7)))
 
         # add a plant
-        plant = Plant("Rose.png")
+        plant = Plant("Rose")
         objects.append((plant, Coord(10, 10)))
 
         
