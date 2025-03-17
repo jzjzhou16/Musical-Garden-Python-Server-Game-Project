@@ -32,7 +32,7 @@ class PlantFactory:
             plant_info = {
                 "Daisy": "Daisy.png",
                 "Lilac": "Lilac.png",
-                "Orchid": Plant("Orchid", "Orchid.png"),
+                "Orchid": "Orchid.png",
                 "Rose": "Rose.png",
                 "Sunflower": "Sunflower.png",
                 "Tulip":  "Tulip.png",
