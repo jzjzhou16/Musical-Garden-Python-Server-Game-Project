@@ -1,6 +1,17 @@
+from .imports import *
+
+from typing import TYPE_CHECKING
 from typing import Dict
 
-class Plant:
+if TYPE_CHECKING:
+    from coord import Coord
+    from maps.base import Map
+    from tiles.base import MapObject
+    from tiles.map_objects import *
+
+
+
+class Plant(MapObject):
     def __init__(self, name: str, image: str, size: tuple[int, int]):
         self.name = name
         self.image = image  
