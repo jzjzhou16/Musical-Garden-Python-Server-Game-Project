@@ -30,14 +30,13 @@ class PlantFactory:
     def get_plant(name: str) -> Plant | None:
         if name not in PlantFactory._plants:
             plant_info = {
-                "Daisy": Plant("Daisy", "Daisy.png"),
-                "Lilac": Plant("Lilac", "Lilac.png"),
+                "Daisy": "Daisy.png",
+                "Lilac": "Lilac.png",
                 "Orchid": Plant("Orchid", "Orchid.png"),
-                "Rose": Plant("Rose", "Rose.png"),
-                "Sunflower": Plant("Sunflower", "Sunflower.png"),
-                "Tulip": Plant("Tulip", "Tulip.png"),
+                "Rose": "Rose.png",
+                "Sunflower": "Sunflower.png",
+                "Tulip":  "Tulip.png",
             }
             if name in plant_info:
-                PlantFactory._plants[name] = plant_info[name]
+                PlantFactory._plants[name] = Plant(name, plant_info[name])
         return PlantFactory._plants.get(name)
-                
