@@ -13,23 +13,18 @@ if TYPE_CHECKING:
 
 class Plant(MapObject):
     def __init__(self, image: str) -> None:
-        super().__init__(f'tiles_output/{image}', passable=True, z_index=1)
-        self.__name = image.split(".")[0]
+        super().__init__(f'tiles_output/{image}', passable=True, z_index=0)
         self.__image = image
     
     def _get_image_size(self) -> tuple[int, int]:
         return (1,1)
-
-    def get_name(self) -> str:
-        return self.__name
 
 #Flyweight
 class PlantFactory:
     _plants: Dict[str, Plant] = {}
     @staticmethod
     def get_plant(name: str) -> Plant | None:
-        if name not in PlantFactory._plants:
-            plant_info = {
+        plant_info = {
                 "Daisy": "Daisy.png",
                 "Lilac": "Lilac.png",
                 "Orchid": "Orchid.png",
@@ -37,7 +32,8 @@ class PlantFactory:
                 "Sunflower": "Sunflower.png",
                 "Tulip":  "Tulip.png",
             }
+        if name not in PlantFactory._plants:
             if name in plant_info:
                 PlantFactory._plants[name] = Plant(plant_info[name])
-        return PlantFactory._plants.get(name)
+        return PlantFactory._plants.get(plant_info[name])
                 
