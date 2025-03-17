@@ -1,8 +1,7 @@
 from .imports import *
 from .GardenGrid import GardenGrid
 from typing import TYPE_CHECKING
-from .my_greenhouse_MapObjects import Plant
-from .my_greenhouse_MapObjects import PlantFactory
+
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -42,9 +41,7 @@ class ExampleHouse(Map):
         # add a pressure plate
         pressure_plate = ScorePressurePlate()
         objects.append((pressure_plate, Coord(13, 7)))
-
-
-
+        
         garden_grid = GardenGrid()
         objects.append((garden_grid, Coord(5, 3)))
 
