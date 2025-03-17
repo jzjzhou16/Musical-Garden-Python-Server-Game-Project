@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 from typing import Dict
+from .imports import *
 
 if TYPE_CHECKING:
     from coord import Coord
