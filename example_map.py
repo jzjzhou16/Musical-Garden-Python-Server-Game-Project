@@ -21,6 +21,7 @@ class ExampleHouse(Map):
             background_tile_image='ice',
         )
         self.garden_grid = GardenGrid()
+        self.plant = PlantFactory().get_plant("Rose")
     
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
@@ -29,7 +30,10 @@ class ExampleHouse(Map):
         door = Door('int_entrance', linked_room="Trottier Town")
         objects.append((door, Coord(14, 7)))
 
-        
+        # add a plant
+        plant = Plant('Rose')
+        objects.append((plant, Coord(5, 5)))
+
         garden_grid = GardenGrid()
         objects.append((garden_grid, Coord(5, 3)))
 
