@@ -8,8 +8,9 @@ if TYPE_CHECKING:
     from tiles.map_objects import *
 
 class GardenGrid(MapObject):
+    
     def __init__(self, grid_rows: int = 7, grid_cols: int = 12, cell_size: int = 32) -> None:
-        super().__init__("coin", passable = True, z_index = 0)
+        super().__init__("sand", passable = True, z_index = 0)
         self.grid_rows = grid_rows
         self.grid_cols = grid_cols
         self.cell_size = cell_size
