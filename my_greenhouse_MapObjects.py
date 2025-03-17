@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class Plant(MapObject):
     def __init__(self, image: str) -> None:
-        super().__init__(f'tile_output/{image}', passable=False, z_index=0)
+        super().__init__(f'image/{image}', passable=False, z_index=0)
         self.__image = image
     
     def _get_image_size(self) -> tuple[int, int]:
