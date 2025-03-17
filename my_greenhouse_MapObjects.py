@@ -1,5 +1,5 @@
 from typing import TYPE_CHECKING
-from typing import Dict
+from typing import Dict, Optional
 from .imports import *
 
 if TYPE_CHECKING:
@@ -23,7 +23,7 @@ class Plant(MapObject):
 class PlantFactory:
     _plants: Dict[str, Plant] = {}
     @staticmethod
-    def get_plant(name: str) -> Plant | None:
+    def get_plant(name: str) -> Optional[Plant]:
         plant_info = {
                 "Daisy": "Daisy.png",
                 "Lilac": "Lilac.png",
@@ -31,9 +31,12 @@ class PlantFactory:
                 "Rose": "Rose.png",
                 "Sunflower": "Sunflower.png",
                 "Tulip":  "Tulip.png",
+                "coin": "coin.png"
             }
         if name not in PlantFactory._plants:
             if name in plant_info:
                 PlantFactory._plants[name] = Plant(plant_info[name])
-        return PlantFactory._plants.get(plant_info[name])
+            else:
+                return None
+        return PlantFactory._plants.get(name)
                 
