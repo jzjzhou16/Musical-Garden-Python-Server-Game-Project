@@ -32,22 +32,22 @@ class ExampleHouse(Map):
         # add plant shelf
         plant = PlantFactory.get_plant("Rose")
         if plant:
-            objects.append((plant, Coord(10, 10)))
+            objects.append((plant, Coord(7, 13)))
         plant = PlantFactory.get_plant("Tulip")
         if plant:
-            objects.append((plant, Coord(10, 11)))
+            objects.append((plant, Coord(8, 13)))
         plant = PlantFactory.get_plant("Daisy")
         if plant:
-            objects.append((plant, Coord(10, 12)))
+            objects.append((plant, Coord(9, 13)))
         plant = PlantFactory.get_plant("Sunflower")
         if plant:
             objects.append((plant, Coord(10, 13)))
         plant = PlantFactory.get_plant("Lilac")
         if plant:
-            objects.append((plant, Coord(10, 14)))
+            objects.append((plant, Coord(11, 13)))
         plant = PlantFactory.get_plant("Orchid")
         if plant:
-            objects.append((plant, Coord(10, 15)))
+            objects.append((plant, Coord(12, 13)))
 
         garden_grid = GardenGrid("cobblestone")
         objects.append((garden_grid, Coord(5, 3)))
