@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class Plant(MapObject):
     def __init__(self, image: str) -> None:
-        super().__init__(f'plant/{image}', passable=True, z_index=1)
+        super().__init__(f'tiles_output/{image}', passable=True, z_index=1)
         self.__name = image.split(".")[0]
         self.__image = image
     
