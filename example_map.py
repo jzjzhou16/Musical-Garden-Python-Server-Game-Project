@@ -43,9 +43,7 @@ class ExampleHouse(Map):
         pressure_plate = ScorePressurePlate()
         objects.append((pressure_plate, Coord(13, 7)))
 
-        # add a plant
-        plant = Plant("Rose", "Rose.png", (1, 1))
-        objects.append((plant, Coord(5, 5)))
+
 
         garden_grid = GardenGrid()
         objects.append((garden_grid, Coord(5, 3)))
