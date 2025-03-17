@@ -29,5 +29,7 @@ class GardenGrid(MapObject):
         # when a player leaves the grid, remove them from the method, so re-entry will trigger the message again
         if player in self.players_in_grid:
             self.players_in_grid.remove(player)
+            return [DialogueMessage(self,player, "You have left the garden grid", "coin")]
+    
         return []
     
