@@ -1,6 +1,5 @@
-
 from .imports import *
-
+from .GardenGrid import GardenGrid
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from coord import Coord
@@ -24,10 +23,10 @@ class ExampleHouse(Map):
     def __init__(self) -> None:
         super().__init__(
             name="Test House",
-            description="Welcome",
+            description="Welcome to the Musical Garden",
             size=(15, 15),
             entry_point=Coord(14, 7),
-            background_tile_image='cobblestone',
+            background_tile_image='ice',
         )
     
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
@@ -40,5 +39,8 @@ class ExampleHouse(Map):
         # add a pressure plate
         pressure_plate = ScorePressurePlate()
         objects.append((pressure_plate, Coord(13, 7)))
+
+        garden_grid = GardenGrid()
+        objects.append((garden_grid, Coord(5, 3)))
 
         return objects
