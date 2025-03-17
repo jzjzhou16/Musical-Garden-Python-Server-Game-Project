@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 
 
 
-class Plant(MapObject):
+class Plant():
     def __init__(self, name: str, image: str, size: tuple[int, int]):
         self.name = name
         self.image = image  
