@@ -1,36 +1,57 @@
 from .imports import *
-
+from .GardenGrid import GardenGrid
+from .my_greenhouse_MapObjects import *
 from typing import TYPE_CHECKING
+
+
 if TYPE_CHECKING:
     from coord import Coord
     from maps.base import Map
     from tiles.base import MapObject
     from tiles.map_objects import *
 
-class GardenGrid(MapObject):
+class ExampleHouse(Map):
+    def __init__(self) -> None:
+        super().__init__(
+            name="Test House",
+            description="Welcome to the Musical Garden",
+            size=(15, 15),
+            entry_point=Coord(14, 7),
+            background_tile_image='ice',
+        )
+        self.garden_grid = GardenGrid()
     
-    def __init__(self, grid_rows: int = 7, grid_cols: int = 12, cell_size: int = 32) -> None:
-        super().__init__("coin", passable = True, z_index = 0)
-        self.grid_rows = grid_rows
-        self.grid_cols = grid_cols
-        self.cell_size = cell_size
+    def get_objects(self) -> list[tuple[MapObject, Coord]]:
+        objects: list[tuple[MapObject, Coord]] = []
 
-        self.players_in_grid = set()
-        # grid_state is a 2D list, each cell may only hold one plant
+        # add a door
+        door = Door('int_entrance', linked_room="Trottier Town")
+        objects.append((door, Coord(14, 7)))
 
-    def player_entered(self, player) -> list:
-        # if player is already in the grid, return no message
-        if player in self.players_in_grid:
-            return []
-        # else, add the player and send the welcome message
-        self.players_in_grid.add(player)
-        return [DialogueMessage(self,player, "Welcome, You are in the Garden Grid.", "coin")]
-    
-    def player_exited(self, player) -> list:
-        # when a player leaves the grid, remove them from the method, so re-entry will trigger the message again
-        if player in self.players_in_grid:
-            self.players_in_grid.remove(player)
-            return [DialogueMessage(self,player, "You have left the garden grid", "coin")]
-    
-        return []
-    
+        # add a plant
+        plant = Plant("Rose.png")
+        objects.append((plant, Coord(10, 10)))
+
+        
+        garden_grid = GardenGrid()
+        objects.append((garden_grid, Coord(5, 3)))
+
+        return objects
+
+    def update_player_in_garden(self,player) -> None:
+        grid_origin = Coord(5,3)
+        grid_columns = self.garden_grid.grid_cols
+        grid_rows = self.garden_grid.grid_rows
+        
+        player_pos = player.get_current.position()
+
+        # Check if player's coordinates are within the garden grid 
+        in_garden = (grid_origin.x <= player_pos.x < grid_origin.x + grid_columns and
+                     grid_origin.y <= player_pos.y < grid_origin.y + grid_rows)
+        
+        if in_garden:
+            self.garden_grid.player_entered(player)
+        
+        else:
+            self.garden_grid.player_exited(player)
+            
