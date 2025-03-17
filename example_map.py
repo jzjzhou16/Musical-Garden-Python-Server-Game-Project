@@ -32,11 +32,6 @@ class ExampleHouse(Map):
         garden_grid = GardenGrid()
         objects.append((garden_grid, Coord(5, 3)))
 
-        #add a plant
-        plant = PlantFactory.get_plant("Rose")
-        if plant:
-            objects.append((plant, Coord(10, 10)))
-
         return objects
 
     def update_player_in_garden(self,player) -> None:
