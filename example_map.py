@@ -29,10 +29,6 @@ class ExampleHouse(Map):
         door = Door('int_entrance', linked_room="Trottier Town")
         objects.append((door, Coord(14, 7)))
 
-        # add a plant
-        plant = Plant("Rose")
-        objects.append((plant, Coord(10, 10)))
-
         
         garden_grid = GardenGrid()
         objects.append((garden_grid, Coord(5, 3)))
