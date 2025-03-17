@@ -13,7 +13,7 @@ if TYPE_CHECKING:
 
 class Plant(MapObject):
     def __init__(self, image: str) -> None:
-        super().__init__(f'tile_output/{image}', passable=True, z_index=0)
+        super().__init__(image, passable=True, z_index=0)
         self.__image = image
     
     def _get_image_size(self) -> tuple[int, int]:
@@ -31,6 +31,7 @@ class PlantFactory:
                 "Rose": "Rose.png",
                 "Sunflower": "Sunflower.png",
                 "Tulip":  "Tulip.png",
+                "coin": "coin.png"
             }
         if name not in PlantFactory._plants:
             if name in plant_info:
