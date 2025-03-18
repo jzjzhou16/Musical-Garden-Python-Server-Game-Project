@@ -9,8 +9,6 @@ if TYPE_CHECKING:
     from tiles.map_objects import *
     from maps.base import Map
 
-
-
 class Plant(MapObject):
     def __init__(self, image: str) -> None:
         super().__init__(image, passable=True, z_index=0)
