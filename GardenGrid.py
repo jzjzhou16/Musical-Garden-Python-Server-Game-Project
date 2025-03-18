@@ -89,17 +89,11 @@ class GardenGrid(MapObject):
                     row.append(cell)
             tilemap.append(row)
         return tilemap, self.grid_rows, self.grid_cols
-<<<<<<< Updated upstream
     
     def get_grid_origin(self) -> Coord:
         return self.grid_origin
 
-<<<<<<< Updated upstream
-=======
->>>>>>> Stashed changes
 
-=======
->>>>>>> Stashed changes
     def player_entered(self, player: HumanPlayer) -> list[Message]:
         # if player is already in the grid, return no message
         if player in self.players_in_grid:
@@ -136,5 +130,4 @@ class GardenGrid(MapObject):
             return self.grid_state[row][col]
         return None
     
-  
     
