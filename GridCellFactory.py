@@ -1,0 +1,94 @@
+from .imports import *
+from .GirdCell import GridCell
+from typing import TYPE_CHECKING, List, Optional, Dict
+from .my_greenhouse_MapObjects import Plant
+from .my_greenhouse_MapObjects import PlantFactory
+
+if TYPE_CHECKING:
+    from coord import Coord
+    from maps.base import Map
+    from tiles.base import MapObject
+    from tiles.map_objects import *
+
+
+# we need to treat each grid cell as a separate tile for rendering and other actions
+# we can use flyweight design so we don't have to create a new mapobject for every cell
+#class GridCellFactory:
+class GridCellFactory:
+    _cells: Dict[str, MapObject] = {}
+
+    def __init__(self, image_name: str):
+        self.image_name = image_name
+
+    def get_cell(self, cell_type: str) -> Optional[MapObject]:
+        if cell_type not in GridCellFactory._cells:
+            # Define the properties for each cell type
+            cell_info = {
+                "basic_dirt": {
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "sand":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "top_left_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "top_right_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "bottom_left_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "bottom_right_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "left_side_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "right_side_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "bottom_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "top_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                }
+
+                # Add more cell types here if needed
+            }
+
+            if cell_type in cell_info:
+                # Create a new MapObject instance for the cell type
+                info = cell_info[cell_type]
+                GridCellFactory._cells[cell_type] = GridCell(
+                    info["image_name"],
+                    passable=info["passable"],
+                    z_index=info["z_index"],
+                )
+            else:
+                # Return None if the cell type is not recognized
+                return None
+
+        # Return the shared instance
+        return GridCellFactory._cells.get(cell_type)
