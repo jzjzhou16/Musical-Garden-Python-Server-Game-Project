@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from coord import Coord
     from maps.base import Map
     from tiles.base import MapObject
+    from Player import Player
     from tiles.map_objects import *
 
 class ExampleHouse(Map):
@@ -21,6 +22,7 @@ class ExampleHouse(Map):
             entry_point=Coord(14, 7),
             background_tile_image='grass',
         )
+        
 
         
         
@@ -45,7 +47,13 @@ class ExampleHouse(Map):
         objects.append((self.garden_grid, Coord(5, 3)))
         return objects
 
-    def update_player_in_garden(self,player) -> None:
+    def move(self, player: "HumanPlayer", direction_s: str) -> list[Message]:
+        messages = super().move(player, direction_s)
+        garden_messages = self.update_player_in_garden(player)
+        messages.extend(garden_messages)
+        return messages
+    
+    def update_player_in_garden(self,player:"HumanPlayer") -> list[Message]:
         grid_origin = Coord(5,3)
         grid_columns = self.garden_grid.grid_cols
         grid_rows = self.garden_grid.grid_rows
@@ -61,7 +69,8 @@ class ExampleHouse(Map):
         
         else:
             messages = self.garden_grid.player_exited(player)
+        
+        return messages
 
-        for msg in messages:
-            player.receive_message(msg)
+        
             

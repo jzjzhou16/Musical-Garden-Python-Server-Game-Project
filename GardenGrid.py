@@ -22,20 +22,28 @@ class GardenGridCell(MapObject):
         return [[self]], 1, 1
 
 class GardenGrid(MapObject):
-    
     def __init__(self, image_name: str, grid_rows: int = 5, grid_cols: int = 8) -> None:
-        super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
         self.grid_rows = grid_rows
         self.grid_cols = grid_cols
         self.players_in_grid = set()
+        super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
+        
         
         # grid_state is a 2D list, each cell may only hold one plant
-        self.grid_state: List[List[Plant | None]] = [[None for _ in range(grid_cols)] for _ in range (grid_rows)]
+        self.grid_state: List[List[Optional[Plant]]] = [[None for _ in range(grid_cols)] for _ in range (grid_rows)]
 
 
-    
+    def _get_tilemap(self) -> tuple[List[List[MapObject]], int, int]:
+        tilemap: List[List[MapObject]] = []
+        for i in range(self.grid_rows):
+            row: List[MapObject] = []
+            for j in range(self.grid_cols):
+                cell = GardenGridCell(self, i, j)
+                row.append(cell)
+            tilemap.append(row)
+        return tilemap, self.grid_rows, self.grid_cols
 
-    def player_entered(self, player) -> list:
+    def player_entered(self, player: "HumanPlayer") -> list[Message]:
         # if player is already in the grid, return no message
         if player in self.players_in_grid:
             return []
@@ -43,12 +51,13 @@ class GardenGrid(MapObject):
         self.players_in_grid.add(player)
         return [DialogueMessage(self,player, "Welcome, You are in the Garden Grid.", "cobblestone")]
     
-    def player_exited(self, player) -> list:
+    def player_exited(self, player: "HumanPlayer") -> list[Message]:
             # when a player leaves the grid, remove them from the method, so re-entry will trigger the message again
             if player in self.players_in_grid:
                 self.players_in_grid.remove(player)
                 return [DialogueMessage(self,player, "You have left the garden grid", "cobblestone")]
             return []
+    
     
     def place_plant(self, row: int, col: int, plant: Plant) -> bool:
         if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
@@ -69,5 +78,5 @@ class GardenGrid(MapObject):
         if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
             return self.grid_state[row][col]
         return None
-         
-                   
+    
+    
