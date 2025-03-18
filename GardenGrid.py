@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 class GridCell(MapObject):
     def __init__(self, image_name: str, passable: bool, z_index: int) -> None:
         # Call the MapObject constructor with a fixed image name, passable and z_index
-        super().__init__(f'tile/background/{image_name}', passable, z_index)
+        super().__init__(f'tile/{image_name}', passable, z_index)
     
     def _get_tilemap(self) -> tuple[List[List[MapObject]], int, int]:
         # One cell
@@ -30,7 +30,7 @@ class GridCellFactory:
         if cell_type not in GridCellFactory._cells:
             # Define the properties for each cell type
             cell_info = {
-                "cobblestone": {
+                "basic_dirt": {
                     "image_name": self.image_name,  # Use the image name passed during initialization
                     "passable": True,
                     "z_index": 0,
@@ -39,7 +39,48 @@ class GridCellFactory:
                     "image_name": self.image_name,  # Use the image name passed during initialization
                     "passable": True,
                     "z_index": 0,
+                },
+                "top_left_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "top_right_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "bottom_left_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "bottom_right_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "left_side_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "right_side_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "bottom_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
+                },
+                "top_grid":{
+                    "image_name": self.image_name,  # Use the image name passed during initialization
+                    "passable": True,
+                    "z_index": 0,
                 }
+
                 # Add more cell types here if needed
             }
 
@@ -60,7 +101,7 @@ class GridCellFactory:
     
 
 class GardenGrid(MapObject):
-    def __init__(self, image_name: str, position: Coord, grid_rows: int = 4, grid_cols: int = 8) -> None:
+    def __init__(self, image_name: str, position: Coord, grid_rows: int, grid_cols: int) -> None:
         # ensure that these instance variables are initialized before the mapObject is initialized.
         self.grid_rows = grid_rows
         self.grid_cols = grid_cols
@@ -93,20 +134,19 @@ class GardenGrid(MapObject):
     def get_grid_origin(self) -> Coord:
         return self.grid_origin
 
-
     def player_entered(self, player: HumanPlayer) -> list[Message]:
         # if player is already in the grid, return no message
         if player in self.players_in_grid:
             return []
         # else, add the player and send the welcome message
         self.players_in_grid.add(player)
-        return [DialogueMessage(self,player, "Welcome, You are in the Garden Grid.", "sand")]
+        return [DialogueMessage(self,player, "Welcome, You are in the Garden Grid.", "")]
     
     def player_exited(self, player: HumanPlayer) -> list[Message]:
             # when a player leaves the grid, remove them from the method, so re-entry will trigger the message again
             if player in self.players_in_grid:
                 self.players_in_grid.remove(player)
-                return [DialogueMessage(self,player, "You have left the garden grid", "sand")]
+                return [DialogueMessage(self,player, "You have left the garden grid", "")]
             return []
     
     
