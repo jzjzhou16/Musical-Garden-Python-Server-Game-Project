@@ -47,13 +47,13 @@ class ExampleHouse(Map):
         objects.append((self.garden_grid, Coord(5, 3)))
         return objects
 
-    def move(self, player: "HumanPlayer", direction_s: str) -> list[Message]:
+    def move(self, player: HumanPlayer, direction_s: str) -> list[Message]:
         messages = super().move(player, direction_s)
         garden_messages = self.update_player_in_garden(player)
         messages.extend(garden_messages)
         return messages
     
-    def update_player_in_garden(self,player:"HumanPlayer") -> list[Message]:
+    def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
         grid_origin = Coord(5,3)
         grid_columns = self.garden_grid.grid_cols
         grid_rows = self.garden_grid.grid_rows

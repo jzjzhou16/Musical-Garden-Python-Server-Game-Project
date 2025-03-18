@@ -43,7 +43,7 @@ class GardenGrid(MapObject):
             tilemap.append(row)
         return tilemap, self.grid_rows, self.grid_cols
 
-    def player_entered(self, player: "HumanPlayer") -> list[Message]:
+    def player_entered(self, player: HumanPlayer) -> list[Message]:
         # if player is already in the grid, return no message
         if player in self.players_in_grid:
             return []
@@ -51,7 +51,7 @@ class GardenGrid(MapObject):
         self.players_in_grid.add(player)
         return [DialogueMessage(self,player, "Welcome, You are in the Garden Grid.", "cobblestone")]
     
-    def player_exited(self, player: "HumanPlayer") -> list[Message]:
+    def player_exited(self, player: HumanPlayer) -> list[Message]:
             # when a player leaves the grid, remove them from the method, so re-entry will trigger the message again
             if player in self.players_in_grid:
                 self.players_in_grid.remove(player)
