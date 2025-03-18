@@ -8,15 +8,13 @@ if TYPE_CHECKING:
     from tiles.base import MapObject
     from tiles.map_objects import *
 
-# need to build flyweight wrapper class so we can take coordinates as extrinsic state
-
 class GridCell(MapObject):
     def __init__(self, image_name: str, passable: bool, z_index: int) -> None:
         # Call the MapObject constructor with a fixed image name, passable and z_index
         super().__init__(f'tile/background/{image_name}', passable, z_index)
     
     def _get_tilemap(self) -> tuple[List[List[MapObject]], int, int]:
-        # Return a 1x1 grid containing this cell
+        # One cell
         return [[self]], 1, 1
 
 # we need to treat each grid cell as a separate tile for rendering and other actions
@@ -62,11 +60,13 @@ class GridCellFactory:
     
 
 class GardenGrid(MapObject):
-    def __init__(self, image_name: str, position: Coord, grid_rows: int = 5, grid_cols: int = 8) -> None:
+    def __init__(self, image_name: str, position: Coord, grid_rows: int = 4, grid_cols: int = 8) -> None:
         # ensure that these instance variables are initialized before the mapObject is initialized.
         self.grid_rows = grid_rows
         self.grid_cols = grid_cols
         self.players_in_grid = set()
+        # Store the grid origin, where it starts
+        self.grid_origin = position
         # Initialize the GridCellFactory with the image name
         self.cell_factory = GridCellFactory(image_name)
         # Set garden grid position
@@ -89,7 +89,9 @@ class GardenGrid(MapObject):
                     row.append(cell)
             tilemap.append(row)
         return tilemap, self.grid_rows, self.grid_cols
-
+    
+    def get_grid_origin(self) -> Coord:
+        return self.grid_origin
 
 
     def player_entered(self, player: HumanPlayer) -> list[Message]:

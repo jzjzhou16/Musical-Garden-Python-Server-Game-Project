@@ -1,5 +1,5 @@
 from .imports import *
-from .GardenGrid import GardenGrid
+from. GardenGrid import *
 from typing import TYPE_CHECKING
 from .my_greenhouse_MapObjects import Plant
 from .my_greenhouse_MapObjects import PlantFactory
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("sand", Coord(2,3), grid_rows = 5, grid_cols = 8)
+        self.garden_grid = GardenGrid("sand", Coord(2,3))
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
@@ -41,12 +41,11 @@ class ExampleHouse(Map):
 
         # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
-        grid_origin = self.garden_grid.get_position()  # This should be Coord(2,3)
-        start_x, start_y = grid_origin.x, grid_origin.y
+        grid_origin = self.garden_grid.get_grid_origin()  # This should be Coord(2,3)
         for i in range(rows):
             for j in range(cols):
-                cell = tilemap[start_x + i][start_y + j]
-                cell_coord = grid_origin + Coord(i, j)  
+                cell = tilemap[i][j]
+                cell_coord = Coord(grid_origin.y + i, grid_origin.x + j)  
                 objects.append((cell, cell_coord))
 
         return objects
@@ -61,7 +60,7 @@ class ExampleHouse(Map):
         return messages
     
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
-        grid_origin = self.garden_grid.get_position()
+        grid_origin = self.garden_grid.get_grid_origin()
         grid_columns = self.garden_grid.grid_cols
         grid_rows = self.garden_grid.grid_rows
         
