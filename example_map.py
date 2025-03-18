@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("cobblestone", grid_rows = 5, grid_cols = 8)
+        self.garden_grid = GardenGrid("sand", Coord(2,3), grid_rows = 5, grid_cols = 8)
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
@@ -22,10 +22,7 @@ class ExampleHouse(Map):
             entry_point=Coord(14, 7),
             background_tile_image='grass',
         )
-        
 
-        
-        
     
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
@@ -42,10 +39,20 @@ class ExampleHouse(Map):
             if plant:
                 objects.append((plant, coord))
 
-        # Use the persistent garden_grid instance.
-        
-        objects.append((self.garden_grid, Coord(5, 3)))
+        # add grid cells        
+        tilemap, rows, cols = self.garden_grid._get_tilemap()
+        grid_origin = self.garden_grid.get_position()  # This should be Coord(2,3)
+        start_x, start_y = grid_origin.x, grid_origin.y
+        for i in range(rows):
+            for j in range(cols):
+                cell = tilemap[start_x + i][start_y + j]
+                cell_coord = grid_origin + Coord(i, j)  
+                objects.append((cell, cell_coord))
+
         return objects
+    
+    def build_garden_grid(self) -> None:
+        tilemap, rows, cols = self.garden_grid._get_tilemap()
 
     def move(self, player: HumanPlayer, direction_s: str) -> list[Message]:
         messages = super().move(player, direction_s)
@@ -54,7 +61,7 @@ class ExampleHouse(Map):
         return messages
     
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
-        grid_origin = Coord(5,3)
+        grid_origin = self.garden_grid.get_position()
         grid_columns = self.garden_grid.grid_cols
         grid_rows = self.garden_grid.grid_rows
         
