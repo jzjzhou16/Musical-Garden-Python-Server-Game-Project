@@ -45,7 +45,6 @@ class ExampleHouse(Map):
                 objects.append((plant, coord))
 
         # add grid cells      
-         
         tilemap, rows, cols = self.garden_grid._get_tilemap()
         grid_origin = self.garden_grid.get_grid_origin()  
         for i in range(rows):
