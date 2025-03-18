@@ -1,5 +1,6 @@
 from .imports import *
 from .GardenGrid import *
+from .GridCellFactory import GridCellFactory
 from typing import TYPE_CHECKING
 from .my_greenhouse_MapObjects import Plant
 from .my_greenhouse_MapObjects import PlantFactory
