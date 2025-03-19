@@ -18,3 +18,4 @@ class GridCell(MapObject):
     def _get_tilemap(self) -> tuple[List[List[MapObject]], int, int]:
         # One cell
         return [[self]], 1, 1
+    
