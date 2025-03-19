@@ -1,6 +1,7 @@
 from .imports import *
 from .GardenGrid import *
 from .GridCellFactory import GridCellFactory
+from .NPCSingleton import NPCSingleton
 from typing import TYPE_CHECKING
 from .my_greenhouse_MapObjects import Plant
 from .my_greenhouse_MapObjects import PlantFactory
@@ -12,21 +13,6 @@ if TYPE_CHECKING:
     from Player import Player
     from tiles.map_objects import *
 
-class NPCSingleton(NPC):
-    _instance = None
-
-    def __new__(cls, *args, grid: Optional[GardenGrid] = None, **kwargs):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-        return cls._instance
-
-    def __init__(self, name: str, image: str, encounter_text: str, grid: GardenGrid, *args, **kwargs):
-        if not hasattr(self, "_initialized"):
-            super().__init__(name, image, encounter_text, *args, **kwargs)
-    
-            self._grid = grid
-            self._initialized = True
-            self.npc_coord = Coord(4, 1)
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
