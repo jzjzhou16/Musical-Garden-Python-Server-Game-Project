@@ -30,7 +30,8 @@ class NPCSingleton(NPC):
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("sand", Coord(2,3), 4, 12)
+        self.garden_grid = GardenGrid("top_grid", Coord(2,3), 4, 12)
+        # constructs NPC Singleton to have one instance of the grid exists at a time
         self.npc = NPCSingleton(
                 name="Professor",
                 image="prof",
