@@ -2,9 +2,10 @@ from .imports import *
 from .GardenGrid import *
 from .GridCellFactory import GridCellFactory
 from .NPCSingleton import NPCSingleton
+from .PlayerCommand import pickUpPlantCommand
 from typing import TYPE_CHECKING
-from .my_greenhouse_MapObjects import Plant
-from .my_greenhouse_MapObjects import PlantFactory
+from .Plant import Plant
+from .Plant import PlantFactory
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -24,6 +25,7 @@ class ExampleHouse(Map):
                 encounter_text="Welcome to the musical garden!",
                 grid=self.garden_grid
             )
+        self.pickup_plant_command = pickUpPlantCommand()
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
@@ -72,6 +74,9 @@ class ExampleHouse(Map):
         messages.extend(garden_messages)
         return messages
     
+    def interact(self, player: HumanPlayer, facing_direction: Optional[str] = None) -> list[Message]:
+        return self.pickup_plant_command.execute(self, player)
+
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
         messages = []
         player_pos = player.get_current_position()

@@ -1,8 +1,8 @@
 from .imports import *
 from typing import TYPE_CHECKING, List, Optional, Dict
 from .GridCellFactory import GridCellFactory
-from .my_greenhouse_MapObjects import Plant
-from .my_greenhouse_MapObjects import PlantFactory
+from .Plant import Plant
+from .Plant import PlantFactory
 
 if TYPE_CHECKING:
     from coord import Coord
