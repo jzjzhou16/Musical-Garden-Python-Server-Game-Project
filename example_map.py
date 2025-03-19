@@ -26,7 +26,6 @@ class NPCSingleton(NPC):
     
             self._grid = grid
             self._initialized = True
-            self.npc_coord = Coord(4, 1)
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
