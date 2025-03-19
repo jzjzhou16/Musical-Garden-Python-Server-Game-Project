@@ -30,7 +30,7 @@ class NPCSingleton(NPC):
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("dirt", Coord(2,3))
+        self.garden_grid = GardenGrid("sand", Coord(2,3), 4, 12)
         self.npc = NPCSingleton(
                 name="Professor",
                 image="prof",
@@ -65,13 +65,13 @@ class ExampleHouse(Map):
                 objects.append((plant, coord))
 
          # add npc singleton
-        objects.append((self.npc, Coord(4, 1)))
+        objects.append((self.npc, Coord(3, 1)))
 
         # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
         grid_origin = self.garden_grid.get_grid_origin()  
-        for i in range(rows):
-            for j in range(cols):
+        for i in range(min(rows, 4)):
+            for j in range(min(cols, 12)):
                 cell = tilemap[i][j]
                 cell_coord = Coord(grid_origin.y + i, grid_origin.x + j)  
                 objects.append((cell, cell_coord))
