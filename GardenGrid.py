@@ -16,6 +16,7 @@ class GardenGrid(MapObject):
         self.grid_rows = grid_rows
         self.grid_cols = grid_cols
         self.players_in_grid = set()
+        self.image_name = image_name
         # Store the grid origin, where it starts
         self.grid_origin = position
         # Initialize the GridCellFactory with the image name
@@ -35,7 +36,7 @@ class GardenGrid(MapObject):
             row: List[MapObject] = []
             for j in range(self.grid_cols):
                 # Create a new tile for each grid cell from flyweight
-                cell = self.cell_factory.get_cell("sand")
+                cell = self.cell_factory.get_cell(self.image_name)
                 if cell:
                     row.append(cell)
             tilemap.append(row)
