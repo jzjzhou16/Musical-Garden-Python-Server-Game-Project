@@ -1,12 +1,13 @@
 from .imports import *
-from .GardenGrid import *
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Optional, Dict
+from .GardenGrid import GardenGrid
+from .Plant import Plant
+from .Plant import PlantFactory
 
 if TYPE_CHECKING:
     from coord import Coord
     from maps.base import Map
     from tiles.base import MapObject
-    from Player import Player
     from tiles.map_objects import *
 
 class NPCSingleton(NPC):
@@ -23,3 +24,4 @@ class NPCSingleton(NPC):
     
             self._grid = grid
             self._initialized = True
+            self.npc_coord = Coord(4, 1)
