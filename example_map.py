@@ -4,6 +4,7 @@ from .GridCellFactory import GridCellFactory
 from typing import TYPE_CHECKING
 from .my_greenhouse_MapObjects import Plant
 from .my_greenhouse_MapObjects import PlantFactory
+from PlantAudios import NOTE_AUDIO_FILES, PLANT_NOTES, get_audio
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -16,7 +17,6 @@ class ExampleHouse(Map):
     def __init__(self) -> None:
         self.garden_grid = GardenGrid("top_grid", Coord(2,3), grid_rows = 4, grid_cols= 7)
                                                
-       
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
