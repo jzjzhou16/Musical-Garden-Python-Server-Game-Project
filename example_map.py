@@ -1,9 +1,9 @@
 from .imports import *
-from. GardenGrid import *
+from .GardenGrid import *
+from .GridCellFactory import GridCellFactory
 from typing import TYPE_CHECKING
 from .my_greenhouse_MapObjects import Plant
 from .my_greenhouse_MapObjects import PlantFactory
-
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -31,12 +31,6 @@ class NPCSingleton(NPC):
 class ExampleHouse(Map):
     def __init__(self) -> None:
         self.garden_grid = GardenGrid("sand", Coord(2,3))
-        self.npc = NPCSingleton(
-                name="Professor",
-                image="prof",
-                encounter_text="Welcome to the musical garden!",
-                grid=self.garden_grid
-            )
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
@@ -44,10 +38,13 @@ class ExampleHouse(Map):
             entry_point=Coord(14, 7),
             background_tile_image='grass',
         )
-
     
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
+
+        # add a welcome sign 
+        sign = Sign(text="Welcome to the Musical Greenhouse! Step up to the plant shelf and press SPACE to pick your first plant!.")
+        objects.append((sign, Coord(12, 6)))
 
         # add a door
         door = Door('int_entrance', linked_room="Trottier Town")
@@ -61,12 +58,9 @@ class ExampleHouse(Map):
             if plant:
                 objects.append((plant, coord))
 
-        # add npc singleton
-        objects.append((self.npc, Coord(4, 1)))
-        
         # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
-        grid_origin = self.garden_grid.get_grid_origin()  # This should be Coord(2,3)
+        grid_origin = self.garden_grid.get_grid_origin()  
         for i in range(rows):
             for j in range(cols):
                 cell = tilemap[i][j]
@@ -74,9 +68,7 @@ class ExampleHouse(Map):
                 objects.append((cell, cell_coord))
 
         return objects
-    
-    def build_garden_grid(self) -> None:
-        tilemap, rows, cols = self.garden_grid._get_tilemap()
+
 
     def move(self, player: HumanPlayer, direction_s: str) -> list[Message]:
         messages = super().move(player, direction_s)
@@ -85,12 +77,12 @@ class ExampleHouse(Map):
         return messages
     
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
+        messages = []
+        player_pos = player.get_current_position()
         grid_origin = self.garden_grid.get_grid_origin()
         grid_columns = self.garden_grid.grid_cols
         grid_rows = self.garden_grid.grid_rows
         
-        player_pos = player.get_current_position()
-
         # Check if player's coordinates are within the garden grid 
         in_garden = (grid_origin.x <= player_pos.x < grid_origin.x + grid_columns and
                      grid_origin.y <= player_pos.y < grid_origin.y + grid_rows)
