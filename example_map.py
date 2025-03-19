@@ -12,9 +12,31 @@ if TYPE_CHECKING:
     from Player import Player
     from tiles.map_objects import *
 
+class NPCSingleton(NPC):
+    _instance = None
+
+    def __new__(cls, *args, grid: Optional[GardenGrid] = None, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __init__(self, name: str, image: str, encounter_text: str, grid: GardenGrid, *args, **kwargs):
+        if not hasattr(self, "_initialized"):
+            super().__init__(name, image, encounter_text, *args, **kwargs)
+    
+            self._grid = grid
+            self._initialized = True
+            self.npc_coord = Coord(4, 1)
+
 class ExampleHouse(Map):
     def __init__(self) -> None:
         self.garden_grid = GardenGrid("sand", Coord(2,3))
+        self.npc = NPCSingleton(
+                name="Professor",
+                image="prof",
+                encounter_text="Welcome to the musical garden!",
+                grid=self.garden_grid
+            )
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
@@ -39,6 +61,9 @@ class ExampleHouse(Map):
             if plant:
                 objects.append((plant, coord))
 
+        # add npc singleton
+        objects.append((self.npc, Coord(4, 1)))
+        
         # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
         grid_origin = self.garden_grid.get_grid_origin()  # This should be Coord(2,3)
