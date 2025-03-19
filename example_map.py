@@ -12,10 +12,31 @@ if TYPE_CHECKING:
     from Player import Player
     from tiles.map_objects import *
 
+class NPCSingleton(NPC):
+    _instance = None
+
+    def __new__(cls, *args, grid: Optional[GardenGrid] = None, **kwargs):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+    def __init__(self, name: str, image: str, encounter_text: str, grid: GardenGrid, *args, **kwargs):
+        if not hasattr(self, "_initialized"):
+            super().__init__(name, image, encounter_text, *args, **kwargs)
+    
+            self._grid = grid
+            self._initialized = True
+
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("top_grid", Coord(2,3), grid_rows = 4, grid_cols= 7)
-                                               
+        self.garden_grid = GardenGrid("top_grid", Coord(2,3), 4, 12)
+        # constructs NPC Singleton to have one instance of the grid exists at a time
+        self.npc = NPCSingleton(
+                name="Professor",
+                image="prof",
+                encounter_text="Welcome to the musical garden!",
+                grid=self.garden_grid
+            )
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
@@ -43,11 +64,14 @@ class ExampleHouse(Map):
             if plant:
                 objects.append((plant, coord))
 
-        # add grid cells      
+         # add npc singleton
+        objects.append((self.npc, Coord(3, 1)))
+
+        # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
         grid_origin = self.garden_grid.get_grid_origin()  
-        for i in range(rows):
-            for j in range(cols):
+        for i in range(min(rows, 4)):
+            for j in range(min(cols, 12)):
                 cell = tilemap[i][j]
                 cell_coord = Coord(grid_origin.y + i, grid_origin.x + j)  
                 objects.append((cell, cell_coord))
