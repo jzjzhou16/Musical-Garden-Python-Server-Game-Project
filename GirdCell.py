@@ -1,7 +1,5 @@
 from .imports import *
 from typing import TYPE_CHECKING, List, Optional, Dict
-from .Plant import Plant
-from .Plant import PlantFactory
 
 if TYPE_CHECKING:
     from coord import Coord
