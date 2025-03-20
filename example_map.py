@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("dirt2", Coord(2,3), 4, 12)
+        self.garden_grid = GardenGrid("dirt2", Coord(2,2), 4, 12)
         # constructs NPC Singleton to have one instance of the grid exists at a time
         self.npc = NPCSingleton(
                 name="Professor",
@@ -27,7 +27,7 @@ class ExampleHouse(Map):
             description="Welcome to the Musical Garden",
             size=(15, 15),
             entry_point=Coord(14, 7),
-            background_tile_image='grassBackground',
+            background_tile_image='grass',
         )
     
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
@@ -50,13 +50,13 @@ class ExampleHouse(Map):
                 objects.append((plant, coord))
 
          # add npc singleton
-        objects.append((self.npc, Coord(3, 1)))
+        objects.append((self.npc, Coord(1, 1)))
 
         # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
         grid_origin = self.garden_grid.get_grid_origin()  
-        for i in range(min(rows, 4)):
-            for j in range(min(cols, 12)):
+        for i in range(rows):
+            for j in range(cols):
                 cell = tilemap[i][j]
                 cell_coord = Coord(grid_origin.y + i, grid_origin.x + j)  
                 objects.append((cell, cell_coord))
@@ -69,7 +69,6 @@ class ExampleHouse(Map):
         garden_messages = self.update_player_in_garden(player)
         messages.extend(garden_messages)
         return messages
-
 
     
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:

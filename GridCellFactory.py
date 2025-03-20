@@ -27,7 +27,7 @@ class GridCellFactory:
                     "passable": True,
                     "z_index": 0,
                 },
-                "sand":{
+                "dirt2":{
                     "image_name": self.image_name,  # Use the image name passed during initialization
                     "passable": True,
                     "z_index": 0,
