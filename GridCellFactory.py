@@ -22,7 +22,7 @@ class GridCellFactory:
         if cell_type not in GridCellFactory._cells:
             # Define the properties for each cell type
             cell_info = {
-                "basic_dirt": {
+                "dirt3": {
                     "image_name": self.image_name,  # Use the image name passed during initialization
                     "passable": True,
                     "z_index": 0,

@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("dirt1", Coord(2,2), 4, 12)
+        self.garden_grid = GardenGrid("dirt3", Coord(2,2), 4, 12)
         # constructs NPC Singleton to have one instance of the grid exists at a time
         self.npc = NPCSingleton(
                 name="Professor",
