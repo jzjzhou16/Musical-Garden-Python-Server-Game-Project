@@ -75,12 +75,9 @@ class ExampleHouse(Map):
         messages.extend(garden_messages)
         return messages
     
+    def interact(self, player: HumanPlayer, facing_direction: Optional[str] = None) -> list[Message]:
+        return self.pickup_plant_command.execute(self, player)
     
-    
-        
-        
-        
-
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
         messages = []
         player_pos = player.get_current_position()
