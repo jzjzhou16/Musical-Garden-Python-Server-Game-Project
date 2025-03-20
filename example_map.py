@@ -17,7 +17,7 @@ if TYPE_CHECKING:
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("top_grid", Coord(2,3), 4, 12)
+        self.garden_grid = GardenGrid("dirt2", Coord(2,3), 4, 12)
         # constructs NPC Singleton to have one instance of the grid exists at a time
         self.npc = NPCSingleton(
                 name="Professor",
@@ -31,7 +31,7 @@ class ExampleHouse(Map):
             description="Welcome to the Musical Garden",
             size=(15, 15),
             entry_point=Coord(14, 7),
-            background_tile_image='grass',
+            background_tile_image='grassBackground',
         )
     
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
