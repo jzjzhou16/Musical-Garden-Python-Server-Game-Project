@@ -33,6 +33,10 @@ class pickUpPlantCommand(MenuCommand):
                 plant_name = obj.get_name().replace(".png","") 
                 messages.append(DialogueMessage(self, player, f"You picked up {plant_name}!", ""))
                 
+                #plant sounds 
+                sound_message = self.create_sound_message(player, plant_name)
+                messages.append(sound_message)
+                
         return messages
 
     def player_interacted(self, player: HumanPlayer) -> list[Message]:
