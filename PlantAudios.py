@@ -7,6 +7,7 @@ class plantAudios:
         "Tulip": "B",
         "Daisy": "C",
         "Sunflower": "D",
+        "Iris": "E",
         "Lilac": "F",
         "Orchid": "G",
     }
@@ -16,6 +17,7 @@ class plantAudios:
         'B': ["B2.mp3", "B3.mp3", "B4.mp3", "B5.mp3"],
         'C': ["C2.mp3", "C3.mp3", "C4.mp3", "C5.mp3"],
         'D': ["D2.mp3", "D3.mp3", "D4.mp3", "D5.mp3"],
+        'E': ["E2.mp3", "E3.mp3", "E4.mp3", "E5.mp3"],
         'F': ["F2.mp3", "F3.mp3", "F4.mp3", "F5.mp3"],
         'G': ["G2.mp3", "G3.mp3", "G4.mp3", "G5.mp3"],
     }
