@@ -32,7 +32,7 @@ class GridCellFactory:
                     "passable": True,
                     "z_index": 0,
                 },
-                "top_left_grid":{
+                "dirt1":{
                     "image_name": self.image_name,  # Use the image name passed during initialization
                     "passable": True,
                     "z_index": 0,
