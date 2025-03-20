@@ -2,22 +2,19 @@ from .imports import *
 from .GardenGrid import *
 from .GridCellFactory import GridCellFactory
 from .NPCSingleton import NPCSingleton
-from .PlayerCommand import pickUpPlantCommand
 from typing import TYPE_CHECKING
-from .Plant import Plant
-from .Plant import PlantFactory
+from .Plant import Plant, PlantFactory
 
 if TYPE_CHECKING:
     from coord import Coord
     from maps.base import Map
     from tiles.base import MapObject
-    from Player import Player
     from tiles.map_objects import *
 
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("top_grid", Coord(2,3), 4, 12)
+        self.garden_grid = GardenGrid("dirt2", Coord(2,3), 4, 12)
         # constructs NPC Singleton to have one instance of the grid exists at a time
         self.npc = NPCSingleton(
                 name="Professor",
@@ -25,13 +22,12 @@ class ExampleHouse(Map):
                 encounter_text="Welcome to the musical garden!",
                 grid=self.garden_grid
             )
-        self.pickup_plant_command = pickUpPlantCommand()
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
             size=(15, 15),
             entry_point=Coord(14, 7),
-            background_tile_image='grass',
+            background_tile_image='grassBackground',
         )
     
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
@@ -51,7 +47,6 @@ class ExampleHouse(Map):
                                   ("Lilac", Coord(11, 13)), ("Orchid", Coord(12, 13))]:
             plant = PlantFactory.get_plant(plant_name)
             if plant:
-                plant.player_interacted = self.pickup_plant_command.player_interacted
                 objects.append((plant, coord))
 
          # add npc singleton
@@ -74,9 +69,8 @@ class ExampleHouse(Map):
         garden_messages = self.update_player_in_garden(player)
         messages.extend(garden_messages)
         return messages
-    
-    def interact(self, player: HumanPlayer, facing_direction: Optional[str] = None) -> list[Message]:
-        return self.pickup_plant_command.execute(self, player)
+
+
     
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
         messages = []
