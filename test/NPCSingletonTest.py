@@ -1,11 +1,12 @@
 import pytest
+from imports import *
 from ..NPCSingleton import NPCSingleton
-from ..GardenGrid import GardenGrid
-from coord import Coord
+from ..GardenGrid import GardenGrid 
 
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from maps.base import Map
+    from coord import Coord
 
 class NPCSingletonTest:
 
