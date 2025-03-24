@@ -15,12 +15,14 @@ class Plant(MapObject):
         super().__init__(image, passable=False, z_index=0)
         self.__image = image
     
+    # image is same size for all plants
     def _get_image_size(self) -> tuple[int, int]:
         return (1,1)
     
     def get_plant_name(self) -> str:
         return self.__image.replace(".png", "")
     
+    # command pattern
     def player_interacted(self, player: HumanPlayer, ) -> list[Message]:
         command = pickUpPlantCommand()
         plant_name = self.get_plant_name()
@@ -29,6 +31,7 @@ class Plant(MapObject):
 #Flyweight
 class PlantFactory:
     _plants: Dict[str, Plant] = {}
+    # static because all plant factories refer to the same dictionary
     @staticmethod
     def get_plant(name: str) -> Optional[Plant]:
         plant_info = {
