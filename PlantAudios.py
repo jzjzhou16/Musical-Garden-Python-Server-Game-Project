@@ -25,11 +25,13 @@ class plantAudios:
     @classmethod
     def get_plant_sound(cls, plant_name: str) -> str: 
         note = cls.PLANT_NOTES.get(plant_name)
+        #if no note found
         if note is None:
             raise ValueError(f"Error - No note found: {plant_name}")
         
         audio_files = cls.NOTE_AUDIO_FILES.get(note)
 
+        #if no audio file found 
         if not audio_files:
             raise ValueError(f"Error - No audio file found: {note}")
         
