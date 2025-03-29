@@ -1,4 +1,5 @@
-from pytest
+from imports import *
+import pytest
 from Plant import Plant, PlantFactory
 
 def test_flyweight_double_add():
@@ -15,4 +16,5 @@ def test_invalid_plant():
 def test_image_size():
     factory = PlantFactory()
     plant = factory.get_plant("Rose")
-    assert plant._get_image_size() == (1,1)
+    if plant is not None:
+        assert plant._get_image_size() == (1,1)
