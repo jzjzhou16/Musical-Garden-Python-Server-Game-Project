@@ -41,6 +41,7 @@ class PlantFactory:
                 "Rose": "Rose.png",
                 "Sunflower": "Sunflower.png",
                 "Tulip":  "Tulip.png",
+                "Iris": "Iris.png"
             }
         if name not in PlantFactory._plants:
             if name in plant_info:
