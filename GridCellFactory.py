@@ -1,5 +1,5 @@
 from .imports import *
-from .GirdCell import GridCell
+from .GridCell import GridCell
 from typing import TYPE_CHECKING, List, Optional, Dict
 
 if TYPE_CHECKING:
