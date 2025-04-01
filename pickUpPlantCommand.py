@@ -20,14 +20,11 @@ class pickUpPlantCommand(ChatCommand):
 
     def create_sound_message(self, player: "HumanPlayer", plant_name: str) -> SoundMessage: 
         sound_file = plantAudios.get_plant_sound(plant_name)
-        return SoundMessage(player, sound_file, volume=0.5) 
+        return SoundMessage(player, sound_file, volume=0.5, repeat = False) 
     
     def execute(self, command_text : str, map : Map, player: HumanPlayer, plant_name: str) -> list[Message]:
         messages = []
-
-        
         messages.append(DialogueMessage(self, player, f"You picked up {plant_name}!", ""))
-                
         #plant sounds 
         sound_message = self.create_sound_message(player, plant_name)
         messages.append(sound_message)
