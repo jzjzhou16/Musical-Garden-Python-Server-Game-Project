@@ -23,7 +23,7 @@ class Plant(MapObject):
         return self.__image.replace(".png", "")
     
     # command pattern
-    def player_interacted(self, player: HumanPlayer, ) -> list[Message]:
+    def player_interacted(self, player: HumanPlayer) -> list[Message]:
         command = pickUpPlantCommand()
         plant_name = self.get_plant_name()
         return command.execute("pickup_plant", player.get_current_room(), player, plant_name)
