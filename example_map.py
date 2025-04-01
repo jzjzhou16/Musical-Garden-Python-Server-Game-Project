@@ -33,13 +33,17 @@ class ExampleHouse(Map):
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
 
-        # add a welcome sign 
-        sign = Sign(text="Welcome to the Musical Greenhouse! Step up to the plant shelf and press SPACE to pick your first plant!.")
-        objects.append((sign, Coord(12, 6)))
+        # # add a welcome sign 
+        # sign = Sign(text="Welcome to the Musical Greenhouse! Step up to the plant shelf and press SPACE to pick your first plant!.")
+        # objects.append((sign, Coord(12, 6)))
 
         # add a door
         door = Door('int_entrance', linked_room="Trottier Town")
         objects.append((door, Coord(14, 7)))
+
+        # add a tree (decor)
+        tree = ExtDecor("tree_large_1") 
+        objects.append((tree, Coord(10, 3)))
 
         # add plant shelf
         for plant_name, coord in [("Rose", Coord(7, 13)), ("Tulip", Coord(8, 13)), 
