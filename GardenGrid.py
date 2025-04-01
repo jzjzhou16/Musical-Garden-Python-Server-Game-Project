@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING, List, Optional, Dict
 from .GridCellFactory import GridCellFactory
 from .Plant import Plant
 from .Plant import PlantFactory
+from .PlantCommand import PlantCommand
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -26,6 +27,7 @@ class GardenGrid(MapObject):
         # grid_state is a 2D list, each cell may only hold one plant
         self.grid_state: List[List[Optional[Plant]]] = [[None for _ in range(grid_cols)] for _ in range (grid_rows)]
         
+
         super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
 
 
@@ -40,12 +42,12 @@ class GardenGrid(MapObject):
                 if cell:
                     row.append(cell)
             tilemap.append(row)
+        
         return tilemap, self.grid_rows, self.grid_cols
     
     def get_grid_origin(self) -> Coord:
         return self.grid_origin
     
-   
 
 
     def player_entered(self, player: HumanPlayer) -> list[Message]:

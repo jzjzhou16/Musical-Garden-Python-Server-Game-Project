@@ -27,47 +27,7 @@ class GridCellFactory:
                     "passable": True,
                     "z_index": 0,
                 },
-                "dirt2":{
-                    "image_name": self.image_name,  # Use the image name passed during initialization
-                    "passable": True,
-                    "z_index": 0,
-                },
-                "dirt1":{
-                    "image_name": self.image_name,  # Use the image name passed during initialization
-                    "passable": True,
-                    "z_index": 0,
-                },
-                "top_right_grid":{
-                    "image_name": self.image_name,  # Use the image name passed during initialization
-                    "passable": True,
-                    "z_index": 0,
-                },
-                "bottom_left_grid":{
-                    "image_name": self.image_name,  # Use the image name passed during initialization
-                    "passable": True,
-                    "z_index": 0,
-                },
-                "bottom_right_grid":{
-                    "image_name": self.image_name,  # Use the image name passed during initialization
-                    "passable": True,
-                    "z_index": 0,
-                },
-                "left_side_grid":{
-                    "image_name": self.image_name,  # Use the image name passed during initialization
-                    "passable": True,
-                    "z_index": 0,
-                },
-                "right_side_grid":{
-                    "image_name": self.image_name,  # Use the image name passed during initialization
-                    "passable": True,
-                    "z_index": 0,
-                },
-                "bottom_grid":{
-                    "image_name": self.image_name,  # Use the image name passed during initialization
-                    "passable": True,
-                    "z_index": 0,
-                },
-                "top_grid":{
+                "dirt":{
                     "image_name": self.image_name,  # Use the image name passed during initialization
                     "passable": True,
                     "z_index": 0,
