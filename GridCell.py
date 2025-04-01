@@ -1,5 +1,6 @@
 from .imports import *
 from typing import TYPE_CHECKING, List, Optional, Dict
+from .PlantCommand import PlantCommand
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -11,7 +12,11 @@ if TYPE_CHECKING:
 class GridCell(MapObject):
     def __init__(self, image_name: str, passable: bool, z_index: int) -> None:
         # Call the MapObject constructor with a fixed image name, passable and z_index
-        super().__init__(f'tile/{image_name}', passable, z_index)
+        super().__init__(f'tile/background/{image_name}', passable, z_index)
+
+    def player_interacted(self, player: HumanPlayer) -> list[Message]:
+        command = PlantCommand()
+        return command.execute('plant', player.get_current_room(), player)
     
     def _get_tilemap(self) -> tuple[List[List[MapObject]], int, int]:
         # One cell
