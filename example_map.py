@@ -44,7 +44,7 @@ class ExampleHouse(Map):
         # add plant shelf
         for plant_name, coord in [("Rose", Coord(7, 13)), ("Tulip", Coord(8, 13)), 
                                   ("Daisy", Coord(9, 13)), ("Sunflower", Coord(10, 13)), 
-                                  ("Lilac", Coord(11, 13)), ("Orchid", Coord(12, 13))]:
+                                  ("Lilac", Coord(11, 13)), ("Iris", Coord (12, 13)), ("Orchid", Coord(13, 13))]:
             plant = PlantFactory.get_plant(plant_name)
             if plant:
                 objects.append((plant, coord))
