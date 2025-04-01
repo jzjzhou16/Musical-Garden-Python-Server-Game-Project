@@ -12,6 +12,11 @@ if TYPE_CHECKING:
 
 class NPCSingleton(NPC):
     _instance = None
+    name: str
+    image: str
+    encounter_text: str
+    _grid: GardenGrid
+    npc_coord: Coord
 
     def __new__(cls, *args, grid: Optional[GardenGrid] = None, **kwargs):
         if cls._instance is None:
