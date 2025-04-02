@@ -1,10 +1,6 @@
 from .imports import *
 from typing import TYPE_CHECKING
 from typing import Dict, Optional
-<<<<<<< HEAD
-from .imports import *
-=======
->>>>>>> f7113142b1e453f361911e3bb9b442eef286ddd1
 from .pickUpPlantCommand import pickUpPlantCommand
 
 if TYPE_CHECKING:
