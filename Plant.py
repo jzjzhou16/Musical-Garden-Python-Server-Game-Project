@@ -1,6 +1,10 @@
+from .imports import *
 from typing import TYPE_CHECKING
 from typing import Dict, Optional
+<<<<<<< HEAD
 from .imports import *
+=======
+>>>>>>> f7113142b1e453f361911e3bb9b442eef286ddd1
 from .pickUpPlantCommand import pickUpPlantCommand
 
 if TYPE_CHECKING:
@@ -26,6 +30,7 @@ class Plant(MapObject):
     def player_interacted(self, player: HumanPlayer) -> list[Message]:
         command = pickUpPlantCommand()
         plant_name = self.get_plant_name()
+        player.set_state('carrying_plant', plant_name)
         return command.execute("pickup_plant", player.get_current_room(), player, plant_name)
 
 #Flyweight
