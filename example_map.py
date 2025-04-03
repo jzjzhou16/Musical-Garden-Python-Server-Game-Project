@@ -134,13 +134,6 @@ class ExampleHouse(Map):
         return objects
 
 
-    def move(self, player: HumanPlayer, direction_s: str) -> list[Message]:
-        messages = super().move(player, direction_s)
-        garden_messages = self.update_player_in_garden(player)
-        messages.extend(garden_messages)
-        return messages
-
-    
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
         messages = []
         player_pos = player.get_current_position()
