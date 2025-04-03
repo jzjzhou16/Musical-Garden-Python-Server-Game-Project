@@ -14,7 +14,8 @@ if TYPE_CHECKING:
 
 class ExampleHouse(Map):
     def __init__(self) -> None:
-        self.garden_grid = GardenGrid("dirt3", Coord(2,2), 4, 12)
+        #create garden grid 
+        self.garden_grid = GardenGrid("dirt3", Coord(1,1), 4, 12)
         # constructs NPC Singleton to have one instance of the grid exists at a time
         self.npc = NPCSingleton(
                 name="Professor",
@@ -33,19 +34,37 @@ class ExampleHouse(Map):
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
 
-        # # add a welcome sign 
-        # sign = Sign(text="Welcome to the Musical Greenhouse! Step up to the plant shelf and press SPACE to pick your first plant!.")
-        # objects.append((sign, Coord(12, 6)))
-
         # add a door
         door = Door('int_entrance', linked_room="Trottier Town")
         objects.append((door, Coord(14, 7)))
 
-        # add a tree (decor)
-        tree = ExtDecor("tree_large_1") 
-        objects.append((tree, Coord(10, 3)))
+        #add greenhouse image (demo room)
+        demoRoom = ExtDecor("House") 
+        objects.append((demoRoom, Coord(7,0)))
 
-        # add plant shelf
+        #add shovel
+        shovel = ExtDecor("shovel1")
+        objects.append((shovel, Coord(6,13)))
+
+        #add play button
+        playButton = ExtDecor("play")  
+        objects.append((playButton, Coord(6,1))) 
+
+        #create plant shelf:
+        plant_coords = [
+            Coord(7, 13),  # Rose
+            Coord(8, 13),  # Tulip
+            Coord(9, 13),  # Daisy
+            Coord(10, 13), # Sunflower
+            Coord(11, 13), # Lilac
+            Coord(12, 13), # Iris
+            Coord(13, 13)  # Orchid
+        ]
+
+        for coord in plant_coords:
+            background_tile = Background("wood_planks")  
+            objects.append((background_tile, coord))
+
         for plant_name, coord in [("Rose", Coord(7, 13)), ("Tulip", Coord(8, 13)), 
                                   ("Daisy", Coord(9, 13)), ("Sunflower", Coord(10, 13)), 
                                   ("Lilac", Coord(11, 13)), ("Iris", Coord (12, 13)), ("Orchid", Coord(13, 13))]:
@@ -53,12 +72,13 @@ class ExampleHouse(Map):
             if plant:
                 objects.append((plant, coord))
 
-         # add npc singleton
-        objects.append((self.npc, Coord(1, 1)))
+        # add npc singleton
+        objects.append((self.npc, Coord(12, 5)))
 
         # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
         grid_origin = self.garden_grid.get_grid_origin()  
+        
         for i in range(rows):
             for j in range(cols):
                 cell = tilemap[i][j]
