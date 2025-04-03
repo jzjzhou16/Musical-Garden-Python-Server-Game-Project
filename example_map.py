@@ -55,8 +55,11 @@ class ExampleHouse(Map):
                 objects.append((bg_tile, Coord(y, x)))
         
         # add a door
-        door = Door('int_entrance', linked_room="Trottier Town")
+        door = Door('int_entrance', linked_room = "Trottier Town")
         objects.append((door, Coord(14, 7)))
+        
+        demoRoomDoor = Door('empty', linked_room = "demo_room")
+        objects.append((demoRoomDoor, Coord(14,2)))
 
         #add greenhouse image (demo room)
         demoRoom = ExtDecor("House") 
