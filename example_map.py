@@ -5,6 +5,8 @@ from .NPCSingleton import NPCSingleton
 from typing import TYPE_CHECKING
 from .Plant import Plant, PlantFactory
 import random
+from .PressurePlate import MusicalPressurePlate
+from .GridManager import GridManager
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -13,11 +15,15 @@ if TYPE_CHECKING:
     from tiles.map_objects import *
 
 
+
 class ExampleHouse(Map):
     def __init__(self) -> None:
         #create garden grid 
         self.garden_grid = GardenGrid("dirt3", Coord(1,1), 4, 12)
-        
+
+        # create grid manager
+        GridManager(self.garden_grid)
+    
         # constructs NPC Singleton to have one instance of the grid exists at a time
         self.npc = NPCSingleton(
                 name="Professor",
@@ -25,6 +31,9 @@ class ExampleHouse(Map):
                 encounter_text="Welcome to the musical garden!",
                 grid=self.garden_grid
             )
+        
+        # create pressure plate
+        self.pressure_plate = MusicalPressurePlate()
         
         #background image options
         self.background_options = [
@@ -69,9 +78,9 @@ class ExampleHouse(Map):
         shovel = ExtDecor("shovel1")
         objects.append((shovel, Coord(6,13)))
 
-        #add play button
-        playButton = ExtDecor("play")  
-        objects.append((playButton, Coord(6,1))) 
+        #add play button 
+        play_button = MusicalPressurePlate()
+        objects.append((play_button, Coord(6,1))) 
 
         #create plant shelf:
         plant_coords = [

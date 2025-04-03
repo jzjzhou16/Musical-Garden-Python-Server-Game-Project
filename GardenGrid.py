@@ -32,7 +32,7 @@ class GardenGrid(MapObject):
 
         super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
 
-    def attach(self, observer: PlantObserver):  # Enforces interface
+    def attach(self, observer: PlantObserver):
         if not hasattr(observer, 'on_plant_placed') or not hasattr(observer, 'on_plant_removed'):
             raise TypeError("Observer must implement PlantObserver protocol")
         self._observers.append(observer)
@@ -78,22 +78,25 @@ class GardenGrid(MapObject):
         return None
 
     def notify_plant_placed(self, row: int, col: int, plant_name: str):
-        """Direct notification without GameEvent"""
         for observer in self._observers:
             if hasattr(observer, 'on_plant_placed'):
                 observer.on_plant_placed(row, col, plant_name)
 
     def notify_plant_removed(self, row: int, col: int, plant_name: str):
-        """Direct notification without GameEvent"""
         for observer in self._observers:
             if hasattr(observer, 'on_plant_removed'):
                 observer.on_plant_removed(row, col, plant_name)
 
     def place_plant(self, row: int, col: int, plant: Plant) -> bool:
-        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
+        if not isinstance(plant, Plant):
+            raise ValueError("Must place a valid Plant object")
+            
+        if 1 <= row < self.grid_rows and 1 <= col < self.grid_cols:
             if self.grid_state[row][col] is None:
+                plant_name = plant.get_plant_name().lower()
                 self.grid_state[row][col] = plant
-                self.notify_plant_placed(row, col, plant.get_plant_name())
+                self.notify_plant_placed(row, col, plant_name)
+                print(f"Plant {plant_name} placed at ({row},{col})")
                 return True
         return False
 
@@ -105,5 +108,3 @@ class GardenGrid(MapObject):
                 self.notify_plant_removed(row, col, plant_name)
                 return True
         return False
-    
-    
