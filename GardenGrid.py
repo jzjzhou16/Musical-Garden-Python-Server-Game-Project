@@ -4,6 +4,7 @@ from .GridCellFactory import GridCellFactory
 from .Plant import Plant
 from .Plant import PlantFactory
 from .PlantCommand import PlantCommand
+from .Observer import PlantObserver
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -13,6 +14,7 @@ if TYPE_CHECKING:
 
 class GardenGrid(MapObject):
     def __init__(self, image_name: str, position: Coord, grid_rows: int, grid_cols: int) -> None:
+        self._observers: List[PlantObserver] = [] 
         # ensure that these instance variables are initialized before the mapObject is initialized.
         self.grid_rows = grid_rows
         self.grid_cols = grid_cols
@@ -30,7 +32,11 @@ class GardenGrid(MapObject):
 
         super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
 
-
+    def attach(self, observer: PlantObserver):  # Enforces interface
+        if not hasattr(observer, 'on_plant_placed') or not hasattr(observer, 'on_plant_removed'):
+            raise TypeError("Observer must implement PlantObserver protocol")
+        self._observers.append(observer)
+    
     def _get_tilemap(self) -> tuple[List[List[MapObject]], int, int]:
         # tilemap, where each cell is being treated as a separate tile for rendering and other actions
         tilemap: List[List[MapObject]] = []
@@ -66,24 +72,38 @@ class GardenGrid(MapObject):
             return []
     
     
-    def place_plant(self, row: int, col: int, plant: Plant) -> bool:
-        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
-            # can plant if the cell is empty
-            if self.grid_state[row][col] is None:
-                self.grid_state[row][col] = plant
-                return True
-        return False
-         
-    def remove_plant(self, row: int, col: int) -> bool:
-        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
-            if self.grid_state[row][col] is not None:
-                self.grid_state[row][col] = None
-                return True
-        return False
-    
     def get_plant(self, row:int, col: int):
         if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
             return self.grid_state[row][col]
         return None
+
+    def notify_plant_placed(self, row: int, col: int, plant_name: str):
+        """Direct notification without GameEvent"""
+        for observer in self._observers:
+            if hasattr(observer, 'on_plant_placed'):
+                observer.on_plant_placed(row, col, plant_name)
+
+    def notify_plant_removed(self, row: int, col: int, plant_name: str):
+        """Direct notification without GameEvent"""
+        for observer in self._observers:
+            if hasattr(observer, 'on_plant_removed'):
+                observer.on_plant_removed(row, col, plant_name)
+
+    def place_plant(self, row: int, col: int, plant: Plant) -> bool:
+        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
+            if self.grid_state[row][col] is None:
+                self.grid_state[row][col] = plant
+                self.notify_plant_placed(row, col, plant.get_plant_name())
+                return True
+        return False
+
+    def remove_plant(self, row: int, col: int) -> bool:
+        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
+            if plant := self.grid_state[row][col]:
+                plant_name = plant.get_plant_name()
+                self.grid_state[row][col] = None
+                self.notify_plant_removed(row, col, plant_name)
+                return True
+        return False
     
     
