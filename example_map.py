@@ -95,7 +95,7 @@ class ExampleHouse(Map):
 
         #add play button 
         play_button = MusicalPressurePlate()
-        objects.append((play_button, Coord(6,1))) 
+        objects.append((play_button, Coord(6,4))) 
 
         #create plant shelf:
         plant_coords = [
