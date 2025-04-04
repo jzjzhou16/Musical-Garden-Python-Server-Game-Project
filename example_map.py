@@ -1,13 +1,13 @@
 from .imports import *
-from .GardenGrid import *
-from .GridCellFactory import GridCellFactory
-from .NPCSingleton import NPCSingleton
 from typing import TYPE_CHECKING
+from .GardenGrid import *
+from .NPCSingleton import NPCSingleton
 from .Plant import Plant, PlantFactory
 from .BackgroundType import Background, BackgroundFactory
-import random
 from .PressurePlate import MusicalPressurePlate
 from .GridManager import GridManager
+from .Shovel import Shovel
+import random
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -79,18 +79,16 @@ class ExampleHouse(Map):
         objects.append((door, Coord(14, 7)))
         
         demoRoomDoor = Door('empty', linked_room = "demo_room")
-        objects.append((demoRoomDoor, Coord(14,2)))
+        objects.append((demoRoomDoor, Coord(0,0)))
 
-        #tree/plant decor 
-        tree = ExtDecor('Oak_Tree')
-        objects.append((tree, Coord(4,0)))
+        
 
         #add greenhouse image (demo room)
         demoRoom = ExtDecor("House") 
         objects.append((demoRoom, Coord(7,0)))
 
         #add shovel
-        shovel = ExtDecor("shovel1")
+        shovel = Shovel("Shovel")
         objects.append((shovel, Coord(6,13)))
 
         #add play button 
@@ -172,6 +170,12 @@ class ExampleHouse(Map):
             objects.append((path_bottom, Coord(12, x)))  
  
 
+    
+    
+    
+    
+    
+    
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
         messages = []
         player_pos = player.get_current_position()
@@ -190,6 +194,8 @@ class ExampleHouse(Map):
             messages = self.garden_grid.player_exited(player)
         
         return messages
+    
+    
     
 
         

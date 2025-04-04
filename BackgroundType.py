@@ -1,7 +1,7 @@
 from .imports import *
 from typing import TYPE_CHECKING
 from typing import Dict, Optional
-from .pickUpPlantCommand import pickUpPlantCommand
+
 
 if TYPE_CHECKING:
     from coord import Coord

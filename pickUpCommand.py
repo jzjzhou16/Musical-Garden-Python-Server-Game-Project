@@ -1,9 +1,10 @@
 from .imports import *
 from typing import TYPE_CHECKING, List, Optional, Dict
-from .GridCellFactory import GridCellFactory
 from .PlantAudios import plantAudios
 
+
 if TYPE_CHECKING:
+    from .Plant import Plant
     from command import ChatCommand
     from coord import Coord
     from maps.base import Map
@@ -25,7 +26,7 @@ class pickUpPlantCommand(ChatCommand):
     def execute(self, command_text : str, map : Map, player: HumanPlayer, plant_name: str) -> list[Message]:
         messages = []
         messages.append(DialogueMessage(self, player, f"You picked up {plant_name}!", ""))
-        #plant sounds 
+        
         sound_message = self.create_sound_message(player, plant_name)
         messages.append(sound_message)
                 
@@ -35,3 +36,16 @@ class pickUpPlantCommand(ChatCommand):
 
 
         
+  
+class pickUpShovelCommand(ChatCommand):
+    name = 'pickup_shovel'
+    @classmethod
+    def matches(cls, command_text: str) -> bool:
+        return command_text == "pickup_shovel"
+    
+    def execute(self, command_text : str, map : Map, player: HumanPlayer, object_name: str) -> list[Message]:
+        messages = []
+        messages.append(DialogueMessage(self, player, f"You picked up the {object_name}!", ""))
+    
+        return messages
+    
