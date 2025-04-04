@@ -36,14 +36,6 @@ class ExampleHouse(Map):
         
         # create pressure plate
         self.pressure_plate = MusicalPressurePlate()
-        
-        #background image options
-        self.background_options = [
-            'basicGrass',
-            'flowerGrass',   
-            'plantGrass',
-            'stoneGrass',
-        ]
 
         super().__init__(
             name="Test House",
@@ -56,20 +48,13 @@ class ExampleHouse(Map):
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
         
-        #set randomized background w/ flyweight factory
-        
-        flyweight_tiles = {
-            bg_type: BackgroundFactory.get_background(bg_type)
-            for bg_type in self.background_options
-        }
-
         for y in range(15):
             for x in range(15):
                 if (y, x) == (14, 7):  
                     continue
-
-                background_type = random.choice(self.background_options)
-                background_tile = flyweight_tiles[background_type]   
+            
+                #set randomized background w/ flyweight factory
+                background_tile = BackgroundFactory.get_background()
                 objects.append((background_tile, Coord(y, x)))
 
         self.create_paths(objects)
@@ -78,8 +63,8 @@ class ExampleHouse(Map):
         door = Door('int_entrance', linked_room = "Trottier Town")
         objects.append((door, Coord(14, 7)))
         
-        demoRoomDoor = Door('empty', linked_room = "demo_room")
-        objects.append((demoRoomDoor, Coord(0,0)))
+        demoRoomDoor = Door('stairs_down', linked_room = "Demo House")
+        objects.append((demoRoomDoor, Coord(14,1)))
 
         #add tree
         tree = ExtDecor('Oak_Tree')
