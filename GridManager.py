@@ -53,12 +53,12 @@ class GridManager(PlantObserver):
     
     # when plant is placed, used for observer
     def on_plant_placed(self, row: int, col: int, plant_name: str):
-        self.notes_grid[row][col] = plant_name  # Ensure this matches your note mapping
+        self.notes_grid[row - 1 ][col - 1] = plant_name  # Ensure this matches your note mapping
         print(f"Registered {plant_name} at ({row},{col})")
     
     # when plant is removed,m used for observer
     def on_plant_removed(self, row: int, col: int, plant_name: str) -> None:
-        self.notes_grid[row][col] = None
+        self.notes_grid[row - 1][col - 1] = None
 
     # play plant notes from column (helper for play_sequence)
     def play_column(self, column: int, recipient) -> Optional[SoundMessage]:
@@ -69,7 +69,7 @@ class GridManager(PlantObserver):
                 octave = self.ROW_OCTAVES[row]
                 return SoundMessage(
                     recipient,
-                    f"resources/sound/{note}{octave}.mp3",
+                    f"{note}{octave}.mp3",
                     volume=0.7,
                     repeat=False
                 )
