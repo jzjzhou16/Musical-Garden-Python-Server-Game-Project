@@ -69,7 +69,7 @@ class GridManager(PlantObserver):
                 octave = self.ROW_OCTAVES[row]
                 return SoundMessage(
                     recipient,
-                    f"resources/sound/{note}{octave}.mp3",
+                    f"{note}{octave}.mp3",
                     volume=0.7,
                     repeat=False
                 )

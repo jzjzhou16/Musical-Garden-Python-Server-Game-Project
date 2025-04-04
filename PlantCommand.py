@@ -24,6 +24,16 @@ class PlantCommand(ChatCommand):
             # updates the grid using observer when plant is placed (visual)
             plant_obj = MapObject.get_obj(carrying_plant)
             map.add_to_grid(plant_obj, front_pos)
+            
+            from .GridManager import GridManager
+            manager = GridManager.get_instance()
+            if manager:
+                # Get plant name in lowercase for note mapping
+                plant_name = carrying_plant.lower()
+                    
+                # Directly call observer method
+                manager.on_plant_placed(front_pos.y, front_pos.x, plant_name)
+
             messages += map.send_grid_to_players()
             # -1 indicating no plants carrying
             player.set_state("carrying_plant", -1)
