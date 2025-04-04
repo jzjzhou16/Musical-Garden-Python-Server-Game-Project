@@ -81,8 +81,10 @@ class ExampleHouse(Map):
         demoRoomDoor = Door('empty', linked_room = "demo_room")
         objects.append((demoRoomDoor, Coord(0,0)))
 
+        #add tree
+        tree = ExtDecor('Oak_Tree')
+        objects.append((tree, Coord(7,4)))
         
-
         #add greenhouse image (demo room)
         demoRoom = ExtDecor("House") 
         objects.append((demoRoom, Coord(7,0)))
@@ -118,7 +120,7 @@ class ExampleHouse(Map):
                 objects.append((plant, coord))
 
         # add npc singleton
-        objects.append((self.npc, Coord(12, 5)))
+        objects.append((self.npc, Coord(13, 10)))
 
         # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
