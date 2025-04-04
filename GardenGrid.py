@@ -71,7 +71,6 @@ class GardenGrid(MapObject):
                 return [DialogueMessage(self,player, "You have left the garden grid", "")]
             return []
     
-    
     def get_plant(self, row:int, col: int):
         if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
             return self.grid_state[row][col]
@@ -91,7 +90,7 @@ class GardenGrid(MapObject):
         if not isinstance(plant, Plant):
             raise ValueError("Must place a valid Plant object")
             
-        if 1 <= row < self.grid_rows and 1 <= col < self.grid_cols:
+        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
             if self.grid_state[row][col] is None:
                 plant_name = plant.get_plant_name().lower()
                 self.grid_state[row][col] = plant

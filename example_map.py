@@ -15,8 +15,6 @@ if TYPE_CHECKING:
     from tiles.base import MapObject
     from tiles.map_objects import *
 
-
-
 class ExampleHouse(Map):
     def __init__(self) -> None:
         #create garden grid 
@@ -59,11 +57,11 @@ class ExampleHouse(Map):
 
         self.create_paths(objects)
         
-        # add doors
-        door = Door('int_entrance', linked_room = "Trottier Town")
+        # add doors 
+        door = Door('int_entrance', linked_room="Trottier Town")
         objects.append((door, Coord(14, 7)))
-        
-        demoRoomDoor = Door('stairs_down', linked_room = "Demo House")
+ 
+        demoRoomDoor = Door('empty', linked_room = "Demo Room")
         objects.append((demoRoomDoor, Coord(14,1)))
 
         #add tree
@@ -156,13 +154,6 @@ class ExampleHouse(Map):
             objects.append((path_cell, Coord(11, x)))   
             objects.append((path_bottom, Coord(12, x)))  
  
-
-    
-    
-    
-    
-    
-    
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
         messages = []
         player_pos = player.get_current_position()
