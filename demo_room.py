@@ -12,7 +12,6 @@ if TYPE_CHECKING:
     from tiles.base import MapObject
     from tiles.map_objects import *
 
-
 class DemoRoom(Map):
     def __init__(self) -> None:
         #create garden grid 
@@ -22,10 +21,10 @@ class DemoRoom(Map):
 
         super().__init__(
             name="Demo House",
-            description="Welcome to the Musical Garden Demo Room",
             size=(15, 15),
             entry_point=Coord(14, 2),
-            background_tile_image = "wood_planks",
+            description="Welcome to the Musical Garden Demo Room",
+            background_tile_image = "wood_planks", 
         )
 
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
