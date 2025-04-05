@@ -21,6 +21,15 @@ class RemoveCommand(ChatCommand):
             for objects in removing:
                 if isinstance(objects, ExtDecor):
                     map.remove_from_grid(objects, front_pos)
+                    from .GridManager import GridManager
+                    manager = GridManager.get_instance()
+                    if manager:
+                    # Get plant name in lowercase for note mapping
+                        plant_name = objects.get_name().lower()
+                    
+                    # Directly call observer method
+                        manager.on_plant_removed(front_pos.y, front_pos.x, plant_name)
+
             messages += map.send_grid_to_players()
             player.set_state("carrying_shovel", 0)
             messages.append(DialogueMessage(self, player, "You have removed the plant!",""))
