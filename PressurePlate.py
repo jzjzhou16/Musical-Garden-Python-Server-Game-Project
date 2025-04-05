@@ -31,7 +31,7 @@ class ColumnPressurePlate(PressurePlate):
                     messages.append(SoundMessage(
                         player,
                         f"{note}{octave}.mp3",
-                        volume=0.7,
+                        volume=1.0,
                         repeat=False
                     ))
         
