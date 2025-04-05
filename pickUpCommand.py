@@ -1,6 +1,6 @@
 from .imports import *
 from typing import TYPE_CHECKING
-from .PlantAudios import plantAudios
+
 
 
 if TYPE_CHECKING:
@@ -16,22 +16,16 @@ class pickUpPlantCommand(ChatCommand):
     def matches(cls, command_text: str) -> bool:
         return command_text == "pickup_plant"
 
-    def create_sound_message(self, player: "HumanPlayer", plant_name: str) -> SoundMessage: 
-        sound_file = plantAudios.get_plant_sound(plant_name)
-        return SoundMessage(player, sound_file, volume=0.5, repeat = False) 
     
     def execute(self, command_text : str, map : Map, player: HumanPlayer, plant_name: str) -> list[Message]:
         messages = []
         messages.append(DialogueMessage(self, player, f"You picked up {plant_name}!", ""))
-        sound_message = self.create_sound_message(player, plant_name)
+        from .GridManager import GridManager
+        note = GridManager.PLANT_NOTES[plant_name.lower()]
+        # Default preview note is A2, B2... etc
+        sound_message = SoundMessage(player, f"{note}2.mp3", volume = 1.0, repeat = False)
         messages.append(sound_message)
-        messages += map.send_grid_to_players()
         return messages
-
-        
-
-
-        
   
 class pickUpShovelCommand(ChatCommand):
     name = 'pickup_shovel'
