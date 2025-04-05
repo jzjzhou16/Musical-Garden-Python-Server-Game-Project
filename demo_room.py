@@ -48,25 +48,26 @@ class DemoRoom(Map):
         #add plants
         demo_layouts = [ 
         # Demo 1 layout - happy bday
-        {
-            Coord(3, 1): "Orchid",  # G
-            Coord(3, 2): "Orchid",  # G
-            Coord(3, 3): "Rose",    # A
-            Coord(3, 4): "Orchid",  # G
-            Coord(3, 5): "Daisy",   # C
-            Coord(3, 6): "Tulip",   # B   
-            Coord(3, 7): "Orchid",  # G
-            Coord(3, 8): "Orchid",  # G
-            Coord(3, 9): "Rose",    # A
-            Coord(3, 10): "Orchid",  # G
-            Coord(3, 11): "Daisy",   # C
-            Coord(3, 12): "Tulip",   # B   
+        { 
+            Coord(3, 1): "Daisy",  # C
+            Coord(3, 2): "Daisy",  # C
+            Coord(3, 3): "Sunflower", #D
+            Coord(3, 4): "Daisy",  # C
+            Coord(3, 5): "Lilac",   # F
+            Coord(3, 6): "Iris",   # E   
+            Coord(3, 7): "Daisy",  # C
+            Coord(3, 8): "Daisy",  # C
+            Coord(3, 9): "Sunflower",# D
+            Coord(3, 10): "Daisy",  # C
+            Coord(3, 11): "Orchid",   # G
+            Coord(3, 12): "Lilac",   # F 
         }, 
         # Demo 2 layout - twinkle twinkle little star
         { 
             Coord(13, 1): "Rose",    # A 
             Coord(13, 3): "Orchid",  # G
             Coord(13, 4): "Orchid",  # G 
+
             Coord(13, 6): "Daisy",   # C
             Coord(13, 7): "Daisy",   # C
             Coord(13, 8): "Orchid",  # G
@@ -78,15 +79,16 @@ class DemoRoom(Map):
         # Demo 3 layout - jingle bells
         { 
             Coord(8, 1): "Iris",     # E
+            Coord(8, 2): "Iris",     # E
             Coord(8, 3): "Iris",     # E
             Coord(8, 4): "Iris",     # E
             Coord(8, 6): "Iris",     # E
             Coord(8, 7): "Iris",     # E
-            Coord(8, 8): "Iris",     # E
-            Coord(8, 9): "Iris",     # E
-            Coord(8, 10): "Orchid",  # G
-            Coord(8, 11): "Daisy",   # C 
-            Coord(8, 12): "Iris",    # E  
+            Coord(8, 8): "Iris",     # E 
+            Coord(8, 9): "Orchid",   # G
+            Coord(8, 10): "Daisy",     # C 
+            Coord(8, 11): "Sunflower", # D
+            Coord(8, 12): "Iris",    # E
         }
         ]
 
