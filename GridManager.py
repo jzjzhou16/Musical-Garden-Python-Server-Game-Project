@@ -48,11 +48,10 @@ class GridManager(PlantObserver):
         self.notes_grid = new_grid
         self.grid = new_grid
     
-    # when plant is placed, used for observer
+    # when plant is placed used for observer
     def on_plant_placed(self, row: int, col: int, plant_name: str):
-        self.notes_grid[row - 1 ][col - 1] = plant_name  # Ensure this matches your note mapping
-        print(f"Registered {plant_name} at ({row},{col})")
+        self.notes_grid[row - 1 ][col - 1] = plant_name
     
-    # when plant is removed,m used for observer
+    # when plant is removed, used for observer
     def on_plant_removed(self, row: int, col: int, plant_name: str) -> None:
         self.notes_grid[row - 1][col - 1] = None
