@@ -1,9 +1,7 @@
 from .imports import *
 from typing import TYPE_CHECKING, List, Optional, Dict
-from .GridCellFactory import GridCellFactory
+from .GridCell import GridCellFactory
 from .Plant import Plant
-from .Plant import PlantFactory
-from .PlantCommand import PlantCommand
 from .Observer import PlantObserver
 
 if TYPE_CHECKING:

@@ -1,16 +1,11 @@
 from .imports import *
 from typing import TYPE_CHECKING, List
 from .GridManager import GridManager
-from .Observer import PlantObserver
 
 if TYPE_CHECKING:
-    from Player import HumanPlayer
-    from message import Message, DialogueMessage, SoundMessage
+    from message import Message, SoundMessage
     from GridManager import GridManager
-    from maps.base import Map
-    from tiles.base import MapObject
     from tiles.map_objects import UtilityObject
-    from tiles.map_objects import Observer
 
 class ColumnPressurePlate(UtilityObject):
     def __init__(self, column_index: int):

@@ -2,7 +2,6 @@ from .imports import *
 from typing import TYPE_CHECKING, Optional, List
 from .RemoveCommand import RemoveCommand
 from .PlantCommand import PlantCommand
-from .Plant import Plant
 
 if TYPE_CHECKING:
     from command import ChatCommand

@@ -46,19 +46,7 @@ class PlantCommand(ChatCommand):
             messages.append(DialogueMessage(self,player,"There is nothing to remove here.", ""))
             return messages
 
-        '''
-        # updates the grid using observer when plant is placed (logical)
-        from .NPCSingleton import NPCSingleton
-        if npc := NPCSingleton._instance:
-            grid_row = front_pos.y - 1 
-            grid_col = front_pos.x - 1 
-                
-            if hasattr(npc, 'grid') and hasattr(npc._grid, '_observers'):
-                for observer in npc._grid._observers:
-                    if hasattr(observer, 'on_plant_placed'):
-                        observer.on_plant_placed(grid_row, grid_col, carrying_plant.lower())
-                        '''
-        
+
         
             
         

@@ -1,13 +1,10 @@
 from .imports import *
-from typing import TYPE_CHECKING, Optional
-from .Plant import PlantFactory, Plant
+from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from command import ChatCommand
     from maps.base import Map
     from tiles.map_objects import *
-    from .GardenGrid import GardenGrid
-    from .GridManager import GridManager
 
 class RemoveCommand(ChatCommand):
     name = 'remove'

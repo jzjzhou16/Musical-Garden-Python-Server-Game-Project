@@ -1,12 +1,9 @@
 from .imports import *
-from typing import TYPE_CHECKING,List, Dict, Optional
+from typing import TYPE_CHECKING,List, Optional
 from .GardenGrid import GardenGrid
 from .Observer import PlantObserver
 
 if TYPE_CHECKING:
-    from coord import Coord
-    from maps.base import Map
-    from tiles.base import MapObject
     from tiles.map_objects import *
     from message import SoundMessage
 

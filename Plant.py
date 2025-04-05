@@ -4,11 +4,8 @@ from typing import Dict, Optional
 from .pickUpCommand import pickUpPlantCommand
 
 if TYPE_CHECKING:
-    from coord import Coord
-    from maps.base import Map
     from tiles.base import MapObject
     from tiles.map_objects import *
-    from maps.base import Map
 
 class Plant(MapObject):
     def __init__(self, image: str) -> None:

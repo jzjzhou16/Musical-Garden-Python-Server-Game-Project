@@ -4,11 +4,8 @@ from .PlantAudios import plantAudios
 
 
 if TYPE_CHECKING:
-    from .Plant import Plant
     from command import ChatCommand
-    from coord import Coord
     from maps.base import Map
-    from tiles.base import MapObject
     from tiles.map_objects import *
 
 class pickUpPlantCommand(ChatCommand):

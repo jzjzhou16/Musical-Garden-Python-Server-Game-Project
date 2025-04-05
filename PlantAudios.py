@@ -35,5 +35,5 @@ class plantAudios:
         if not audio_files:
             raise ValueError(f"Error - No audio file found: {note}")
         
-        #return just the "2" key right now
+        #return just the default "2" key right now
         return audio_files[0]

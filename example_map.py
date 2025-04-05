@@ -2,12 +2,12 @@ from .imports import *
 from typing import TYPE_CHECKING
 from .GardenGrid import *
 from .NPCSingleton import NPCSingleton
-from .Plant import Plant, PlantFactory
+from .Plant import PlantFactory
 from .BackgroundType import Background, BackgroundFactory
 from .PressurePlate import ColumnPressurePlate
 from .GridManager import GridManager
 from .Shovel import Shovel
-import random
+
 
 if TYPE_CHECKING:
     from coord import Coord

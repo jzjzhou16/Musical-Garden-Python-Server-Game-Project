@@ -1,13 +1,9 @@
 from .imports import *
 from .GardenGrid import *
-from .GridCellFactory import GridCellFactory
-from .NPCSingleton import NPCSingleton
 from typing import TYPE_CHECKING
-from .Plant import Plant, PlantFactory 
-from .GridManager import GridManager
-from .PlantAudios import plantAudios
-from .BackgroundType import Background, BackgroundFactory
-import random
+from .Plant import PlantFactory 
+from .BackgroundType import BackgroundFactory
+
 
 if TYPE_CHECKING:
     from coord import Coord

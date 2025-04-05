@@ -1,15 +1,12 @@
 from .imports import *
 from typing import TYPE_CHECKING
-from typing import List, Dict, Optional
+from typing import List, Optional
 import random
 
 
 if TYPE_CHECKING:
-    from coord import Coord
-    from maps.base import Map
-    from tiles.base import MapObject
     from tiles.map_objects import *
-    from maps.base import Map
+    
 
 class BackgroundType:
     BACKGROUND_OPTIONS: List[str] = [
