@@ -1,8 +1,6 @@
 from .imports import *
 from typing import TYPE_CHECKING
 
-
-
 if TYPE_CHECKING:
     from command import ChatCommand
     from maps.base import Map
@@ -24,7 +22,10 @@ class pickUpPlantCommand(ChatCommand):
         note = GridManager.PLANT_NOTES[plant_name.lower()]
         # Default preview note is A2, B2... etc
         sound_message = SoundMessage(player, f"{note}2.mp3", volume = 1.0, repeat = False)
+        sound_message_two = SoundMessage(player, f"sound2/{note}2.mp3", volume = 1.0, repeat = False)
         messages.append(sound_message)
+        messages.append(sound_message_two)
+
         return messages
   
 class pickUpShovelCommand(ChatCommand):
