@@ -21,10 +21,8 @@ class pickUpPlantCommand(ChatCommand):
         from .GridManager import GridManager
         note = GridManager.PLANT_NOTES[plant_name.lower()]
         # Default preview note is A2, B2... etc
-        sound_message = SoundMessage(player, f"{note}2.mp3", volume = 1.0, repeat = False)
-        sound_message_two = SoundMessage(player, f"sound2/{note}2.mp3", volume = 1.0, repeat = False)
-        messages.append(sound_message)
-        messages.append(sound_message_two)
+        messages.append(SoundMessage(player, f"{note}_2.mp3", volume = 1.0, repeat = False))
+        messages.append(SoundMessage(player, f"sound2/{note}_2.mp3", volume = 1.0, repeat = False))
 
         return messages
   
