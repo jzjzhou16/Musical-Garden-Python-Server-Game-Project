@@ -6,7 +6,6 @@ if TYPE_CHECKING:
     from maps.base import Map
     from tiles.map_objects import *
     from .GardenGrid import GardenGrid
-    from .GridManager import GridManager
 
 class PlantCommand(ChatCommand):
     name = 'plant'

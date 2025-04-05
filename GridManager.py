@@ -5,7 +5,6 @@ from .Observer import PlantObserver
 
 if TYPE_CHECKING:
     from tiles.map_objects import *
-    from message import SoundMessage
 
 # implements the observer pattern
 # when a plant is placed or removed, the grid manager is notified
@@ -57,27 +56,3 @@ class GridManager(PlantObserver):
     # when plant is removed,m used for observer
     def on_plant_removed(self, row: int, col: int, plant_name: str) -> None:
         self.notes_grid[row - 1][col - 1] = None
-
-    # play plant notes from column (helper for play_sequence)
-    def play_column(self, column: int, recipient) -> Optional[SoundMessage]:
-        for row in range(4):
-            plant_name = self.notes_grid[row][column]
-            if plant_name and plant_name in self.PLANT_NOTES:
-                note = self.PLANT_NOTES[plant_name]
-                octave = self.ROW_OCTAVES[row]
-                return SoundMessage(
-                    recipient,
-                    f"{note}{octave}.mp3",
-                    volume=0.7,
-                    repeat=False
-                )
-        return None
-
-    # play all columns in sequence
-    def play_sequence(self, recipient) -> List[Message]:
-        sequence = []
-        for col in range(12):
-            sound = self.play_column(col, recipient)
-            if sound:
-                sequence.append(sound)
-        return sequence

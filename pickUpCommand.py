@@ -1,5 +1,5 @@
 from .imports import *
-from typing import TYPE_CHECKING, List, Optional, Dict
+from typing import TYPE_CHECKING
 from .PlantAudios import plantAudios
 
 
@@ -23,10 +23,9 @@ class pickUpPlantCommand(ChatCommand):
     def execute(self, command_text : str, map : Map, player: HumanPlayer, plant_name: str) -> list[Message]:
         messages = []
         messages.append(DialogueMessage(self, player, f"You picked up {plant_name}!", ""))
-        
         sound_message = self.create_sound_message(player, plant_name)
         messages.append(sound_message)
-                
+        messages += map.send_grid_to_players()
         return messages
 
         
