@@ -4,7 +4,7 @@ from .GardenGrid import *
 from .NPCSingleton import NPCSingleton
 from .Plant import Plant, PlantFactory
 from .BackgroundType import Background, BackgroundFactory
-from .PressurePlate import MusicalPressurePlate
+from .PressurePlate import ColumnPressurePlate
 from .GridManager import GridManager
 from .Shovel import Shovel
 import random
@@ -28,12 +28,10 @@ class ExampleHouse(Map):
         self.npc = NPCSingleton(
                 name="Professor",
                 image="prof",
-                encounter_text="Welcome to the musical garden!",
+                encounter_text="Welcome to the musical garden! Plant some flowers from the shelf by clicking the space bar on them, and click again to plant!",
                 grid=self.garden_grid
             )
         
-        # create pressure plate
-        self.pressure_plate = MusicalPressurePlate()
 
         super().__init__(
             name="Test House",
@@ -77,8 +75,10 @@ class ExampleHouse(Map):
         objects.append((shovel, Coord(6,13)))
 
         #add play button 
-        play_button = MusicalPressurePlate()
-        objects.append((play_button, Coord(6,4))) 
+        for col in range(12):
+            plate = ColumnPressurePlate(col)
+            objects.append((plate, Coord(x=col + 1, y=0)))
+ 
 
         #create plant shelf:
         plant_coords = [

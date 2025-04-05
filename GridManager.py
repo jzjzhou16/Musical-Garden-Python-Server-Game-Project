@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 # implements the observer pattern
 # when a plant is placed or removed, the grid manager is notified
 class GridManager(PlantObserver):
+    # this information is used within pressure plate to play sounds based on their location and flower
     # each note within the grid is represented by a letter
     PLANT_NOTES = {
         "rose": "A",
