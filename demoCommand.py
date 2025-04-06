@@ -18,21 +18,12 @@ class happybirthdayCommand(ChatCommand):
     
     def execute(self, command_text : str, map : Map, player: HumanPlayer) -> list[Message]:
         messages = []
-        removing = map.get_objects()
-        for objects in removing:
-            if isinstance(objects, ExtDecor):
-                map.remove_from_grid(objects, objects.get_position())
-                from .GridManager import GridManager
-                manager = GridManager.get_instance()
-                if manager:
-                # Get plant name in lowercase for note mapping
-                    plant_name = objects.get_name().lower()
-                    
-                # Directly call observer method
-                    manager.on_plant_removed(objects.get_position().y, objects.get_position().x, plant_name)
+        from.GridManager import GridManager
+        manager = GridManager.get_instance()
+        if manager:
+            messages += manager.clear_all_plants(map)
 
-        messages += map.send_grid_to_players()
-
+         
         demo_happybirthay = {
             Coord(3, 1): "Daisy",  # C
             Coord(3, 2): "Daisy",  # C
@@ -51,19 +42,13 @@ class happybirthdayCommand(ChatCommand):
         for coord, plant_name in demo_happybirthay.items():
             plant_obj = MapObject.get_obj(plant_name)
             map.add_to_grid(plant_obj, coord)
-
-            from.GridManager import GridManager
-            manager = GridManager.get_instance()
             if manager:
                 # Get plant name in lowercase for note mapping
                 name = plant_name.lower()
-            
-
-                    
                 # Directly call observer method
                 manager.on_plant_placed(coord.y, coord.x, name)
 
-            messages += map.send_grid_to_players()
+        messages += map.send_grid_to_players()
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Happy Birthday'!", ""))
         return messages
             
@@ -79,23 +64,10 @@ class twinkleCommand(ChatCommand):
     
     def execute(self, command_text : str, map : Map, player: HumanPlayer) -> list[Message]:
         messages = []
-
-        removing = map.get_objects()
-        for objects in removing:
-            if isinstance(objects, ExtDecor):
-                map.remove_from_grid(objects, objects.get_position())
-                from .GridManager import GridManager
-                manager = GridManager.get_instance()
-                if manager:
-                # Get plant name in lowercase for note mapping
-                    plant_name = objects.get_name().lower()
-                    
-                # Directly call observer method
-                    manager.on_plant_removed(objects.get_position().y, objects.get_position().x, plant_name)
-
-        messages += map.send_grid_to_players()
-
-
+        from.GridManager import GridManager
+        manager = GridManager.get_instance()
+        if manager:
+            messages += manager.clear_all_plants(map)
 
         demo_twinkle = {
             # Coord(10, 1): "Rose",    # A 
@@ -113,8 +85,6 @@ class twinkleCommand(ChatCommand):
             plant_obj = MapObject.get_obj(plant_name)
             map.add_to_grid(plant_obj, coord)
 
-            from.GridManager import GridManager
-            manager = GridManager.get_instance()
             if manager:
                 # Get plant name in lowercase for note mapping
                 name = plant_name.lower()
@@ -122,7 +92,7 @@ class twinkleCommand(ChatCommand):
                 # Directly call observer method
                 manager.on_plant_placed(coord.y, coord.x, name)
 
-            messages += map.send_grid_to_players()
+        messages += map.send_grid_to_players()
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Twinkle Twinkle Little Star'!", ""))
         return messages
             
@@ -137,7 +107,10 @@ class jingleBellsCommand(ChatCommand):
     
     def execute(self, command_text : str, map : Map, player: HumanPlayer) -> list[Message]:
         messages = []
-        
+        from.GridManager import GridManager
+        manager = GridManager.get_instance()
+        if manager:
+            messages += manager.clear_all_plants(map)
 
         demo_jingle = {
             Coord(3, 1): "Iris",     # E
@@ -156,8 +129,6 @@ class jingleBellsCommand(ChatCommand):
             plant_obj = MapObject.get_obj(plant_name)
             map.add_to_grid(plant_obj, coord)
 
-            from.GridManager import GridManager
-            manager = GridManager.get_instance()
             if manager:
                 # Get plant name in lowercase for note mapping
                 name = plant_name.lower()
@@ -165,7 +136,7 @@ class jingleBellsCommand(ChatCommand):
                 # Directly call observer method
                 manager.on_plant_placed(coord.y, coord.x, name)
 
-            messages += map.send_grid_to_players()
+        messages += map.send_grid_to_players()
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Jingle Bells'!", ""))
         return messages
 

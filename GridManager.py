@@ -55,3 +55,25 @@ class GridManager(PlantObserver):
     # when plant is removed, used for observer
     def on_plant_removed(self, row: int, col: int, plant_name: str) -> None:
         self.notes_grid[row - 1][col - 1] = None
+
+    def clear_all_plants(self, map: Map) -> list[Message]:
+        messages = []
+        for row in range(len(self.notes_grid)):
+            for col in range(len(self.notes_grid[0])):
+                if self.notes_grid[row][col] is not None:
+                    # Convert grid coords to absolute room coords
+                    abs_y = 1 + row  # Adjust based on your grid's origin
+                    abs_x = 1 + col
+                    coord = Coord(abs_y, abs_x)
+                    
+                    # Remove all plant objects at this coordinate
+                    objects = map.get_map_objects_at(coord)
+                    for obj in objects:
+                        if isinstance(obj, ExtDecor):  # Check for plant types
+                            map.remove_from_grid(obj, coord)
+                    
+                    # Clear the note
+                    self.notes_grid[row][col] = None
+        
+        messages += map.send_grid_to_players()
+        return messages
