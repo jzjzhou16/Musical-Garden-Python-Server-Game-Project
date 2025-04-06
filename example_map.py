@@ -1,7 +1,7 @@
 from .imports import *
 from typing import TYPE_CHECKING
 from .GardenGrid import *
-from .NPCSingleton import GardenNPC
+from .GardenNPC import GardenNPC
 from .Plant import PlantFactory
 from .BackgroundType import Background, BackgroundFactory
 from .PressurePlate import ColumnPressurePlate, ClearPressurePlate
@@ -34,14 +34,14 @@ class ExampleHouse(Map):
                 encounter_text="Welcome to the musical garden! Plant some flowers from the shelf by clicking the space bar on them, and click again to plant!",
                 grid=self.garden_grid
             )
-        
+    
 
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
             size=(15, 15),
             entry_point=Coord(14, 7),
-            background_tile_image = "basicGrass",
+            background_tile_image = "greenGrass",
         )
 
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
