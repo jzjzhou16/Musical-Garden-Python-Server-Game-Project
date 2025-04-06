@@ -45,14 +45,12 @@ class DemoRoom(Map):
                     objects.append((cell, cell_coord))
 
         #create background
-        for y in range(20):
-            for x in range(16):
-                # if (y, x) == (14, 7):  
-                #     continue
+        # for y in range(20):
+        #     for x in range(16): 
             
-                #set randomized background w/ flyweight factory
-                background_tile = BackgroundFactory.get_background()
-                objects.append((background_tile, Coord(y, x)))
+        #         #set randomized background w/ flyweight factory
+        #         background_tile = BackgroundFactory.get_background()
+        #         objects.append((background_tile, Coord(y, x)))
 
         # add a exit door back to room
         door = Door('houseDoor', linked_room="Example House")
