@@ -16,6 +16,9 @@ if TYPE_CHECKING:
     from tiles.map_objects import *
 
 class ExampleHouse(Map):
+
+    MAIN_ENTRANCE = True
+
     def __init__(self) -> None:
         #create garden grid 
 
@@ -56,7 +59,7 @@ class ExampleHouse(Map):
         self.create_paths(objects)
         
         # add doors 
-        door = Door('int_entrance', linked_room="Trottier Town")
+        door = Door('int_entrance', linked_room="Trottier Town", is_main_entrance=True)
         objects.append((door, Coord(14, 7)))
  
         demoRoomDoor = Door('empty', linked_room = "Demo Room")
