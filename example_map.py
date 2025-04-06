@@ -22,7 +22,7 @@ class ExampleHouse(Map):
     def __init__(self) -> None:
         #create garden grid 
 
-        self.garden_grid = GardenGrid("dirt3", Coord(1,1), 4, 12)
+        self.garden_grid = GardenGrid("dirt3", Coord(2,1), 4, 12)
 
         # create grid manager
         self.grid_manager = GridManager(self.garden_grid)
@@ -39,17 +39,17 @@ class ExampleHouse(Map):
         super().__init__(
             name="Test House",
             description="Welcome to the Musical Garden",
-            size=(15, 15),
+            size=(17, 15),
             entry_point=Coord(14, 7),
-            background_tile_image = "greenGrass",
+            background_tile_image = "grass",
         )
 
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
         
-        for y in range(15):
+        for y in range(17):
             for x in range(15):
-                if (y, x) == (14, 7):  
+                if (y, x) == (16, 7):  
                     continue
             
                 #set randomized background w/ flyweight factory
@@ -60,57 +60,57 @@ class ExampleHouse(Map):
         
         # add doors 
         door = Door('int_entrance', linked_room="Trottier Town", is_main_entrance=True)
-        objects.append((door, Coord(14, 7)))
+        objects.append((door, Coord(16, 7)))
  
         demoRoomDoor = Door('empty', linked_room = "Demo Room")
-        objects.append((demoRoomDoor, Coord(14,1)))
+        objects.append((demoRoomDoor, Coord(16,1)))
 
         #add tree
         tree = ExtDecor('Oak_Tree')
-        objects.append((tree, Coord(7,4)))
+        objects.append((tree, Coord(6,2)))
         
         #add greenhouse image (demo room)
         demoRoom = ExtDecor("House") 
-        objects.append((demoRoom, Coord(7,0)))
+        objects.append((demoRoom, Coord(9,0)))
 
         #add shovel
         shovel = Shovel("Shovel")
-        objects.append((shovel, Coord(6,13)))
+        objects.append((shovel, Coord(8,13)))
 
-        #add play button 
+        #add play button row
         for col in range(12):
             plate = ColumnPressurePlate(col)
-            objects.append((plate, Coord(x=col + 1, y=0)))
+            objects.append((plate, Coord(x=col + 1, y=1)))
 
         #add clear button
         clear_plate = ClearPressurePlate()
-        objects.append((clear_plate, Coord(5, 13)))
+        objects.append((clear_plate, Coord(7, 13)))
  
 
         #create plant shelf:
         plant_coords = [
-            Coord(7, 13),  # Rose
-            Coord(8, 13),  # Tulip
-            Coord(9, 13),  # Daisy
-            Coord(10, 13), # Sunflower
-            Coord(11, 13), # Iris
-            Coord(12, 13), # lilac
-            Coord(13, 13)  # Orchid
+            Coord(9, 13),  # Rose
+            Coord(10, 13),  # Tulip
+            Coord(11, 13),  # Daisy
+            Coord(12, 13), # Sunflower
+            Coord(13, 13), # Iris
+            Coord(14, 13), # lilac
+            Coord(15, 13)  # Orchid
         ]
 
         for coord in plant_coords:
             background_tile = Background("wood_planks")  
             objects.append((background_tile, coord))
 
-        for plant_name, coord in [("Rose", Coord(7, 13)), ("Tulip", Coord(8, 13)), 
-                                  ("Daisy", Coord(9, 13)), ("Sunflower", Coord(10, 13)), 
-                                  ("Iris", Coord(11, 13)), ("Lilac", Coord (12, 13)), ("Orchid", Coord(13, 13))]:
+        for plant_name, coord in [("Rose", Coord(9, 13)), ("Tulip", Coord(10, 13)), 
+                                  ("Daisy", Coord(11, 13)), ("Sunflower", Coord(12, 13)), 
+                                  ("Iris", Coord(13, 13)), ("Lilac", Coord (14, 13)), ("Orchid", Coord(15, 13))]:
             plant = PlantFactory.get_plant(plant_name)
             if plant:
                 objects.append((plant, coord))
 
         # add npc singleton
-        objects.append((self.npc, Coord(13, 10)))
+        objects.append((self.npc, Coord(15, 10)))
 
         # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
@@ -131,22 +131,21 @@ class ExampleHouse(Map):
         path_top = BackgroundFactory.get_background("top")
         path_bottom = BackgroundFactory.get_background("bottom")
 
-        for y in range(4, 13):
+        for y in range(6, 15):
             objects.append((path_left, Coord(y, 6)))     
             objects.append((path_cell, Coord(y, 7)))     
             objects.append((path_cell, Coord(y, 8)))     
             objects.append((path_right, Coord(y, 9)))    
         
         for x in range(7, 9):
-            objects.append((path_top, Coord(4, x)))      
-            objects.append((path_bottom, Coord(13, x)))  
+            objects.append((path_top, Coord(4, x)))       
 
         path_to_house = [
-            (path_left, 13, 1), (path_right, 13, 2),
-            (path_left, 13, 6), (path_cell, 13, 7), (path_cell, 13, 8), (path_right, 13, 9),
-            (path_left, 14, 1), (path_cell, 14, 2),
-            (path_top, 14, 3), (path_top, 14, 4), (path_top, 14, 5),
-            (path_cell, 14, 6), (path_cell, 14, 7), (path_cell, 14, 8), (path_right, 14, 9)
+            (path_left, 15, 1), (path_right, 15, 2),
+            (path_left, 15, 6), (path_cell, 15, 7), (path_cell, 15, 8), (path_right, 15, 9),
+            (path_left, 16, 1), (path_cell, 16, 2),
+            (path_top, 16, 3), (path_top, 16, 4), (path_top, 16, 5),
+            (path_cell, 16, 6), (path_cell, 16, 7), (path_cell, 16, 8), (path_right, 16, 9)
         ]
 
         for tile, y, x in path_to_house:

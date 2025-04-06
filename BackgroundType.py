@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 class BackgroundType:
     BACKGROUND_OPTIONS: List[str] = [
-        'greenGrass',
+        'basicGrass',
         'flowerGrass',   
         'plantGrass',
         'stoneGrass',

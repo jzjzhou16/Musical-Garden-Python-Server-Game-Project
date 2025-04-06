@@ -28,7 +28,7 @@ class DemoRoom(Map):
             size=(21, 16),
             entry_point=Coord(19, 1),
             description="Welcome to the Musical Garden Demo Room",
-            background_tile_image = 'greenGrass',
+            background_tile_image='grass',
         )
 
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
@@ -45,7 +45,7 @@ class DemoRoom(Map):
                     objects.append((cell, cell_coord))
 
         #create background
-        for y in range(20):
+        for y in range(21):
             for x in range(16): 
             
                 #set randomized background w/ flyweight factory

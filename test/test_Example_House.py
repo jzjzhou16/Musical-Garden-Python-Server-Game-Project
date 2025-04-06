@@ -1,6 +1,6 @@
 from ..imports import *
 import pytest 
-from ..example_map import ExampleHouse
+from ..MusicalGreenhouse import ExampleHouse
 
 from typing import TYPE_CHECKING
 

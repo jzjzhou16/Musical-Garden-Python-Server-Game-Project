@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 class ColumnPressurePlate(PressurePlate):
     def __init__(self, column_index: int):
-        super().__init__(image_name='pressure_plate', stepping_text='')
+        super().__init__(image_name='musicNote', stepping_text='')
         self.__active = False
         self.column_index = column_index
 
@@ -51,7 +51,7 @@ class ColumnPressurePlate(PressurePlate):
 
 class ClearPressurePlate(PressurePlate):
     def __init__(self):
-        super().__init__(image_name='pressure_plate', stepping_text='Cleared all plants from the board')
+        super().__init__(image_name='delete', stepping_text='Cleared all plants from the board')
         self.__active = False
         
     def player_entered(self, player) -> List['Message']:
