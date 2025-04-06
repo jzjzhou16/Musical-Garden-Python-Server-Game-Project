@@ -4,7 +4,7 @@ from .GardenGrid import *
 from .NPCSingleton import NPCSingleton
 from .Plant import PlantFactory
 from .BackgroundType import Background, BackgroundFactory
-from .PressurePlate import ColumnPressurePlate
+from .PressurePlate import ColumnPressurePlate, ClearPressurePlate
 from .GridManager import GridManager
 from .Shovel import Shovel
 
@@ -78,6 +78,10 @@ class ExampleHouse(Map):
         for col in range(12):
             plate = ColumnPressurePlate(col)
             objects.append((plate, Coord(x=col + 1, y=0)))
+
+        #add clear button
+        clear_plate = ClearPressurePlate()
+        objects.append((clear_plate, Coord(5, 13)))
  
 
         #create plant shelf:

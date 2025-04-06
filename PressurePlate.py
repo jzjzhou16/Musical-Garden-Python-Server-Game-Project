@@ -5,7 +5,7 @@ from .GridManager import GridManager
 if TYPE_CHECKING:
     from message import Message, SoundMessage
     from GridManager import GridManager
-    from tiles.map_objects import PressurePlate
+    from tiles.map_objects import *
 
 class ColumnPressurePlate(PressurePlate):
     def __init__(self, column_index: int):
@@ -43,7 +43,32 @@ class ColumnPressurePlate(PressurePlate):
                     ))
         
         return messages
+    
+    def player_exited(self, player) -> List['Message']:
+        self.__active = False
+        return []
+    
 
+class ClearPressurePlate(PressurePlate):
+    def __init__(self):
+        super().__init__(image_name='pressure_plate', stepping_text='Cleared all plants from the board')
+        self.__active = False
+        
+    def player_entered(self, player) -> List['Message']:
+        messages = []
+        if not self.__active:
+            self.__active = True
+            manager = GridManager.get_instance()
+            
+            if not manager:
+                return messages
+            # clears all plants in grid visually and on logical grid (in grid manager)
+            messages.extend(manager.clear_all_plants(player.get_current_room()))
+            # display message to player
+            messages.append(DialogueMessage(self, player, "Cleared all plants from the board", ""))
+
+        return messages
+    
     def player_exited(self, player) -> List['Message']:
         self.__active = False
         return []
