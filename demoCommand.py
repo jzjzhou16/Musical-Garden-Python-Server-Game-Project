@@ -43,6 +43,7 @@ class happybirthdayCommand(ChatCommand):
             plant_obj = MapObject.get_obj(plant_name)
             map.add_to_grid(plant_obj, coord)
         messages += map.send_grid_to_players()
+        messages.append(SoundMessage(player, f"happy_birthday.mp3", volume = 0.7, repeat = False))
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Happy Birthday'!", ""))
         return messages
             
@@ -63,10 +64,7 @@ class twinkleCommand(ChatCommand):
         if manager:
             messages += manager.clear_all_plants(map)
 
-        demo_twinkle = {
-            # Coord(10, 1): "Rose",    # A 
-            # Coord(10, 3): "Orchid",  # G
-            # Coord(10, 4): "Orchid",  # G 
+        demo_twinkle = { 
             Coord(9, 1): "Daisy",   # C
             Coord(9, 2): "Daisy",   # C
             Coord(9, 3): "Orchid",  # G
@@ -80,6 +78,7 @@ class twinkleCommand(ChatCommand):
             map.add_to_grid(plant_obj, coord)
 
         messages += map.send_grid_to_players()
+        messages.append(SoundMessage(player, f"twinkle_twinkle.mp3", volume = 1.0, repeat = False))
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Twinkle Twinkle Little Star'!", ""))
         return messages
             
@@ -104,19 +103,20 @@ class jingleBellsCommand(ChatCommand):
             Coord(15, 2): "Iris",     # E
             Coord(15, 3): "Iris",     # E
             Coord(15, 4): "Iris",     # E
+            Coord(15, 5): "Iris",     # E
             Coord(15, 6): "Iris",     # E
-            Coord(15, 7): "Iris",     # E
-            Coord(15, 8): "Iris",     # E 
-            Coord(15, 9): "Orchid",   # G
-            Coord(15, 10): "Daisy",     # C 
-            Coord(15, 11): "Sunflower", # D
-            Coord(15, 12): "Iris",    # E
+            Coord(15, 7): "Iris",     # E 
+            Coord(15, 8): "Orchid",   # G
+            Coord(15, 9): "Daisy",     # C 
+            Coord(15, 10): "Sunflower", # D
+            Coord(15, 11): "Iris",    # E
            }  
         for coord, plant_name in demo_jingle.items():
             plant_obj = MapObject.get_obj(plant_name)
             map.add_to_grid(plant_obj, coord)
 
         messages += map.send_grid_to_players()
+        messages.append(SoundMessage(player, f"jingle_bells.mp3", volume = 1.0, repeat = False))
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Jingle Bells'!", ""))
         return messages
 

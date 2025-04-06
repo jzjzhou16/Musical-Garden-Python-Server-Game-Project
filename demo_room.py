@@ -55,6 +55,10 @@ class DemoRoom(Map):
         # add a exit door back to room
         door = Door('houseDoor', linked_room="Example House")
         objects.append((door, Coord(19, 1)))
+
+        #instructions sign 
+        demoInstructionsSign = Sign('sign', "Welcome to the Demo Room! Preview 3 classic tunes by pressing SPACE at each play button.")
+        objects.append((demoInstructionsSign, Coord(19,4)))
     
         #demo 1
         demo1Sign = Sign('sign', "Demo Track: Happy Birthday")

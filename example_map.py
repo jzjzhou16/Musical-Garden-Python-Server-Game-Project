@@ -31,7 +31,7 @@ class ExampleHouse(Map):
         self.npc = GardenNPC(
                 name="Professor",
                 image="prof",
-                encounter_text="Welcome to the musical garden! Plant some flowers from the shelf by clicking the space bar on them, and click again to plant!",
+                encounter_text="Welcome to the musical garden! Plant some flowers from the shelf by clicking the space bar on them, and click again to plant on the grid!",
                 grid=self.garden_grid
             )
     
@@ -66,8 +66,17 @@ class ExampleHouse(Map):
         objects.append((demoRoomDoor, Coord(16,1)))
 
         #add tree
-        tree = ExtDecor('Oak_Tree')
-        objects.append((tree, Coord(6,2)))
+        tree = ExtDecor(image_name='Oak_Tree')
+        objects.append((tree, Coord(6,0)))
+
+        #instructions bulletin board 
+        instructionsBoard = Sign('board_bulletin', "Note: Each row of the garden grid represents a different octave, while each plant corresponds to a note (A-G).")
+        objects.append((instructionsBoard, Coord(7,4)))
+
+        #instructions sign
+        instructionsSign = Sign('sign', "Step onto the X button to clear all plants off your garden grid, and pick up (press SPACE at) the shovel to delete individual plants.")
+        objects.append((instructionsSign, Coord(8,10)))
+
         
         #add greenhouse image (demo room)
         demoRoom = ExtDecor("House") 
@@ -86,7 +95,6 @@ class ExampleHouse(Map):
         clear_plate = ClearPressurePlate()
         objects.append((clear_plate, Coord(7, 13)))
  
-
         #create plant shelf:
         plant_coords = [
             Coord(9, 13),  # Rose
@@ -110,7 +118,7 @@ class ExampleHouse(Map):
                 objects.append((plant, coord))
 
         # add npc singleton
-        objects.append((self.npc, Coord(15, 10)))
+        objects.append((self.npc, Coord(13, 10)))
 
         # add grid cells        
         tilemap, rows, cols = self.garden_grid._get_tilemap()
