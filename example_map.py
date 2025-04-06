@@ -22,7 +22,7 @@ class ExampleHouse(Map):
         self.garden_grid = GardenGrid("dirt3", Coord(1,1), 4, 12)
 
         # create grid manager
-        GridManager(self.garden_grid)
+        self.grid_manager = GridManager(self.garden_grid)
         
         # constructs NPC Singleton to have one instance of the grid exists at a time
         self.npc = NPCSingleton(
