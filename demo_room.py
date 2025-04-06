@@ -23,8 +23,6 @@ class DemoRoom(Map):
             GardenGrid("dirt3", Coord(14, 1), 4, 12)
         ]
         
-        
-
         super().__init__(
             name="Demo House",
             size=(21, 16),
@@ -32,7 +30,6 @@ class DemoRoom(Map):
             description="Welcome to the Musical Garden Demo Room",
             background_tile_image = "basicGrass", 
         )
-    
 
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
@@ -60,7 +57,6 @@ class DemoRoom(Map):
         # add a exit door back to room
         door = Door('houseDoor', linked_room="Example House")
         objects.append((door, Coord(19, 1)))
-
     
         #demo 1
         demo1Sign = Sign('sign', "Demo Track: Happy Birthday")
@@ -70,14 +66,13 @@ class DemoRoom(Map):
         #demo 2
         demo2Sign = Sign('sign', "Demo Track: Twinkle Twinkle Little Star")
         demo2PlayButton = PlayButton2('PlayButton')
-        objects.append((demo2Sign, Coord(8,14)))
-        objects.append((demo2PlayButton, Coord(9,14)))
+        objects.append((demo2Sign, Coord(9,14)))
+        objects.append((demo2PlayButton, Coord(10,14)))
         #demo 3
         demo3Sign = Sign('sign', "Demo Track: jingle bells")
         demo3PlayButton = PlayButton3('PlayButton')
-        objects.append((demo3Sign, Coord(13,14)))
-        objects.append((demo3PlayButton, Coord(14,14)))
-
+        objects.append((demo3Sign, Coord(15,14)))
+        objects.append((demo3PlayButton, Coord(16,14)))
 
         return objects
      
