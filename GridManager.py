@@ -9,8 +9,6 @@ if TYPE_CHECKING:
 # implements the observer pattern
 # when a plant is placed or removed, the grid manager is notified
 class GridManager(PlantObserver):
-    # this information is used within pressure plate to play sounds based on their location and flower
-    # each note within the grid is represented by a letter
     PLANT_NOTES = {
         "rose": "A",
         "tulip": "B",
@@ -20,7 +18,6 @@ class GridManager(PlantObserver):
         "lilac": "F",
         "orchid": "G",
     }
-    # each row is represented by an octave
     ROW_OCTAVES = [2, 3, 4, 5]
 
     _instance = None
@@ -32,48 +29,58 @@ class GridManager(PlantObserver):
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
-            cls._instance.notes_grid = [[None]*12 for _ in range(4)]
+            cls._instance.notes_grid = None
         return cls._instance
 
     def __init__(self, garden_grid):
         if not hasattr(self, '_initialized'):
-            if not isinstance(garden_grid, GardenGrid):
-                raise ValueError("GridManager requires a GardenGrid instance")
+            self.garden_grid = garden_grid
+            # dynamically create a grid of notes based on any grid size
+            self.notes_grid = [[None]*garden_grid.grid_cols for _ in range(garden_grid.grid_rows)]
+            self.grid_origin = garden_grid.get_grid_origin()
+            
             garden_grid.attach(self)
-            print(f"GridManager initialized with garden grid at {id(garden_grid)}")
             self._initialized = True
-
 
     def update_grid(self, new_grid: List[List[Optional[str]]]):
         self.notes_grid = new_grid
         self.grid = new_grid
     
-    # when plant is placed used for observer
-    def on_plant_placed(self, row: int, col: int, plant_name: str):
-        self.notes_grid[row - 1 ][col - 1] = plant_name
+    def _convert_to_grid_coords(self, row: int, col: int) -> tuple[int, int]:
+        return row - self.grid_origin.y, col - self.grid_origin.x
     
-    # when plant is removed, used for observer
+    def on_plant_placed(self, row: int, col: int, plant_name: str):
+        # dynamically search for note in the grid based on coords
+        grid_row, grid_col = self._convert_to_grid_coords(row, col)
+        self.notes_grid[grid_row][grid_col] = plant_name
+            
+    
     def on_plant_removed(self, row: int, col: int, plant_name: str) -> None:
-        self.notes_grid[row - 1][col - 1] = None
+        # dynamically search for note in the grid based on coords
+        grid_row, grid_col = self._convert_to_grid_coords(row, col)
+        self.notes_grid[grid_row][grid_col] = None
+            
 
     def clear_all_plants(self, map: Map) -> list[Message]:
         messages = []
-        for row in range(len(self.notes_grid)):
-            for col in range(len(self.notes_grid[0])):
-                if self.notes_grid[row][col] is not None:
-                    # Convert grid coords to absolute room coords
-                    abs_y = 1 + row  # Adjust based on your grid's origin
-                    abs_x = 1 + col
+        origin_x, origin_y = self.grid_origin.x, self.grid_origin.y
+        
+        for grid_row in range(len(self.notes_grid)):
+            for grid_col in range(len(self.notes_grid[0])):
+                if self.notes_grid[grid_row][grid_col] is not None:
+                    # Convert grid coords back to absolute coords
+                    abs_y = origin_y + grid_row
+                    abs_x = origin_x + grid_col
                     coord = Coord(abs_y, abs_x)
                     
                     # Remove all plant objects at this coordinate
                     objects = map.get_map_objects_at(coord)
                     for obj in objects:
-                        if isinstance(obj, ExtDecor):  # Check for plant types
+                        if isinstance(obj, ExtDecor):
                             map.remove_from_grid(obj, coord)
                     
                     # Clear the note
-                    self.notes_grid[row][col] = None
+                    self.notes_grid[grid_row][grid_col] = None
         
         messages += map.send_grid_to_players()
         return messages
