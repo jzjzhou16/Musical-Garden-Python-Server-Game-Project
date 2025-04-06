@@ -47,14 +47,14 @@ class ExampleHouse(Map):
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
         objects: list[tuple[MapObject, Coord]] = []
         
-        # for y in range(15):
-        #     for x in range(15):
-        #         if (y, x) == (14, 7):  
-        #             continue
+        for y in range(15):
+            for x in range(15):
+                if (y, x) == (14, 7):  
+                    continue
             
-        #         #set randomized background w/ flyweight factory
-        #         background_tile = BackgroundFactory.get_background()
-        #         objects.append((background_tile, Coord(y, x)))
+                #set randomized background w/ flyweight factory
+                background_tile = BackgroundFactory.get_background()
+                objects.append((background_tile, Coord(y, x)))
 
         self.create_paths(objects)
         
