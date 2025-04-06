@@ -30,7 +30,7 @@ class DemoRoom(Map):
             size=(21, 16),
             entry_point=Coord(19, 1),
             description="Welcome to the Musical Garden Demo Room",
-            background_tile_image = "basicGrass", 
+            background_tile_image = 'basicGrass',
         )
     
 

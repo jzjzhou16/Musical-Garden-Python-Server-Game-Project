@@ -8,7 +8,7 @@ if TYPE_CHECKING:
     from tiles.base import MapObject
     from tiles.map_objects import *
 
-class NPCSingleton(NPC):
+class GardenNPC(NPC):
     _instance = None
     name: str
     image: str

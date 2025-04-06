@@ -1,7 +1,7 @@
 from .imports import *
 from typing import TYPE_CHECKING
 from .GardenGrid import *
-from .NPCSingleton import NPCSingleton
+from .NPCSingleton import GardenNPC
 from .Plant import PlantFactory
 from .BackgroundType import Background, BackgroundFactory
 from .PressurePlate import ColumnPressurePlate, ClearPressurePlate
@@ -27,8 +27,8 @@ class ExampleHouse(Map):
         # create grid manager
         self.grid_manager = GridManager(self.garden_grid)
         
-        # constructs NPC Singleton to have one instance of the grid exists at a time
-        self.npc = NPCSingleton(
+        # constructs NPC to have one instance of the grid exists at a time
+        self.npc = GardenNPC(
                 name="Professor",
                 image="prof",
                 encounter_text="Welcome to the musical garden! Plant some flowers from the shelf by clicking the space bar on them, and click again to plant!",
