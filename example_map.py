@@ -1,6 +1,6 @@
 from .imports import *
 from typing import TYPE_CHECKING
-from .gardengrid import *
+from .garden_grid import *
 from .plant import PlantFactory
 from .backgroundtype import Background, BackgroundFactory
 from .pressureplate import ColumnPressurePlate, ClearPressurePlate

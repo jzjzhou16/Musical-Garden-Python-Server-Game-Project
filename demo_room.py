@@ -1,5 +1,5 @@
 from .imports import *
-from .gardengrid import GardenGrid
+from .garden_grid import GardenGrid
 from typing import TYPE_CHECKING
 from .buttons import PlayButton1, PlayButton2, PlayButton3
 from .backgroundtype import BackgroundFactory
