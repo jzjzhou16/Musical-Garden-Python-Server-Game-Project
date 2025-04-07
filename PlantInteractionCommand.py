@@ -72,7 +72,7 @@ class PlantCommand(ChatCommand):
             plant_obj = MapObject.get_obj(carrying_plant)
             map.add_to_grid(plant_obj, front_pos)
             
-            from .gridManager import GridManager
+            from .gridmanager import GridManager
             manager = GridManager.get_instance()
             if manager:
                 # Get plant name in lowercase for note mapping
@@ -110,7 +110,7 @@ class RemoveCommand(ChatCommand):
             for objects in removing:
                 if isinstance(objects, ExtDecor):
                     map.remove_from_grid(objects, front_pos)
-                    from .gridManager import GridManager
+                    from .gridmanager import GridManager
                     manager = GridManager.get_instance()
                     if manager:
                     # Get plant name in lowercase for note mapping

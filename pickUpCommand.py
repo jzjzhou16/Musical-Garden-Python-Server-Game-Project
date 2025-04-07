@@ -18,7 +18,7 @@ class pickUpPlantCommand(ChatCommand):
     def execute(self, command_text : str, map : Map, player: HumanPlayer, plant_name: str) -> list[Message]:
         messages = []
         messages.append(DialogueMessage(self, player, f"You picked up {plant_name}!", ""))
-        from .gridManager import GridManager
+        from .gridmanager import GridManager
         note = GridManager.PLANT_NOTES[plant_name.lower()]
         # Default preview note is A2, B2... etc
         messages.append(SoundMessage(player, f"{note}_2.mp3", volume = 1.0, repeat = False))
