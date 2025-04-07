@@ -30,7 +30,7 @@ class ExampleHouse(Map):
         self.npc = NPC(
                 name="Professor",
                 image="prof",
-                encounter_text="Welcome to the musical garden! Plant some flowers from the shelf by clicking the space bar on them, and click again to plant on the grid!",
+                encounter_text="Welcome to the musical garden! Plant flowers from the shelf by pickung up (SPACE), and click again to plant it on garden grid!",
             )
     
 
