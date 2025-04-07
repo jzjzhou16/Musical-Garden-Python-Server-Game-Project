@@ -1,7 +1,7 @@
 from .imports import *
-from .gardengrid import *
+from .gardengrid import GardenGrid
 from typing import TYPE_CHECKING
-from .buttons import *
+from .buttons import PlayButton1, PlayButton2, PlayButton3
 from .backgroundtype import BackgroundFactory
 from .pressureplate import ColumnPressurePlate
 from .gridmanager import GridManager
