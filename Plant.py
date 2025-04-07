@@ -33,13 +33,13 @@ class PlantFactory:
     @staticmethod
     def get_plant(name: str) -> Optional[Plant]:
         plant_info = {
-                "daisy": "Daisy.png",
-                "lilac": "Lilac.png",
-                "orchid": "Orchid.png",
-                "rose": "Rose.png",
-                "sunflower": "Sunflower.png",
-                "tulip":  "Tulip.png",
-                "iris": "Iris.png"
+                "daisy": "daisy.png",
+                "lilac": "lilac.png",
+                "orchid": "orchid.png",
+                "rose": "rose.png",
+                "sunflower": "sunflower.png",
+                "tulip":  "tulip.png",
+                "iris": "iris.png"
             }
         if name not in PlantFactory._plants:
             if name in plant_info:
