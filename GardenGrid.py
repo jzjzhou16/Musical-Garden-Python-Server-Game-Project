@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING, List, Optional, Dict
 from .GridCell import GridCellFactory
 from .Plant import Plant
 from .Observer import PlantObserver
+from .BackgroundType import EmoteType
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -53,18 +54,29 @@ class GardenGrid(MapObject):
         return self.grid_origin
     
     def player_entered(self, player: HumanPlayer) -> list[Message]:
+        messages = []
         # if player is already in the grid, return no message
         if player in self.players_in_grid:
             return []
         # else, add the player and send the welcome message
         self.players_in_grid.add(player)
-        return [DialogueMessage(self,player, "Welcome, You are in the Garden Grid.", "")]
+        origin = self.get_grid_origin()
+        coordinates = [(origin.y, origin.x-1), (origin.y+1, origin.x-1), (origin.y+2, origin.x-1), (origin.y+3, origin.x-1),(origin.y+4, origin.x-1),
+                       (origin.y+5, origin.x-1), (origin.y+5, origin.x), (origin.y+5, origin.x+1), (origin.y+5, origin.x+2),(origin.y+5, origin.x+3),
+                       (origin.y+5, origin.x+4),(origin.y+5, origin.x+5), (origin.y+5, origin.x+6), (origin.y+5, origin.x+7), (origin.y+5, origin.x+8),
+                       (origin.y+5, origin.x+9), (origin.y+5, origin.x+10), (origin.y+5, origin.x+11),(origin.y+5, origin.x+12),(origin.y+4, origin.x+12),
+                       (origin.y+3, origin.x+12), (origin.y+2, origin.x+12), (origin.y+1, origin.x+12), (origin.y, origin.x+12)]
+        
+        for y, x in coordinates:
+            emote = EmoteType.get_random_emote_type()
+            messages.append(EmoteMessage(self, player, emote, Coord(y,x)))
+        return messages
     
     def player_exited(self, player: HumanPlayer) -> list[Message]:
             # when a player leaves the grid, remove them from the method, so re-entry will trigger the message again
             if player in self.players_in_grid:
                 self.players_in_grid.remove(player)
-                return [DialogueMessage(self,player, "You have left the garden grid", "")]
+                
             return []
     
     def get_plant(self, row:int, col: int):
@@ -82,24 +94,3 @@ class GardenGrid(MapObject):
             if hasattr(observer, 'on_plant_removed'):
                 observer.on_plant_removed(row, col, plant_name)
 
-    def place_plant(self, row: int, col: int, plant: Plant) -> bool:
-        if not isinstance(plant, Plant):
-            raise ValueError("Must place a valid Plant object")
-            
-        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
-            if self.grid_state[row][col] is None:
-                plant_name = plant.get_plant_name().lower()
-                self.grid_state[row][col] = plant
-                self.notify_plant_placed(row, col, plant_name)
-                print(f"Plant {plant_name} placed at ({row},{col})")
-                return True
-        return False
-
-    def remove_plant(self, row: int, col: int) -> bool:
-        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
-            if plant := self.grid_state[row][col]:
-                plant_name = plant.get_plant_name()
-                self.grid_state[row][col] = None
-                self.notify_plant_removed(row, col, plant_name)
-                return True
-        return False

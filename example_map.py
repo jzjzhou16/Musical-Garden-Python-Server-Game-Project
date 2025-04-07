@@ -167,6 +167,12 @@ class ExampleHouse(Map):
             objects.append((path_top, Coord(10, x)))    
             objects.append((path_cell, Coord(11, x)))   
             objects.append((path_bottom, Coord(12, x)))  
+
+    def move(self, player: HumanPlayer, direction_s: str) -> list[Message]:
+        messages = super().move(player, direction_s)
+        garden_messages = self.update_player_in_garden(player)
+        messages.extend(garden_messages)
+        return messages
  
     def update_player_in_garden(self,player:HumanPlayer) -> list[Message]:
         messages = []

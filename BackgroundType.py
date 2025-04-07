@@ -35,3 +35,18 @@ class BackgroundFactory:
         if image_type not in cls._instances:
             cls._instances[image_type] = Background(image_type)
         return cls._instances[image_type]
+    
+
+class EmoteType:
+    EMOTE_OPTIONS: List[str] = ['apple','banana','blueberry','cherry','coconut','greenApple','peach','orange',
+                                'lemon','kiwi','horn_02','horn_01','pear','pomegranate','saxophone','strawberry'
+    ]
+    
+    def __init__(self, image_type: str):
+        self.image_type = image_type
+    @classmethod
+    def get_random_emote_type(cls) -> str: 
+        return random.choice(cls.EMOTE_OPTIONS)
+    
+
+
