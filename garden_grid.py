@@ -1,7 +1,7 @@
 from .imports import *
 from typing import TYPE_CHECKING, List, Optional, Dict
 from .grid_cell import GridCellFactory
-from .plant import Plant
+from .plants import Plant
 from .plant_observer import PlantObserver
 from .background_type import EmoteType
 from .plant_subject import PlantSubject

@@ -5,6 +5,7 @@ from .buttons import PlayButton1, PlayButton2, PlayButton3
 from .background_type import BackgroundFactory
 from .pressure_plate import ColumnPressurePlate
 from .grid_manager import GridManager
+from .plants import PlantFactory, Plant
 
 
 if TYPE_CHECKING:
