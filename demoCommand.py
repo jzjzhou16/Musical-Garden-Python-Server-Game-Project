@@ -74,8 +74,6 @@ class twinkleCommand(ChatCommand):
 
         messages += map.send_grid_to_players()
         messages.append(SoundMessage(player, f"twinkle_twinkle.mp3", volume = 1.0, repeat = False))
-        # Adding a second folder with duplicates to allow two sounds to play with different paths (treated separately)
-        # messages.append(SoundMessage(player, f"sound2/twinkle_twinkle.mp3",volume=1.0,repeat=False))
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Twinkle Twinkle Little Star'!", ""))
         
         return messages
@@ -111,7 +109,5 @@ class jingleBellsCommand(ChatCommand):
 
         messages += map.send_grid_to_players()
         messages.append(SoundMessage(player, f"jingle_bells.mp3", volume = 1.0, repeat = False))
-        # Adding a second folder with duplicates to allow two sounds to play with different paths (treated separately)
-        # messages.append(SoundMessage(player, f"sound2/jingle_bells.mp3",volume=1.0,repeat=False))
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Jingle Bells'!", ""))
         return messages
