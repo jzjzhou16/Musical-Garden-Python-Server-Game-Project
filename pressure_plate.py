@@ -54,7 +54,7 @@ class ClearPressurePlate(PressurePlate):
         super().__init__(image_name='delete', stepping_text='Cleared all plants from the board')
         self.__active = False
         
-    def player_entered(self, player) -> List['Message']:
+    def player_entered(self, player: HumanPlayer) -> List['Message']:
         messages = []
         if not self.__active:
             self.__active = True
