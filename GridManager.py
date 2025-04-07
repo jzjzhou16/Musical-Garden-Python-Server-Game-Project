@@ -43,10 +43,6 @@ class GridManager(PlantObserver):
             
             garden_grid.attach(self)
             self._initialized = True
-    
-    def update_grid(self, new_grid: List[List[Optional[str]]]):
-        self.notes_grid = new_grid
-        self.grid = new_grid
 
     def _convert_to_grid_coords(self, row: int, col: int) -> tuple[int, int]:
         return row - self.grid_origin.y, col - self.grid_origin.x
