@@ -2,6 +2,7 @@ from .imports import *
 from typing import TYPE_CHECKING,List, Optional
 from .plant_observer import PlantObserver
 from .garden_grid import GardenGrid
+from .plants import Plant
 
 if TYPE_CHECKING:
     from tiles.map_objects import *
@@ -74,7 +75,7 @@ class GridManager(PlantObserver):
                     # Remove all plant objects at this coordinate
                     objects = map.get_map_objects_at(coord)
                     for obj in objects:
-                        if isinstance(obj, ExtDecor):
+                        if isinstance(obj, ExtDecor | Plant):
                             map.remove_from_grid(obj, coord)
                     
                     # Clear the note
