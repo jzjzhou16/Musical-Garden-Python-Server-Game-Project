@@ -1,6 +1,7 @@
 from .imports import *
 from typing import TYPE_CHECKING,List, Optional
 from .PlantObserver import PlantObserver
+from .GardenGrid import GardenGrid
 
 if TYPE_CHECKING:
     from tiles.map_objects import *
@@ -28,19 +29,25 @@ class GridManager(PlantObserver):
     def __new__(cls, *args, **kwargs):
         if cls._instance is None:
             cls._instance = super().__new__(cls)
-            cls._instance.notes_grid = None
         return cls._instance
 
-    def __init__(self, garden_grid):
+    def __init__(self, garden_grid : GardenGrid):
         if not hasattr(self, '_initialized'):
             self.garden_grid = garden_grid
             # dynamically create a grid of notes based on any grid size
-            self.notes_grid = [[None]*garden_grid.grid_cols for _ in range(garden_grid.grid_rows)]
+            self.notes_grid: List[List[Optional[str]]] = [
+                [None]*garden_grid.grid_cols 
+                for i in range(garden_grid.grid_rows)
+            ]
             self.grid_origin = garden_grid.get_grid_origin()
             
             garden_grid.attach(self)
             self._initialized = True
     
+    def update_grid(self, new_grid: List[List[Optional[str]]]):
+        self.notes_grid = new_grid
+        self.grid = new_grid
+
     def _convert_to_grid_coords(self, row: int, col: int) -> tuple[int, int]:
         return row - self.grid_origin.y, col - self.grid_origin.x
     

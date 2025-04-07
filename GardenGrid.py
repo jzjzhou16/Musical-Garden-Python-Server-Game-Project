@@ -4,6 +4,7 @@ from .GridCell import GridCellFactory
 from .Plant import Plant
 from .PlantObserver import PlantObserver
 from .BackgroundType import EmoteType
+from .PlantSubject import PlantSubject
 
 if TYPE_CHECKING:
     from coord import Coord
@@ -11,7 +12,7 @@ if TYPE_CHECKING:
     from tiles.base import MapObject
     from tiles.map_objects import *
 
-class GardenGrid(MapObject):
+class GardenGrid(MapObject, PlantSubject):
     def __init__(self, image_name: str, position: Coord, grid_rows: int, grid_cols: int) -> None:
         self._observers: List[PlantObserver] = [] 
         # ensure that these instance variables are initialized before the mapObject is initialized.
