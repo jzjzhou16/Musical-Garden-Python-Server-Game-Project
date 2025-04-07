@@ -20,18 +20,18 @@ class happybirthdayCommand(ChatCommand):
         messages = []
           
         demo_happybirthay = {
-            Coord(3, 1): "Daisy",  # C
-            Coord(3, 2): "Daisy",  # C
-            Coord(3, 3): "Sunflower", #D
-            Coord(3, 4): "Daisy",  # C
-            Coord(3, 5): "Lilac",   # F
-            Coord(3, 6): "Iris",   # E   
-            Coord(3, 7): "Daisy",  # C
-            Coord(3, 8): "Daisy",  # C
-            Coord(3, 9): "Sunflower",# D
-            Coord(3, 10): "Daisy",  # C
-            Coord(3, 11): "Orchid",   # G
-            Coord(3, 12): "Lilac", #F
+            Coord(3, 1): "daisy",  # C
+            Coord(3, 2): "daisy",  # C
+            Coord(3, 3): "sunflower", #D
+            Coord(3, 4): "daisy",  # C
+            Coord(3, 5): "lilac",   # F
+            Coord(3, 6): "iris",   # E   
+            Coord(3, 7): "daisy",  # C
+            Coord(3, 8): "daisy",  # C
+            Coord(3, 9): "sunflower",# D
+            Coord(3, 10): "daisy",  # C
+            Coord(3, 11): "orchid",   # G
+            Coord(3, 12): "lilac", #F
            }  
         
         for coord, plant_name in demo_happybirthay.items():
@@ -60,13 +60,13 @@ class twinkleCommand(ChatCommand):
 
 
         demo_twinkle = { 
-            Coord(8, 1): "Daisy",   # C
-            Coord(8, 2): "Daisy",   # C
-            Coord(8, 3): "Orchid",  # G
-            Coord(8, 4): "Orchid",  # G
-            Coord(9, 5): "Rose",   # A
-            Coord(9, 6): "Rose",   # A
-            Coord(8, 7): "Orchid", # G
+            Coord(8, 1): "daisy",   # C
+            Coord(8, 2): "daisy",   # C
+            Coord(8, 3): "drchid",  # G
+            Coord(8, 4): "drchid",  # G
+            Coord(9, 5): "rose",   # A
+            Coord(9, 6): "rose",   # A
+            Coord(8, 7): "orchid", # G
            } 
         for coord, plant_name in demo_twinkle.items():
             plant_obj = MapObject.get_obj(plant_name)
@@ -91,17 +91,17 @@ class jingleBellsCommand(ChatCommand):
         messages = []
         
         demo_jingle = {
-            Coord(15, 1): "Iris",     # E
-            Coord(15, 2): "Iris",     # E
-            Coord(15, 3): "Iris",     # E
-            Coord(15, 4): "Iris",     # E
-            Coord(15, 5): "Iris",     # E
-            Coord(15, 6): "Iris",     # E
-            Coord(15, 7): "Iris",     # E 
-            Coord(15, 8): "Orchid",   # G
-            Coord(15, 9): "Daisy",     # C 
-            Coord(15, 10): "Sunflower", # D
-            Coord(15, 11): "Iris",    # E
+            Coord(15, 1): "iris",     # E
+            Coord(15, 2): "iris",     # E
+            Coord(15, 3): "iris",     # E
+            Coord(15, 4): "iris",     # E
+            Coord(15, 5): "iris",     # E
+            Coord(15, 6): "iris",     # E
+            Coord(15, 7): "iris",     # E 
+            Coord(15, 8): "orchid",   # G
+            Coord(15, 9): "daisy",     # C 
+            Coord(15, 10): "sunflower", # D
+            Coord(15, 11): "iris",    # E
            }  
         for coord, plant_name in demo_jingle.items():
             plant_obj = MapObject.get_obj(plant_name)

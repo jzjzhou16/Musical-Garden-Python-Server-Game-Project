@@ -50,7 +50,7 @@ class GridManager(PlantObserver):
     def on_plant_placed(self, row: int, col: int, plant_name: str):
         # dynamically search for note in the grid based on coords
         grid_row, grid_col = self._convert_to_grid_coords(row, col)
-        self.notes_grid[grid_row][grid_col] = plant_name
+        self.notes_grid[grid_row][grid_col] = plant_name.lower()
             
     
     def on_plant_removed(self, row: int, col: int, plant_name: str) -> None:

@@ -43,7 +43,7 @@ class PlantFactory:
             }
         if name not in PlantFactory._plants:
             if name in plant_info:
-                PlantFactory._plants[name] = Plant(plant_info[name])
+                PlantFactory._plants[name] = Plant(plant_info[name].lower())
             else:
                 return None
         return PlantFactory._plants.get(name)
