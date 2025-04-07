@@ -2,7 +2,7 @@ from .imports import *
 from typing import TYPE_CHECKING, List, Optional, Dict
 from .GridCell import GridCellFactory
 from .Plant import Plant
-from .Observer import PlantObserver
+from .PlantObserver import PlantObserver
 from .BackgroundType import EmoteType
 
 if TYPE_CHECKING:

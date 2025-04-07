@@ -1,6 +1,6 @@
 from .imports import *
 from typing import TYPE_CHECKING,List, Optional
-from .Observer import PlantObserver
+from .PlantObserver import PlantObserver
 
 if TYPE_CHECKING:
     from tiles.map_objects import *
