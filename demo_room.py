@@ -1,10 +1,10 @@
 from .imports import *
-from .GardenGrid import *
+from .gardenGrid import *
 from typing import TYPE_CHECKING
 from .buttons import *
-from .BackgroundType import BackgroundFactory
-from .PressurePlate import ColumnPressurePlate
-from .GridManager import GridManager
+from .backgroundType import BackgroundFactory
+from .pressurePlate import ColumnPressurePlate
+from .gridManager import GridManager
 
 
 if TYPE_CHECKING:

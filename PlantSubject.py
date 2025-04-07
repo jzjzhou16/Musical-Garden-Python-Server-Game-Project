@@ -1,5 +1,5 @@
 from abc import abstractmethod, ABC
-from .PlantObserver import PlantObserver
+from .plantObserver import PlantObserver
 
 # abstract subject class for the observer pattern
 class PlantSubject(ABC):

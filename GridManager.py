@@ -1,7 +1,7 @@
 from .imports import *
 from typing import TYPE_CHECKING,List, Optional
-from .PlantObserver import PlantObserver
-from .GardenGrid import GardenGrid
+from .plantObserver import PlantObserver
+from .gardenGrid import GardenGrid
 
 if TYPE_CHECKING:
     from tiles.map_objects import *

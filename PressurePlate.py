@@ -1,10 +1,10 @@
 from .imports import *
 from typing import TYPE_CHECKING, List
-from .GridManager import GridManager
+from .gridManager import GridManager
 
 if TYPE_CHECKING:
     from message import Message, SoundMessage
-    from GridManager import GridManager
+    from gridManager import GridManager
     from tiles.map_objects import *
 
 class ColumnPressurePlate(PressurePlate):
@@ -25,8 +25,8 @@ class ColumnPressurePlate(PressurePlate):
             
             for row in range(4):
                 plant_name = manager.notes_grid[row][self.column_index]
-                if plant_name and plant_name.lower() in GridManager.PLANT_NOTES:
-                    note = GridManager.PLANT_NOTES[plant_name.lower()]
+                if plant_name and plant_name in GridManager.PLANT_NOTES:
+                    note = GridManager.PLANT_NOTES[plant_name]
                     octave = GridManager.ROW_OCTAVES[row]
                     messages.append(SoundMessage(
                         player,
