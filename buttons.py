@@ -1,7 +1,7 @@
 from .imports import *
 from typing import TYPE_CHECKING
-from .pickupcommand import pickUpShovelCommand
-from .democommand import *
+from .pickup_command import pickUpShovelCommand
+from .demo_command import *
 
 if TYPE_CHECKING:
     from tiles.map_objects import *

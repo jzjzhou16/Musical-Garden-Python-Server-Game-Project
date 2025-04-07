@@ -1,10 +1,10 @@
 from .imports import *
 from typing import TYPE_CHECKING, List
-from .gridmanager import GridManager
+from .grid_manager import GridManager
 
 if TYPE_CHECKING:
     from message import Message, SoundMessage
-    from gridmanager import GridManager
+    from grid_manager import GridManager
     from tiles.map_objects import *
 
 class ColumnPressurePlate(PressurePlate):

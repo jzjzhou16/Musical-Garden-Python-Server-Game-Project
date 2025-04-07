@@ -1,6 +1,6 @@
 from .imports import *
 from typing import TYPE_CHECKING,List, Optional
-from .plantobserver import PlantObserver
+from .plant_observer import PlantObserver
 from .garden_grid import GardenGrid
 
 if TYPE_CHECKING:

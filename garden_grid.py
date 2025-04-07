@@ -1,10 +1,10 @@
 from .imports import *
 from typing import TYPE_CHECKING, List, Optional, Dict
-from .gridcell import GridCellFactory
+from .grid_cell import GridCellFactory
 from .plant import Plant
-from .plantobserver import PlantObserver
-from .backgroundtype import EmoteType
-from .plantsubject import PlantSubject
+from .plant_observer import PlantObserver
+from .background_type import EmoteType
+from .plant_subject import PlantSubject
 
 if TYPE_CHECKING:
     from coord import Coord

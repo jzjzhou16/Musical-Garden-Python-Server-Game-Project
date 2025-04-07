@@ -2,9 +2,9 @@ from .imports import *
 from .garden_grid import GardenGrid
 from typing import TYPE_CHECKING
 from .buttons import PlayButton1, PlayButton2, PlayButton3
-from .backgroundtype import BackgroundFactory
-from .pressureplate import ColumnPressurePlate
-from .gridmanager import GridManager
+from .background_type import BackgroundFactory
+from .pressure_plate import ColumnPressurePlate
+from .grid_manager import GridManager
 
 
 if TYPE_CHECKING:
