@@ -10,13 +10,13 @@ if TYPE_CHECKING:
 # when a plant is placed or removed, the grid manager is notified
 class GridManager(PlantObserver):
     PLANT_NOTES = {
-        "Rose": "A",
-        "Tulip": "B",
-        "Daisy": "C",
-        "Sunflower": "D",
-        "Iris": "E",
-        "Lilac": "F",
-        "Orchid": "G",
+        "rose": "A",
+        "tulip": "B",
+        "daisy": "C",
+        "sunflower": "D",
+        "iris": "E",
+        "lilac": "F",
+        "orchid": "G",
     }
     ROW_OCTAVES = [2, 3, 4, 5]
 

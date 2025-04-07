@@ -76,7 +76,7 @@ class PlantCommand(ChatCommand):
             manager = GridManager.get_instance()
             if manager:
                 # Get plant name in lowercase for note mapping
-                plant_name = carrying_plant
+                plant_name = carrying_plant.lower()
                     
                 # Directly call observer method
                 manager.on_plant_placed(front_pos.y, front_pos.x, plant_name)
@@ -114,7 +114,7 @@ class RemoveCommand(ChatCommand):
                     manager = GridManager.get_instance()
                     if manager:
                     # Get plant name in lowercase for note mapping
-                        plant_name = objects.get_name()
+                        plant_name = objects.get_name().lower()
                     
                     # Directly call observer method
                         manager.on_plant_removed(front_pos.y, front_pos.x, plant_name)
