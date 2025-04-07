@@ -13,7 +13,7 @@ class ColumnPressurePlate(PressurePlate):
         self.__active = False
         self.column_index = column_index
 
-    def player_entered(self, player) -> List['SoundMessage']:
+    def player_entered(self, player: HumanPlayer) -> List['SoundMessage']:
         messages = []
         
         if not self.__active:
@@ -38,7 +38,7 @@ class ColumnPressurePlate(PressurePlate):
         
         return messages
     
-    def player_exited(self, player) -> List['Message']:
+    def player_exited(self, player : HumanPlayer) -> List['Message']:
         self.__active = False
         return []
     
@@ -63,6 +63,6 @@ class ClearPressurePlate(PressurePlate):
 
         return messages
     
-    def player_exited(self, player) -> List['Message']:
+    def player_exited(self, player : HumanPlayer) -> List['Message']:
         self.__active = False
         return []
