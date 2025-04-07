@@ -18,12 +18,7 @@ class happybirthdayCommand(ChatCommand):
     
     def execute(self, command_text : str, map : Map, player: HumanPlayer) -> list[Message]:
         messages = []
-        from.GridManager import GridManager
-        manager = GridManager.get_instance()
-        if manager:
-            messages += manager.clear_all_plants(map)
-
-         
+          
         demo_happybirthay = {
             Coord(3, 1): "Daisy",  # C
             Coord(3, 2): "Daisy",  # C
@@ -62,10 +57,7 @@ class twinkleCommand(ChatCommand):
     
     def execute(self, command_text : str, map : Map, player: HumanPlayer) -> list[Message]:
         messages = []
-        from.GridManager import GridManager
-        manager = GridManager.get_instance()
-        if manager:
-            messages += manager.clear_all_plants(map)
+
 
         demo_twinkle = { 
             Coord(8, 1): "Daisy",   # C
@@ -99,12 +91,7 @@ class jingleBellsCommand(ChatCommand):
     
     def execute(self, command_text : str, map : Map, player: HumanPlayer) -> list[Message]:
         messages = []
-        from.GridManager import GridManager
-        manager = GridManager.get_instance()
-        if manager:
-            messages += manager.clear_all_plants(map)
-
-
+        
         demo_jingle = {
             Coord(15, 1): "Iris",     # E
             Coord(15, 2): "Iris",     # E

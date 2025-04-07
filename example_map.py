@@ -5,7 +5,7 @@ from .Plant import PlantFactory
 from .BackgroundType import Background, BackgroundFactory
 from .PressurePlate import ColumnPressurePlate, ClearPressurePlate
 from .GridManager import GridManager
-from .Shovel import Shovel
+from .buttons import Shovel
 
 
 if TYPE_CHECKING:

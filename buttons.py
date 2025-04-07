@@ -15,8 +15,6 @@ class Shovel(ExtDecor):
         player.set_state('carrying_shovel', self.__image)
         command = pickUpShovelCommand()
         return command.execute("pickup_plant", player.get_current_room(), player, self.__image)
-    
-
 
 class PlayButton1(ExtDecor):
     def __init__(self, image: str) -> None:
