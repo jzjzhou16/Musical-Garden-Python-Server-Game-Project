@@ -1,7 +1,6 @@
 from .imports import *
 from typing import TYPE_CHECKING
 from .GardenGrid import *
-from .GardenNPC import GardenNPC
 from .Plant import PlantFactory
 from .BackgroundType import Background, BackgroundFactory
 from .PressurePlate import ColumnPressurePlate, ClearPressurePlate
@@ -27,12 +26,11 @@ class ExampleHouse(Map):
         # create grid manager
         self.grid_manager = GridManager(self.garden_grid)
         
-        # constructs NPC to have one instance of the grid exists at a time
-        self.npc = GardenNPC(
+        # constructs NPC
+        self.npc = NPC(
                 name="Professor",
                 image="prof",
                 encounter_text="Welcome to the musical garden! Plant some flowers from the shelf by clicking the space bar on them, and click again to plant on the grid!",
-                grid=self.garden_grid
             )
     
 
@@ -117,7 +115,7 @@ class ExampleHouse(Map):
             if plant:
                 objects.append((plant, coord))
 
-        # add npc singleton
+        # add npc
         objects.append((self.npc, Coord(13, 10)))
 
         # add grid cells        
