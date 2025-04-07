@@ -35,12 +35,6 @@ class ColumnPressurePlate(PressurePlate):
                         repeat=False
                     ))
                     # Adding a second folder with duplicates to allow two sounds to play with different paths (treated separately)
-                    messages.append(SoundMessage(
-                        player,
-                        f"sound2/{note}_{octave}.mp3",
-                        volume=1.0,
-                        repeat=False
-                    ))
         
         return messages
     
