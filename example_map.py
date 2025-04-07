@@ -108,9 +108,9 @@ class ExampleHouse(Map):
             background_tile = Background("wood_planks")  
             objects.append((background_tile, coord))
 
-        for plant_name, coord in [("Rose", Coord(9, 13)), ("Tulip", Coord(10, 13)), 
-                                  ("Daisy", Coord(11, 13)), ("Sunflower", Coord(12, 13)), 
-                                  ("Iris", Coord(13, 13)), ("Lilac", Coord (14, 13)), ("Orchid", Coord(15, 13))]:
+        for plant_name, coord in [("rose", Coord(9, 13)), ("tulip", Coord(10, 13)), 
+                                  ("daisy", Coord(11, 13)), ("sunflower", Coord(12, 13)), 
+                                  ("iris", Coord(13, 13)), ("lilac", Coord (14, 13)), ("orchid", Coord(15, 13))]:
             plant = PlantFactory.get_plant(plant_name)
             if plant:
                 objects.append((plant, coord))
