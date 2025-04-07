@@ -52,8 +52,6 @@ class GardenGrid(MapObject):
     def get_grid_origin(self) -> Coord:
         return self.grid_origin
     
-
-
     def player_entered(self, player: HumanPlayer) -> list[Message]:
         # if player is already in the grid, return no message
         if player in self.players_in_grid:

@@ -6,7 +6,6 @@ import random
 
 if TYPE_CHECKING:
     from tiles.map_objects import *
-    
 
 class BackgroundType:
     BACKGROUND_OPTIONS: List[str] = [

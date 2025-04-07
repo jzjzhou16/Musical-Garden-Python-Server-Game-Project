@@ -43,8 +43,11 @@ class happybirthdayCommand(ChatCommand):
             plant_obj = MapObject.get_obj(plant_name)
             map.add_to_grid(plant_obj, coord)
         messages += map.send_grid_to_players()
-        messages.append(SoundMessage(player, f"happy_birthday.mp3", volume = 0.7, repeat = False))
+        messages.append(SoundMessage(player, f"happy_birthday.mp3", volume = 0.1, repeat = False))
+        # Adding a second folder with duplicates to allow two sounds to play with different paths (treated separately)
+        messages.append(SoundMessage(player, f"sound2/happy_birthday.mp3",volume=1.0,repeat=False))
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Happy Birthday'!", ""))
+
         return messages
             
 
@@ -65,13 +68,13 @@ class twinkleCommand(ChatCommand):
             messages += manager.clear_all_plants(map)
 
         demo_twinkle = { 
-            Coord(9, 1): "Daisy",   # C
-            Coord(9, 2): "Daisy",   # C
-            Coord(9, 3): "Orchid",  # G
-            Coord(9, 4): "Orchid",  # G
-            Coord(10, 5): "Rose",   # A
-            Coord(10, 6): "Rose",   # A
-            Coord(9, 7): "Orchid", # G
+            Coord(8, 1): "Daisy",   # C
+            Coord(8, 2): "Daisy",   # C
+            Coord(8, 3): "Orchid",  # G
+            Coord(8, 4): "Orchid",  # G
+            Coord(9, 5): "Rose",   # A
+            Coord(9, 6): "Rose",   # A
+            Coord(8, 7): "Orchid", # G
            } 
         for coord, plant_name in demo_twinkle.items():
             plant_obj = MapObject.get_obj(plant_name)
@@ -79,7 +82,10 @@ class twinkleCommand(ChatCommand):
 
         messages += map.send_grid_to_players()
         messages.append(SoundMessage(player, f"twinkle_twinkle.mp3", volume = 1.0, repeat = False))
+        # Adding a second folder with duplicates to allow two sounds to play with different paths (treated separately)
+        messages.append(SoundMessage(player, f"sound2/twinkle_twinkle.mp3",volume=1.0,repeat=False))
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Twinkle Twinkle Little Star'!", ""))
+        
         return messages
             
 class jingleBellsCommand(ChatCommand):
@@ -97,6 +103,7 @@ class jingleBellsCommand(ChatCommand):
         manager = GridManager.get_instance()
         if manager:
             messages += manager.clear_all_plants(map)
+
 
         demo_jingle = {
             Coord(15, 1): "Iris",     # E
@@ -117,6 +124,7 @@ class jingleBellsCommand(ChatCommand):
 
         messages += map.send_grid_to_players()
         messages.append(SoundMessage(player, f"jingle_bells.mp3", volume = 1.0, repeat = False))
+        # Adding a second folder with duplicates to allow two sounds to play with different paths (treated separately)
+        messages.append(SoundMessage(player, f"sound2/jingle_bells.mp3",volume=1.0,repeat=False))
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Jingle Bells'!", ""))
         return messages
-
