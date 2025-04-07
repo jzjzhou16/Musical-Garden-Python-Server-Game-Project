@@ -38,7 +38,7 @@ class happybirthdayCommand(ChatCommand):
             plant_obj = MapObject.get_obj(plant_name)
             map.add_to_grid(plant_obj, coord)
         messages += map.send_grid_to_players()
-        messages.append(SoundMessage(player, f"happy_birthday.mp3", volume = 0.1, repeat = False))
+        messages.append(SoundMessage(player, f"happy_birthday.mp3", volume = 1.0, repeat = False))
         # Adding a second folder with duplicates to allow two sounds to play with different paths (treated separately)
         # messages.append(SoundMessage(player, f"sound2/happy_birthday.mp3",volume=1.0,repeat=False))
         messages.append(DialogueMessage(self, player, "Here is the demo for 'Happy Birthday'!", ""))
@@ -62,8 +62,8 @@ class twinkleCommand(ChatCommand):
         demo_twinkle = { 
             Coord(8, 1): "daisy",   # C
             Coord(8, 2): "daisy",   # C
-            Coord(8, 3): "drchid",  # G
-            Coord(8, 4): "drchid",  # G
+            Coord(8, 3): "orchid",  # G
+            Coord(8, 4): "orchid",  # G
             Coord(9, 5): "rose",   # A
             Coord(9, 6): "rose",   # A
             Coord(8, 7): "orchid", # G
