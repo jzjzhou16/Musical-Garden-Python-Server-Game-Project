@@ -6,6 +6,7 @@ from .background_type import BackgroundFactory
 from .pressure_plate import ColumnPressurePlate
 from .grid_manager import GridManager
 from .plants import PlantFactory, Plant
+from typing import List 
 
 
 if TYPE_CHECKING:
@@ -15,10 +16,19 @@ if TYPE_CHECKING:
     from tiles.map_objects import *
 
 class DemoRoom(Map):
+    """
+    A new Map that contains three demo garden grids, play buttons for triggering the demo songs,
+    and signs for instruction. It serves as a source of inspiration and an interactive showcase of the garden's possibilities
+    
+    Parameters:
+        demo_grids (List[GardenGrid]): List of GardenGrid instances representing the three demonstration areas
+    """
     def __init__(self) -> None:
+        """
+        Initializes the DemoRoom map with each garden grid and default map properties ( name, size, entry point, and description)
+        """
         #create garden grids
-        self.demo_grids = [
-
+        self.demo_grids: List[GardenGrid] = [
             GardenGrid("dirt3", Coord(2, 1), 4, 12),
             GardenGrid("dirt3", Coord(8, 1), 4, 12),
             GardenGrid("dirt3", Coord(14, 1), 4, 12)
@@ -33,6 +43,20 @@ class DemoRoom(Map):
         )
 
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
+        """
+        Generates and places all objects in the DemoRoom map
+        
+        Creates and positions the following elements:
+        - Three demo garden grids  
+        - Randomized background tiles (flyweight pattern from the BackgroundType class)
+        - Exit door returning to the ExampleHouse map
+        - Instruction signs (one per demo grid)
+        - Demo song play buttons (one per demo grid)
+
+        Returns:
+            objects (list[tuple[MapObject, Coord]]): A list of tuples containing map objects and their map coordinates 
+        """
+
         objects: list[tuple[MapObject, Coord]] = []
 
         #create three garden grids (3 different demos )

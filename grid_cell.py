@@ -1,6 +1,6 @@
 from .imports import *
 from typing import TYPE_CHECKING, List, Optional, Dict
-from .plant_interaction_command import PlantInteractionCommand
+from .commands import PlantInteractionCommand
 
 if TYPE_CHECKING:
     from coord import Coord
