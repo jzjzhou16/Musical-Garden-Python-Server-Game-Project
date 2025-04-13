@@ -1,0 +1,117 @@
+from .imports import *
+from typing import TYPE_CHECKING, Dict, List
+from abc import ABC, abstractmethod
+
+if TYPE_CHECKING:
+    from maps.base import Map
+    from Player import HumanPlayer
+    from tiles.map_objects import *
+    from message import *
+    from command import *
+
+class ObjectCommand(Command, ABC):
+    """Abstract base class for all executable mapObject commands."""
+    @classmethod
+    def matches(cls, command_text: str) -> None | bool:
+        """Default implementation for command matching."""
+        pass
+
+    @abstractmethod
+    def execute(self, command_text: str, map: Map, player: HumanPlayer) -> list[DialogueMessage]:
+        """Execute the command using the provided context and return messages."""
+        pass
+
+class DemoCommand (ObjectCommand):
+    """
+    Abstract base class for demo commands in the demo room that place plants for demos.
+    Subclasses must implement `get_demo_layout()` and can override `get_audio_file()`.
+    """
+    @abstractmethod
+    def get_demo_layout(self) -> Dict[Coord, str]:
+     """
+    Defines the plant layout for the demo as it gets the direct garden grid coordinates mapping.
+    
+    Preconditions:
+        - Each plant Coord must be valid for the target garden grid (non-negative, within bounds).
+        - Each plant name (str value) must correspond to a valid MapObject name.
+    
+    Returns:
+        Dict[Coord, str]: A dictionary where:
+            - Keys are Coord representing grid positions.
+            - Values are plant names (e.g., "daisy", "orchid") to place at those positions.
+    
+    Postconditions:
+        - The returned dict is non-empty.
+        - All plants referenced in the dict exist in the game's MapObject registry.
+    """
+     pass
+
+    def get_audio_file(self) -> str:
+        """
+        Provides the filename of the audio track to play during the demo.
+    
+        Preconditions:
+            - The file must exist in the resources folder.
+            - The file should be in a supported format (mp3).
+    
+        Returns:
+            str: The name of the audio file that we want to demo
+    
+        Postconditions:
+            - The returned string is non-empty.
+    """
+        return f"{self.name}.mp3"
+    
+    def execute(self, command_text: str, map: 'Map', player: 'HumanPlayer') -> List['Message']:
+        """
+        Executes the demo command
+        
+        Parameters:
+            command_text (str): The String that triggers the command execution 
+            map (Map): The game map where plants will be placed 
+            player (HumanPlayer): The player who triggers the command
+            
+        Returns:
+            list[Message]: Messages containing:
+                - updates to grid showing the new plant arrangement
+                - demo audio file 
+                - dialogue confirmation
+        """
+
+        messages = []
+    
+        #Place plants according to the demo layout
+        for coord, plant_name in self.get_demo_layout().items():
+            plant_obj = MapObject.get_obj(plant_name)
+            map.add_to_grid(plant_obj, coord)
+        
+        # Send grid updates to players
+        messages += map.send_grid_to_players()
+        
+        # Play audio
+        audio_file = self.get_audio_file()
+        messages.append(SoundMessage(
+            player, 
+            audio_file, 
+            volume=1.0, 
+            repeat=False
+        ))
+
+        # Append dialogue messsage
+        messages.append(DialogueMessage(
+            self,
+            player,
+            f"Here is the demo for '{self.name.replace('_', ' ')}'!",
+            ""
+        ))
+        return messages
+
+
+
+
+
+
+
+
+
+        

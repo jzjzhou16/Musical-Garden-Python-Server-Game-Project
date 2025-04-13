@@ -45,9 +45,6 @@ class GardenGrid(MapObject, PlantSubject):
         self.cell_factory = GridCellFactory(image_name)
         # Set garden grid position
         self.set_position(position)
-        # grid_state is a 2D list, each cell may only hold one plant
-        self.grid_state: List[List[Optional[Plant]]] = [[None for _ in range(grid_cols)] for _ in range (grid_rows)]
-        
 
         super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
 
@@ -145,21 +142,6 @@ class GardenGrid(MapObject, PlantSubject):
                 
         return []
     
-    def get_plant(self, row:int, col: int):
-        """
-        Retrieves plant at specified grid coordinates.
-        
-        Parameters:
-            row (int): Grid row index  
-            col (int): Grid column index  
-            
-        Returns:
-            Optional[Plant]: The plant at location, or None if empty/invalid
-        """
-
-        if 0 <= row < self.grid_rows and 0 <= col < self.grid_cols:
-            return self.grid_state[row][col]
-        return None
 
     def notify_plant_placed(self, row: int, col: int, plant_name: str):
         """

@@ -98,6 +98,10 @@ class ExampleHouse(Map):
         instructionsSign = Sign('sign', "Step onto the X button to clear all plants off your garden grid, and pick up (press SPACE at) the shovel to delete individual plants.")
         objects.append((instructionsSign, Coord(8,10)))
 
+        #another instructions sign
+        instructionsSign2 = Sign('sign', "Walk on the Musical Notes Pressure plate to control the pace and play your song creation!")
+        objects.append ((instructionsSign2, Coord(1,14)))
+
         
         #add greenhouse image (demo room)
         demoRoom = ExtDecor("House") 

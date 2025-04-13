@@ -1,5 +1,6 @@
 from .imports import *
-from typing import TYPE_CHECKING, Optional, List
+from typing import TYPE_CHECKING, Optional, List, Dict
+from .ObjectCommand import *
 
 if TYPE_CHECKING:
     from command import ChatCommand
@@ -7,7 +8,7 @@ if TYPE_CHECKING:
     from tiles.map_objects import *
 
 #plant_interaction_command
-class PlantInteractionCommand(ChatCommand):
+class PlantInteractionCommand(ObjectCommand):
     """    
     Determines whether to plant or remove based on what's in front of the player
 
@@ -107,7 +108,7 @@ class PlantInteractionCommand(ChatCommand):
             return Coord(y, x + 1)
         return None
     
-class PlantCommand(ChatCommand):
+class PlantCommand(ObjectCommand):
     """
     Command handler for planting selected plants into the garden grid 
     """
@@ -172,7 +173,7 @@ class PlantCommand(ChatCommand):
             messages.append(DialogueMessage(self,player,"There is nothing to remove here.", ""))
             return messages
         
-class RemoveCommand(ChatCommand):
+class RemoveCommand(ObjectCommand):
     """
     Command handler for removing plants from the garden grid 
     """
@@ -230,7 +231,7 @@ class RemoveCommand(ChatCommand):
         return messages
 
 #pickup_command
-class pickUpPlantCommand(ChatCommand):
+class pickUpPlantCommand(ObjectCommand):
     """
     Command handler for picking up plants from the garden shelf 
     """
@@ -274,7 +275,7 @@ class pickUpPlantCommand(ChatCommand):
 
         return messages
   
-class pickUpShovelCommand(ChatCommand):
+class pickUpShovelCommand(ObjectCommand):
     """
     Command handler for picking up the shovel 
     """
@@ -314,7 +315,7 @@ class pickUpShovelCommand(ChatCommand):
     
 #demo room commands
 
-class happybirthdayCommand(ChatCommand):
+class happybirthdayCommand(DemoCommand):
     """
     Chat command that plays the Happy Birthday Demo 
     
@@ -322,10 +323,10 @@ class happybirthdayCommand(ChatCommand):
     Inherits from ChatCommand to implement the Command Design Pattern
     
     Parameters:
-        name (str): The command name ('happy_birthday')
+        name (str): The command name ('Happy_Birthday')
     """
 
-    name = 'happy_birthday'
+    name = 'Happy_Birthday'
 
     @classmethod
     def matches(cls, command_text: str) -> bool:
@@ -338,27 +339,10 @@ class happybirthdayCommand(ChatCommand):
         Returns:
             (bool): True if the input matches the command's name. False otherwise.
         """
-        return command_text == "happy_birthday"
-
+        return command_text == "Happy_Birthday"
     
-    def execute(self, command_text : str, map : Map, player: HumanPlayer) -> list[Message]:
-        """
-        Executes the Happy Birthday demo command
-        
-        Parameters:
-            command_text (str): The String that triggers the command execution 
-            map (Map): The game map where plants will be placed 
-            player (HumanPlayer): The player who triggers the command
-            
-        Returns:
-            list[Message]: Messages containing:
-                - updates to grid showing the new plant arrangement
-                - happy birthday audio file 
-                - dialogue confirmation
-        """
-        messages = []
-          
-        demo_happybirthay = {
+    def get_demo_layout(self) -> Dict[Coord, str]:
+        return {
             Coord(3, 1): "daisy",  # C
             Coord(3, 2): "daisy",  # C
             Coord(3, 3): "sunflower", #D
@@ -372,20 +356,12 @@ class happybirthdayCommand(ChatCommand):
             Coord(3, 11): "orchid",   # G
             Coord(3, 12): "lilac", #F
            }  
-        
-        for coord, plant_name in demo_happybirthay.items():
-            plant_obj = MapObject.get_obj(plant_name)
-            map.add_to_grid(plant_obj, coord)
-        messages += map.send_grid_to_players()
-        messages.append(SoundMessage(player, f"happy_birthday.mp3", volume = 1.0, repeat = False))
-        # Adding a second folder with duplicates to allow two sounds to play with different paths (treated separately)
-        # messages.append(SoundMessage(player, f"sound2/happy_birthday.mp3",volume=1.0,repeat=False))
-        messages.append(DialogueMessage(self, player, "Here is the demo for 'Happy Birthday'!", ""))
+    def get_audio_file(self) -> str:
+        return "happy_birthday.mp3"
 
-        return messages
-            
+    
 
-class twinkleCommand(ChatCommand):
+class twinkleCommand(DemoCommand):
     """
     Chat command that plays the Twinkle Twinkle Little Star Demo 
     
@@ -393,10 +369,10 @@ class twinkleCommand(ChatCommand):
     Inherits from ChatCommand to implement the Command Design Pattern
     
     Parameters:
-        name (str): The command name ('twinkle')
+        name (str): The command name ('Twinkle_Twinkle_Little_Stars')
     """
 
-    name = 'twinkle'
+    name = 'Twinkle_Twinkle_Little_Stars'
 
     @classmethod
     def matches(cls, command_text: str) -> bool:
@@ -409,29 +385,10 @@ class twinkleCommand(ChatCommand):
         Returns:
             (bool): True if the input matches the command's name. False otherwise.
         """
-        return command_text == "twinkle"
-
+        return command_text == "Twinkle_Twinkle_Little_Stars"
     
-    def execute(self, command_text : str, map : Map, player: HumanPlayer) -> list[Message]:
-        """
-        Executes the Twinkle Twinkle Little Star demo command
-        
-        Parameters:
-            command_text (str): The String that triggers the command execution 
-            map (Map): The game map where plants will be placed 
-            player (HumanPlayer): The player who triggers the command
-            
-        Returns:
-            list[Message]: Messages containing:
-                - updates to grid showing the new plant arrangement
-                - twinkle twinkle tittle star audio file 
-                - dialogue confirmation
-        """
-        
-        messages = []
-
-
-        demo_twinkle = { 
+    def get_demo_layout(self) -> Dict[Coord, str]:
+        return {
             Coord(8, 1): "daisy",   # C
             Coord(8, 2): "daisy",   # C
             Coord(8, 3): "orchid",  # G
@@ -439,18 +396,12 @@ class twinkleCommand(ChatCommand):
             Coord(9, 5): "rose",   # A
             Coord(9, 6): "rose",   # A
             Coord(8, 7): "orchid", # G
-           } 
-        for coord, plant_name in demo_twinkle.items():
-            plant_obj = MapObject.get_obj(plant_name)
-            map.add_to_grid(plant_obj, coord)
+           }  
+    def get_audio_file(self) -> str:
+        return "twinkle_twinkle.mp3"
 
-        messages += map.send_grid_to_players()
-        messages.append(SoundMessage(player, f"twinkle_twinkle.mp3", volume = 1.0, repeat = False))
-        messages.append(DialogueMessage(self, player, "Here is the demo for 'Twinkle Twinkle Little Star'!", ""))
-        
-        return messages
             
-class jingleBellsCommand(ChatCommand):
+class jingleBellsCommand(DemoCommand):
     """
     Chat command that plays the Jingle Bells Demo 
     
@@ -458,10 +409,10 @@ class jingleBellsCommand(ChatCommand):
     Inherits from ChatCommand to implement the Command Design Pattern
     
     Parameters:
-        name (str): The command name ('jingle_bells')
+        name (str): The command name ('Jingle_Bells')
     """
 
-    name = 'jingle_bells'
+    name = 'Jingle_Bells'
 
     @classmethod
     def matches(cls, command_text: str) -> bool:
@@ -474,28 +425,10 @@ class jingleBellsCommand(ChatCommand):
         Returns:
             (bool): True if the input matches the command's name. False otherwise.
         """
-        return command_text == "jingle_bells"
-
+        return command_text == "Jingle_Bells"
     
-    def execute(self, command_text : str, map : Map, player: HumanPlayer) -> list[Message]:
-        """
-        Executes the Jingle Bells demo command
-        
-        Parameters:
-            command_text (str): The String that triggers the command execution 
-            map (Map): The game map where plants will be placed 
-            player (HumanPlayer): The player who triggers the command
-            
-        Returns:
-            list[Message]: Messages containing:
-                - updates to grid showing the new plant arrangement
-                - jingle bells audio file 
-                - dialogue confirmation
-        """
-
-        messages = []
-        
-        demo_jingle = {
+    def get_demo_layout(self) -> Dict[Coord, str]:
+        return {
             Coord(15, 1): "iris",     # E
             Coord(15, 2): "iris",     # E
             Coord(15, 3): "iris",     # E
@@ -508,11 +441,6 @@ class jingleBellsCommand(ChatCommand):
             Coord(15, 10): "sunflower", # D
             Coord(15, 11): "iris",    # E
            }  
-        for coord, plant_name in demo_jingle.items():
-            plant_obj = MapObject.get_obj(plant_name)
-            map.add_to_grid(plant_obj, coord)
+    def get_audio_file(self) -> str:
+        return "jingle_bells.mp3"
 
-        messages += map.send_grid_to_players()
-        messages.append(SoundMessage(player, f"jingle_bells.mp3", volume = 1.0, repeat = False))
-        messages.append(DialogueMessage(self, player, "Here is the demo for 'Jingle Bells'!", ""))
-        return messages
