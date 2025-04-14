@@ -25,7 +25,7 @@ def setup():
     return shovel, play_button1, play_button2, play_button3, player, player._current_room, player._current_room
 
 class TestShovel:
-    """Tests for Shovel button class"""
+    """Tests for Shovel button class (Command Design Pattern Implementation)"""
     
     def test_shovel_initialization(self, setup):
         """Test that Shovel initializes with correct image"""
