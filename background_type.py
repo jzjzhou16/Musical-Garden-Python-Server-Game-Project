@@ -3,7 +3,6 @@ from typing import TYPE_CHECKING
 from typing import List, Optional
 import random
 
-
 if TYPE_CHECKING:
     from tiles.map_objects import *
 
@@ -24,7 +23,7 @@ class BackgroundType:
         'stoneGrass',
     ]
 
-    def __init__(self, image_type: str): 
+    def __init__(self, image_type: str) -> None: 
         """
         Initializes a BackgroundType instance with a specific image type (from BACKGROUND_OPTIONS)
         
@@ -88,7 +87,7 @@ class EmoteType:
                                 'lemon','kiwi','horn_02','horn_01','pear','pomegranate','saxophone','strawberry'
     ]
     
-    def __init__(self, image_type: str):
+    def __init__(self, image_type: str) -> None:
         """
         Initializes an EmoteType instance with a specific image type
         

@@ -3,6 +3,8 @@ from typing import TYPE_CHECKING, Optional, List, Dict
 from .ObjectCommand import *
 
 if TYPE_CHECKING:
+    from coord import Coord
+    from Player import HumanPlayer
     from command import ChatCommand
     from maps.base import Map
     from tiles.map_objects import *

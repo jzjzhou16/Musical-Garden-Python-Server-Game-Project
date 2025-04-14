@@ -14,12 +14,13 @@ if TYPE_CHECKING:
 
 class GardenGrid(MapObject, PlantSubject):
     """
-    A grid-based garden plot that manages plant placement and player interactions
+    A grid-based garden plot that manages plant placement and player interactions 
     
     Combines MapObject functionality with a PlantSubject observer pattern to:
         - Track plant positions in a 2D grid
         - Handle player entry/exit events
         - Notify observers of plant changes 
+ 
     """
 
     def __init__(self, image_name: str, position: Coord, grid_rows: int, grid_cols: int) -> None:
@@ -152,7 +153,7 @@ class GardenGrid(MapObject, PlantSubject):
             col (int): Grid column where plant was placed
             plant_name (str): Name of the planted item's image
         """
-        
+
         for observer in self._observers:
             if hasattr(observer, 'on_plant_placed'):
                 observer.on_plant_placed(row, col, plant_name)
