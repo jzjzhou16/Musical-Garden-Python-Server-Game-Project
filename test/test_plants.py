@@ -15,14 +15,14 @@ def plant_factory():
 def test_plant_creation(plant_factory):
     """Test that a plant can be created."""
     plant = plant_factory.get_plant("rose")
-    assert isinstance(plant, Plant)
-    assert plant._image_name == "rose.png"
+    assert isinstance(plant, Plant), "Factory should return a Plant instance"
+    assert plant._image_name == "rose.png", "Factory returned plant should have correct image name"
 
 def test_flyweight_double_add(plant_factory):
     """Test that the flyweight pattern works correctly."""
-    factory = plant_factory
-    plant1 = factory.get_plant("rose")
-    plant2 = factory.get_plant("rose")
+    factory = PlantFactory()
+    plant1 = factory.get_plant("Rose")
+    plant2 = factory.get_plant("Rose")
     assert plant1 == plant2
 
 def test_invalid_plant():
