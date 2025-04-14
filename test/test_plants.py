@@ -14,11 +14,11 @@ def test_plant_creation(plant_factory):
     assert isinstance(plant, Plant)
     assert plant._image_name == "rose.png"
 
-def test_flyweight_double_add():
+def test_flyweight_double_add(plant_factory):
     """Test that the flyweight pattern works correctly."""
-    factory = PlantFactory()
-    plant1 = factory.get_plant("Rose")
-    plant2 = factory.get_plant("Rose")
+    factory = plant_factory
+    plant1 = factory.get_plant("rose")
+    plant2 = factory.get_plant("rose")
     assert plant1 == plant2
 
 def test_invalid_plant():
@@ -30,6 +30,6 @@ def test_invalid_plant():
 def test_image_size():
     """Test that the image size is correct."""
     factory = PlantFactory()
-    plant = factory.get_plant("Rose")
+    plant = factory.get_plant("rose")
     if plant is not None:
         assert plant._get_image_size() == (1,1)
