@@ -1,9 +1,14 @@
 import pytest
 
 from ..imports import *
-from ..background_type import *
-from typing import List
+from ..background_type import * 
 import random 
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from coord import Coord
+    from Player import HumanPlayer
 
 @pytest.fixture
 def setup():
@@ -15,7 +20,7 @@ def setup():
     return backgroundOptions, emoteOptions, factory, random_background, random_emote
  
 class TestBackgroundType:
-    """Unit Tests for BackgroundType class - Pytest"""
+    """Unit Tests for BackgroundType class - (Flyweight Design Pattern Implementation)"""
 
     def test_background_type_initialization(self, setup):
         """Test that BackgroundType initializes with one of the valid image_type options, for example, basicGrass"""
@@ -40,7 +45,6 @@ class TestBackgroundFactory:
         background1 = BackgroundFactory.get_background('basicGrass')
         background2 = BackgroundFactory.get_background('basicGrass')
         assert background1 is background2  # Should be same instance
-
 
 class TestEmoteType:
     """Tests for EmoteType class"""

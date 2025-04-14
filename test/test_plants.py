@@ -2,6 +2,10 @@ import pytest
 from ..imports import *
 from ..plants import Plant, PlantFactory
 
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from Player import HumanPlayer
+
 
 @pytest.fixture
 def plant_factory():
@@ -33,3 +37,17 @@ def test_image_size():
     plant = factory.get_plant("rose")
     if plant is not None:
         assert plant._get_image_size() == (1,1)
+
+def test_player_plants_interaction(plant_factory):
+    player = HumanPlayer("test player")
+    test_plant = plant_factory.get_plant("rose")
+    test_plant2 = plant_factory.get_plant("iris")
+    test_plant.player_interacted(player)
+    assert player.get_state("carrying_plant") == "rose", "Player's state should reflect the plants that were picked up"
+    test_plant2.player_interacted(player)
+    assert player.get_state("carrying_plant") == "iris", "Player's state should reflect the plants that were picked up"
+
+
+
+
+

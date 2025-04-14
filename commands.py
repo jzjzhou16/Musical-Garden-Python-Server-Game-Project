@@ -254,7 +254,7 @@ class pickUpPlantCommand(ObjectCommand):
         return command_text == "pickup_plant"
 
     
-    def execute(self, command_text : str, map : Map, player: HumanPlayer, plant_name: str) -> list[Message]:
+    def execute(self, command_text : str, player: HumanPlayer, plant_name: str) -> list[Message]:
         """
         Handles plant pickup and plays associated sounds
         
@@ -296,7 +296,7 @@ class pickUpShovelCommand(ObjectCommand):
         """
         return command_text == "pickup_shovel"
     
-    def execute(self, command_text : str, map : Map, player: HumanPlayer, object_name: str) -> list[Message]:
+    def execute(self, command_text : str, player: HumanPlayer, object_name: str) -> list[Message]:
         """
         Handles shovel pickup
         
