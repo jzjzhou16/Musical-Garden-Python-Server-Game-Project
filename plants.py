@@ -62,7 +62,7 @@ class Plant(MapObject):
         command = pickUpPlantCommand()
         plant_name = self.get_plant_name()
         player.set_state('carrying_plant', plant_name)
-        return command.execute("pickup_plant", player.get_current_room(), player, plant_name)
+        return command.execute("pickup_plant", player, plant_name)
 
 #Flyweight
 class PlantFactory:
