@@ -20,7 +20,7 @@ def setup():
     return backgroundOptions, emoteOptions, factory, random_background, random_emote
  
 class TestBackgroundType:
-    """Unit Tests for BackgroundType class - Pytest"""
+    """Unit Tests for BackgroundType class - (Flyweight Design Pattern Implementation)"""
 
     def test_background_type_initialization(self, setup):
         """Test that BackgroundType initializes with one of the valid image_type options, for example, basicGrass"""
