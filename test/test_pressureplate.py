@@ -51,10 +51,15 @@ def test_clear_plate_removes_plants(setup):
     manager.notes_grid[1][1] = "tulip"
     
     messages = plate.player_entered(player)
+
+    for msg in messages:
+            if isinstance(msg, DialogueMessage):
+                message_text = msg._get_data()['dialogue_text']
+                break
     
     # grid must be cleared
     assert all(cell is None for row in manager.notes_grid for cell in row)
-    assert any(isinstance(msg, DialogueMessage) for msg in messages)
+    assert message_text == "Cleared all plants from the board", "Messages should be correctly displayed"
 
 def test_clear_plate_only_clears_once(setup):
     """Test that the clear plate only clears once, then does not affect board"""
