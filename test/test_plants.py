@@ -23,7 +23,7 @@ def test_flyweight_double_add(plant_factory):
     factory = PlantFactory()
     plant1 = factory.get_plant("Rose")
     plant2 = factory.get_plant("Rose")
-    assert plant1 == plant2
+    assert plant1 == plant2, "flyweight object plant 1 and plant 2 should be the same instance"
 
 def test_invalid_plant():
     """Test that an invalid plant name returns None."""
