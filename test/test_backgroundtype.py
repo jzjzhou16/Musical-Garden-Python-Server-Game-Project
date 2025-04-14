@@ -1,9 +1,14 @@
 import pytest
 
 from ..imports import *
-from ..background_type import *
-from typing import List
+from ..background_type import * 
 import random 
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from coord import Coord
+    from Player import HumanPlayer
 
 @pytest.fixture
 def setup():
@@ -40,7 +45,6 @@ class TestBackgroundFactory:
         background1 = BackgroundFactory.get_background('basicGrass')
         background2 = BackgroundFactory.get_background('basicGrass')
         assert background1 is background2  # Should be same instance
-
 
 class TestEmoteType:
     """Tests for EmoteType class"""
