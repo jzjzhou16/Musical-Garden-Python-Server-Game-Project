@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from coord import Coord
     from Player import HumanPlayer
-    from message import Message
+    from message import *
 
 @pytest.fixture
 def demo_setup() -> tuple[PlayButton1,PlayButton2,PlayButton3,HumanPlayer,DemoRoom]:
@@ -39,11 +39,14 @@ class TestPlayButton1:
         
     def test_playbutton1_interaction(self, demo_setup):
         """Test that button interaction returns the correct soundMessage/DialogueMessage"""
-        _, play_button1, _, player, demo_room = demo_setup
+        play_button1, _, _, player, demo_room = demo_setup
         messages = play_button1.player_interacted(player) 
+        for msg in messages:
+            if isinstance(msg, DialogueMessage):
+                message_text = msg._get_data()['dialogue_text']
+                break
         
-        assert isinstance(messages, list)
-        assert all(isinstance(msg, Message) for msg in messages), "Messages should be correctly displayed"
+        assert message_text == "Here is the demo for 'Happy Birthday'!", "Messages should be correctly displayed"
 
 class TestPlayButton2:
     """Tests for PlayButton2 (twinkle button)"""
@@ -57,9 +60,12 @@ class TestPlayButton2:
         """Test that button interaction returns the correct soundMessage/messages"""
         _, play_button2, _, player, demo_room = demo_setup
         messages = play_button2.player_interacted(player) 
-        
-        assert isinstance(messages, list)
-        assert all(isinstance(msg, Message) for msg in messages), "Messages should be correctly displayed"
+        for msg in messages:
+            if isinstance(msg, DialogueMessage):
+                message_text = msg._get_data()['dialogue_text']
+                break
+    
+        assert message_text == "Here is the demo for 'Twinkle Twinkle Little Stars'!", "Messages should be correctly displayed"
 
 class TestPlayButton3:
     """Tests for PlayButton3 (jingle bells button)"""
@@ -73,10 +79,12 @@ class TestPlayButton3:
         """Test that button interaction returns the correct soundMessage/messages"""
         _, _, play_button3, player, demo_room= demo_setup
         messages = play_button3.player_interacted(player)
-        
-        assert isinstance(messages, list)
-        assert all(isinstance(msg, Message) for msg in messages), "Messages should be correctly displayed"
+        for msg in messages:
+            if isinstance(msg, DialogueMessage):
+                message_text = msg._get_data()['dialogue_text']
+                break
 
+        assert message_text == "Here is the demo for 'Jingle Bells'!", "Messages should be correctly displayed"
 
 
 class TestShovel:
@@ -91,8 +99,10 @@ class TestShovel:
         """Test that pick up shovel interaction sets player state correctly and returns the right messages"""
         shovel,player,example_map = example_setup
         messages = shovel.player_interacted(player)
-        
+        for msg in messages:
+            if isinstance(msg, DialogueMessage):
+                message_text = msg._get_data()['dialogue_text']
+                break
         assert player.get_state('carrying_shovel') == "Shovel", "Player's state should reflect the shovel that were picked up"
-        assert isinstance(messages, list)
-        assert all(isinstance(msg, Message) for msg in messages), "Messages should be correctly displayed"
+        assert message_text == "You picked up the Shovel!", "Messages should be correctly displayed"
 

@@ -5,6 +5,7 @@ from ..plants import Plant, PlantFactory
 from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from Player import HumanPlayer
+    from message import DialogueMessage
 
 
 @pytest.fixture
@@ -42,9 +43,19 @@ def test_player_plants_interaction(plant_factory):
     player = HumanPlayer("test player")
     test_plant = plant_factory.get_plant("rose")
     test_plant2 = plant_factory.get_plant("iris")
-    test_plant.player_interacted(player)
+    messages = test_plant.player_interacted(player)
+    for msg in messages:
+        if isinstance(msg, DialogueMessage):
+            message_text = msg._get_data()['dialogue_text']
+            break
+    assert message_text == "You picked up rose!", "Message should be correctly displayed."
     assert player.get_state("carrying_plant") == "rose", "Player's state should reflect the plants that were picked up"
-    test_plant2.player_interacted(player)
+    messages = test_plant2.player_interacted(player)
+    for msg in messages:
+        if isinstance(msg, DialogueMessage):
+            message_text = msg._get_data()['dialogue_text']
+            break
+    assert message_text == "You picked up iris!", "Message should be correctly displayed."
     assert player.get_state("carrying_plant") == "iris", "Player's state should reflect the plants that were picked up"
 
 
