@@ -69,7 +69,7 @@ class GridManager(PlantObserver):
             cls._instance = super().__new__(cls)
         return cls._instance
 
-    def __init__(self, garden_grid : GardenGrid):
+    def __init__(self, garden_grid : GardenGrid) -> None:
         """
         Initializes the GridManager with a garden grid.
         Only once due to the singleton pattern.

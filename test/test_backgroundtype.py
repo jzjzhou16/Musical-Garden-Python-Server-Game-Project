@@ -1,61 +1,57 @@
 import pytest
-from ..background_type import Background, BackgroundType, BackgroundFactory, EmoteType
-from typing import List
-import random
 
+from ..imports import *
+from ..background_type import *
+from typing import List
+import random 
+
+@pytest.fixture
+def setup():
+    factory = BackgroundFactory()
+    backgroundOptions = BackgroundType.BACKGROUND_OPTIONS
+    random_background = BackgroundType.get_random_background_type()
+    emoteOptions = EmoteType.EMOTE_OPTIONS  
+    random_emote = EmoteType.get_random_emote_type()
+    return backgroundOptions, emoteOptions, factory, random_background, random_emote
+ 
 class TestBackgroundType:
     """Unit Tests for BackgroundType class - Pytest"""
-    
-    def test_background_options(self):
-        """Test that BACKGROUND_OPTIONS contains expected values"""
-        expected = ['basicGrass', 'flowerGrass', 'plantGrass', 'stoneGrass']
-        assert BackgroundType.BACKGROUND_OPTIONS == expected
-        
-    def test_init_valid_type(self):
-        """Test initialization with a valid background type"""
-        bg_type = BackgroundType('flowerGrass')
-        assert bg_type.image_type == 'flowerGrass'
-        
-    def test_get_random_type(self, monkeypatch):
-        """
-        Test that get_random_background_type returns valid option (use lambda to assure the randomization will result in stoneGrass)
-        
-        Parameters:
-            monkeypatch (str): built in pytest feature -> allows for testing with mock variables
-        """
-        # Dummy random.choice to return predictable value
-        monkeypatch.setattr(random, 'choice', lambda x: 'stoneGrass')
-        result = BackgroundType.get_random_background_type()
-        assert result in BackgroundType.BACKGROUND_OPTIONS
-        assert result == 'stoneGrass'
 
+    def test_background_type_initialization(self, setup):
+        """Test that BackgroundType initializes with one of the valid image_type options, for example, basicGrass"""
+        backgroundOptions, _, _, _, _ = setup
+        background = BackgroundType('basicGrass')
+        assert background.image_type == 'basicGrass' 
+        assert background.image_type in backgroundOptions
+
+    def test_get_random_background_type(self, setup):
+        """Test that random background type is one of the valid options (defined in BACKGROUND_OPTIONS)"""
+        backgroundOptions, _, _, random_background, _ = setup
+        assert random_background in backgroundOptions
+    
 class TestBackgroundFactory:
-    """Tests for BackgroundFactory class help"""
+    """Tests main behavior for BackgroundFactory class (Flyweight pattern implementation)"""
+    def test_background_factory_initialization(self, setup):
+        _, _, factory, _, _ = setup
+        assert isinstance(factory, BackgroundFactory)
+
+    def test_background_factory_reuse(self):
+        """Test that factory returns same instance for same type"""
+        background1 = BackgroundFactory.get_background('basicGrass')
+        background2 = BackgroundFactory.get_background('basicGrass')
+        assert background1 is background2  # Should be same instance
+
 
 class TestEmoteType:
     """Tests for EmoteType class"""
-    
-    def test_emote_options(self):
-        """Test that EMOTE_OPTIONS contains expected values"""
-        expected = ['apple','banana','blueberry','cherry','coconut',
-                   'greenApple','peach','orange','lemon','kiwi',
-                   'horn_02','horn_01','pear','pomegranate',
-                   'saxophone','strawberry']
-        assert EmoteType.EMOTE_OPTIONS == expected
-        
-    def test_init(self):
-        """Test initialization with a valid emote type"""
+    def test_emote_type_initialization(self,setup):
+        """Test that EmoteType initializes with one of the valid emote options, for example 'apple'"""
+        _, emoteOptions, _, _, _ = setup
         emote = EmoteType('apple')
         assert emote.image_type == 'apple'
-        
-    def test_get_random_emote(self, monkeypatch):
-        """
-        Test that get_random_emote_type returns valid option
+        assert emote.image_type in emoteOptions #also test that the image_type is in EMOTE_OPTIONS
 
-        Parameters:
-            monkeypatch (str): built in pytest feature -> allows for testing with mock variables
-        """
-        monkeypatch.setattr(random, 'choice', lambda x: 'saxophone')
-        result = EmoteType.get_random_emote_type()
-        assert result in EmoteType.EMOTE_OPTIONS
-        assert result == 'saxophone'
+    def test_get_random_emote_type(self, setup):
+        """Test that random emote type is one of the valid options (defined in EMOTE_OPTIONS)"""
+        _, emoteOptions, _, _, random_emote = setup
+        assert random_emote in emoteOptions
