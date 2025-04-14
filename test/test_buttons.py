@@ -14,77 +14,86 @@ if TYPE_CHECKING:
     from message import Message
 
 @pytest.fixture
-def setup():
-    shovel = Shovel("Shovel")
+def demo_setup() -> tuple[PlayButton1,PlayButton2,PlayButton3,HumanPlayer,DemoRoom]:
     play_button1 = PlayButton1("playButton")
     play_button2 = PlayButton2("playButton")
     play_button3 = PlayButton3("playButton")
     player = HumanPlayer("test_player")
     player._current_room = DemoRoom()
-    player._current_room = ExampleHouse()
-    return shovel, play_button1, play_button2, play_button3, player, player._current_room, player._current_room
+    return play_button1, play_button2, play_button3, player, player._current_room
 
-class TestShovel:
-    """Tests for Shovel button class"""
-    
-    def test_shovel_initialization(self, setup):
-        """Test that Shovel initializes with correct image"""
-        shovel, _, _, _, _, _, _ = setup
-        assert shovel._Shovel__image == "Shovel"
-        
-    def test_shovel_interaction(self, setup):
-        """Test that shovel interaction sets player state correctly and returns the right messages"""
-        shovel, _, _, _, player, _, player._current_room = setup
-        messages = shovel.player_interacted(player)
-        
-        assert player.get_state('carrying_shovel') == "Shovel"
-        assert isinstance(messages, list)
-        assert all(isinstance(msg, Message) for msg in messages)
+@pytest.fixture 
+def example_setup() -> tuple[Shovel, HumanPlayer, ExampleHouse]:
+    shovel = Shovel("Shovel")
+    player = HumanPlayer("test_player")
+    player._current_room = ExampleHouse()
+    return shovel, player, player._current_room
+
 
 class TestPlayButton1:
     """Tests for PlayButton1 (happy birthday button)"""
     
-    def test_playbutton1_initialization(self, setup):
+    def test_playbutton1_initialization(self, demo_setup):
         """Test that PlayButton1 initializes with correct image"""
-        _, button, _, _, _, _, _= setup
-        assert button._PlayButton1__image == "playButton"
+        play_button1, _, _, _, _= demo_setup
+        assert play_button1._PlayButton1__image == "playButton",  "Play button 1 should have the right image"
         
-    def test_playbutton1_interaction(self, setup):
-        """Test that button interaction returns the correct soundMessage/messages"""
-        _, button, _, _, player, player._current_room, _ = setup
-        messages = button.player_interacted(player) 
+    def test_playbutton1_interaction(self, demo_setup):
+        """Test that button interaction returns the correct soundMessage/DialogueMessage"""
+        _, play_button1, _, player, demo_room = demo_setup
+        messages = play_button1.player_interacted(player) 
         
         assert isinstance(messages, list)
-        assert all(isinstance(msg, Message) for msg in messages)
+        assert all(isinstance(msg, Message) for msg in messages), "Messages should be correctly displayed"
 
 class TestPlayButton2:
     """Tests for PlayButton2 (twinkle button)"""
     
-    def test_playbutton2_initialization(self, setup):
+    def test_playbutton2_initialization(self, demo_setup):
         """Test that PlayButton2 initializes with correct image"""
-        _, _, button, _, _, _, _ = setup
-        assert button._PlayButton2__image == "playButton"
+        _, play_button2, _, _, _= demo_setup
+        assert play_button2._PlayButton2__image == "playButton", "Play button 2 should have the right image"
         
-    def test_playbutton2_interaction(self, setup):
+    def test_playbutton2_interaction(self, demo_setup):
         """Test that button interaction returns the correct soundMessage/messages"""
-        _, button, _, _, player, player._current_room, _ = setup
-        messages = button.player_interacted(player) 
+        _, play_button2, _, player, demo_room = demo_setup
+        messages = play_button2.player_interacted(player) 
         
         assert isinstance(messages, list)
-        assert all(isinstance(msg, Message) for msg in messages)
+        assert all(isinstance(msg, Message) for msg in messages), "Messages should be correctly displayed"
 
 class TestPlayButton3:
     """Tests for PlayButton3 (jingle bells button)"""
     
-    def test_playbutton3_initialization(self, setup):
+    def test_playbutton3_initialization(self, demo_setup):
         """Test that PlayButton3 initializes with correct image"""
-        _, _, _, button, _, _, _ = setup
-        assert button._PlayButton3__image == "playButton"
+        _, _, play_button3, _, _ = demo_setup
+        assert play_button3._PlayButton3__image == "playButton", "Play button 3 should have the right image"
         
-    def test_playbutton3_interaction(self, setup):
+    def test_playbutton3_interaction(self, demo_setup):
         """Test that button interaction returns the correct soundMessage/messages"""
-        _, button, _, _, player, player._current_room, _ = setup
-        messages = button.player_interacted(player)
+        _, _, play_button3, player, demo_room= demo_setup
+        messages = play_button3.player_interacted(player)
         
         assert isinstance(messages, list)
-        assert all(isinstance(msg, Message) for msg in messages)
+        assert all(isinstance(msg, Message) for msg in messages), "Messages should be correctly displayed"
+
+
+
+class TestShovel:
+    """Tests for Shovel button class"""
+    
+    def test_shovel_initialization(self, example_setup):
+        """Test that Shovel initializes with correct image"""
+        shovel, _, _ = example_setup
+        assert shovel._Shovel__image == "Shovel", "Shovel should have the right image"
+        
+    def test_shovel_interaction(self, example_setup):
+        """Test that pick up shovel interaction sets player state correctly and returns the right messages"""
+        shovel,player,example_map = example_setup
+        messages = shovel.player_interacted(player)
+        
+        assert player.get_state('carrying_shovel') == "Shovel", "Player's state should reflect the shovel that were picked up"
+        assert isinstance(messages, list)
+        assert all(isinstance(msg, Message) for msg in messages), "Messages should be correctly displayed"
+
