@@ -2,7 +2,6 @@ import pytest
 
 from ..imports import *
 from ..background_type import * 
-import random 
 
 from typing import TYPE_CHECKING
 

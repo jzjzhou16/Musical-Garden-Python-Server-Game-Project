@@ -6,7 +6,6 @@ from ..garden_grid import GardenGrid
 
 if TYPE_CHECKING:
     from coord import Coord
-    from Player import HumanPlayer
 
 @pytest.fixture
 def garden_grid():

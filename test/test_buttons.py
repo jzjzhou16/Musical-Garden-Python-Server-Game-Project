@@ -2,7 +2,6 @@ import pytest
 
 from ..imports import *  
 from ..buttons import Shovel, PlayButton1, PlayButton2, PlayButton3
-from ..commands import pickUpShovelCommand, happybirthdayCommand, twinkleCommand, jingleBellsCommand
 from ..example_map import ExampleHouse
 from ..demo_room import DemoRoom
 

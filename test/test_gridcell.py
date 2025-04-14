@@ -7,9 +7,7 @@ from ..commands import *
 from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from coord import Coord
     from Player import HumanPlayer
-    from message import Message
     from tiles.map_objects import *
 
 @pytest.fixture
