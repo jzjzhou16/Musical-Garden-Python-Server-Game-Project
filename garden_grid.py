@@ -159,10 +159,10 @@ class GardenGrid(MapObject, PlantSubject):
             list[Message]: Emote messages displayed around grid perimeter
 
         Postconditions:
-            - If player was not already in the garden grid:
+            - Case 1: if player was not already in the garden grid:
                 - add player to self.players_in_grid
                 - Return list of emote messages (to display around grid perimeter)
-            - If player was already in grid:
+            - Case 2: if player was already in grid:
                 - Return an empty list
         """
 
