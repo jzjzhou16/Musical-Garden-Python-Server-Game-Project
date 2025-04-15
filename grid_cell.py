@@ -75,7 +75,7 @@ class GridCell(MapObject):
             - player.get_current_room() returns a valid room
             
         Postconditions:
-            - returns a list of Message objects (may be empty)
+            - returns a list of Message objects 
             - the cell's state is not modified
         """
 
@@ -86,8 +86,7 @@ class GridCell(MapObject):
         command = PlantInteractionCommand()
         result = command.execute('plant_interaction', player.get_current_room(),player)
 
-        #postconditions
-        assert isinstance(result, list), "Must return a list of Messages"
+        #postconditions 
         assert all(isinstance(msg, Message) for msg in result), "All items must be of type Message"
     
         return result

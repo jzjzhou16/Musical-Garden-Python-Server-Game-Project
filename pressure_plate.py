@@ -17,6 +17,7 @@ class ColumnPressurePlate(PressurePlate):
         __active (bool): Indicates if the pressure plate is currently active
         column_index (int): The index of the column this pressure plate is associated with
     """
+    
     def __init__(self, column_index: int):
         """
         Initializes a new ColumnPressurePlate

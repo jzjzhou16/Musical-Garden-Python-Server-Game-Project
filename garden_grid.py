@@ -90,7 +90,7 @@ class GardenGrid(MapObject, PlantSubject):
 
         Postconditions:
             - observer is in self._observers 
-            - len(self._observers) == original len(self._observers) + 1 (unless an observer already exists)
+            - After adding a new observer, the total number of observers (self._observers) must increase by 1 (unless an observer already exists)
         """
 
         #preconditions
