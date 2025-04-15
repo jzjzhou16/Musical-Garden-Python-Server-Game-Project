@@ -44,12 +44,20 @@ class GridManager(PlantObserver):
         Returns the singleton instance of the GridManager.
         If the instance does not exist, it creates a new one.
 
+        Preconditions:
+            - The class must be initialized
+        Postconditions:
+            - The class is initialized and the instance is created
+            - The instance is returned
+
         Parameters:
             cls (type): The class itself
 
         Returns:
             (GridManager): The singleton instance of the GridManager
         """
+        #precondition
+        assert cls._instance is not None, "GridManager must be initialized before use"
         return cls._instance
 
     def __new__(cls, *args, **kwargs):
@@ -74,9 +82,18 @@ class GridManager(PlantObserver):
         Initializes the GridManager with a garden grid.
         Only once due to the singleton pattern.
 
+        Preconditions:
+            - The garden grid must be an instance of GardenGrid
+        Postconditions:
+            - The notes grid is initialized as a 2D list of None values
+            - The grid origin is set to the garden grid's origin
+            - The garden grid is attached to the GridManager
+
         Parameters:
             garden_grid (GardenGrid): The garden grid object to manage
         """
+        #precondition
+        assert isinstance(garden_grid, GardenGrid), "garden_grid must be an instance of GardenGrid"
         if not hasattr(self, '_initialized'):
             self.garden_grid = garden_grid
             # dynamically create a grid of notes based on any grid size
@@ -88,10 +105,19 @@ class GridManager(PlantObserver):
             
             garden_grid.attach(self)
             self._initialized = True
+            #postconditions
+            assert self.notes_grid is not None, "notes_grid must be initialized"
+            assert self.grid_origin is not None, "grid_origin must be initialized"
 
     def _convert_to_grid_coords(self, row: int, col: int) -> tuple[int, int]:
         """
         Converts absolute coordinates to grid coordinates.
+
+        Preconditions:
+            - The row and column coordinates must be valid
+        Postconditions:
+            - The grid coordinates are calculated based on the grid origin
+            - The grid coordinates are returned as a tuple
 
         Parameters:
             row (int): The absolute row coordinate
@@ -100,6 +126,9 @@ class GridManager(PlantObserver):
         Returns:
             (tuple[int, int]): The grid coordinates
         """
+        #preconditions
+        assert 0 <= row < self.garden_grid.grid_rows, "Row out of bounds"
+        assert 0 <= col < self.garden_grid.grid_cols, "Column out of bounds"
         return row - self.grid_origin.y, col - self.grid_origin.x
     
     def on_plant_placed(self, row: int, col: int, plant_name: str):
@@ -112,10 +141,23 @@ class GridManager(PlantObserver):
             row (int): The row coordinate of the plant
             col (int): The column coordinate of the plant
             plant_name (str): The name of the plant being placed
+
+        Preconditions:
+            - The plant must be placed at valid coordinates
+            - The plant name must be valid
+        Postconditions:
+            - The notes grid is updated with the plant name
+            - The state of the notes grid may change based on the plant placement
         """
         # dynamically search for note in the grid based on coords
+        #preconditions
+        assert plant_name.lower() in self.PLANT_NOTES, "Invalid plant name"
+        assert 0 <= row < self.garden_grid.grid_rows, "Row out of bounds"
+        assert 0 <= col < self.garden_grid.grid_cols, "Column out of bounds"
         grid_row, grid_col = self._convert_to_grid_coords(row, col)
         self.notes_grid[grid_row][grid_col] = plant_name.lower()
+        #postconditions
+        assert self.notes_grid[grid_row][grid_col] == plant_name.lower(), "Notes grid not updated correctly"
             
     
     def on_plant_removed(self, row: int, col: int, plant_name: str) -> None:
@@ -128,10 +170,23 @@ class GridManager(PlantObserver):
             row (int): The row coordinate of the plant
             col (int): The column coordinate of the plant
             plant_name (str): The name of the plant being removed
+
+        Preconditions:
+            - The plant must be removed from valid coordinates
+            - The plant name must be valid
+        Postconditions:
+            - The notes grid is updated to remove the plant name
+            - The state of the notes grid may change based on the plant removal
         """
         # dynamically search for note in the grid based on coords
+        #preconditions
+        assert plant_name.lower() in self.PLANT_NOTES, "Invalid plant name"
+        assert 0 <= row < self.garden_grid.grid_rows, "Row out of bounds"
+        assert 0 <= col < self.garden_grid.grid_cols, "Column out of bounds"
         grid_row, grid_col = self._convert_to_grid_coords(row, col)
         self.notes_grid[grid_row][grid_col] = None
+        #postconditions
+        assert self.notes_grid[grid_row][grid_col] is None, "Notes grid updated correctly"
             
 
     def clear_all_plants(self, map: Map) -> list[Message]:
@@ -141,10 +196,19 @@ class GridManager(PlantObserver):
         
         Parameters:
             map (Map): The map object to remove plants from
+        
+        Preconditions:
+            - The map must be an instance of Map
+        Postconditions:
+            - All plant objects are removed from the map
+            - The notes grid is cleared
+            - The state of the map and notes grid is updated
 
         Returns:
             (list[Message]): List of messages generated by removing plants
         """
+        #preconditions
+        assert isinstance(map, Map), "map must be an instance of Map"
         messages = []
         origin_x, origin_y = self.grid_origin.x, self.grid_origin.y
         
@@ -166,4 +230,6 @@ class GridManager(PlantObserver):
                     self.notes_grid[grid_row][grid_col] = None
         
         messages += map.send_grid_to_players()
+        #postconditions
+        assert self.notes_grid == [[None]*self.garden_grid.grid_cols for _ in range(self.garden_grid.grid_rows)], "Notes grid cleared correctly"
         return messages
