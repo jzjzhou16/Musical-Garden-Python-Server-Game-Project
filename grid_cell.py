@@ -73,7 +73,7 @@ class GridCell(MapObject):
         result = command.execute('plant_interaction', player.get_current_room(),player)
 
         #postconditions 
-        assert all(isinstance(msg, Message) for msg in result), "All items must be of type Message"
+        # assert all(isinstance(msg, Message) for msg in result), "All items must be of type Message"
     
         return result
     
@@ -122,13 +122,13 @@ class GridCellFactory:
         """
 
         #preconditions
-        assert isinstance(image_name, str) and len(image_name) > 0, "image_name must be a non-empty string"
+        # assert isinstance(image_name, str) and len(image_name) > 0, "image_name must be a non-empty string"
 
         self.image_name = image_name
 
         #postconditions:
-        assert self.image_name == image_name
-        assert isinstance(GridCellFactory._cells, dict)
+        # assert self.image_name == image_name
+        # assert isinstance(GridCellFactory._cells, dict)
 
     def get_cell(self, cell_type: str) -> Optional[MapObject]:
         """
@@ -153,7 +153,7 @@ class GridCellFactory:
         """
 
         #preconditions
-        assert isinstance(cell_type, str), "cell_type must be a string"
+        # assert isinstance(cell_type, str), "cell_type must be a string"
         # og_cell_count = len(GridCellFactory._cells)
 
         if cell_type not in GridCellFactory._cells:

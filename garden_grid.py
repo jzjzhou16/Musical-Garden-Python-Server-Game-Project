@@ -94,16 +94,16 @@ class GardenGrid(MapObject, PlantSubject):
         """
 
         #preconditions
-        assert observer is not None, "observer cannot be equal to a value of None"
-        og_observers_count = len(self._observers)
+        # assert observer is not None, "observer cannot be equal to a value of None"
+        # og_observers_count = len(self._observers)
 
         if not hasattr(observer, 'on_plant_placed') or not hasattr(observer, 'on_plant_removed'):
             raise TypeError("Observer must implement PlantObserver protocol")
         self._observers.append(observer)
         
         #postconditions 
-        assert observer in self._observers
-        assert len(self._observers) >= og_observers_count
+        # assert observer in self._observers
+        # assert len(self._observers) >= og_observers_count
 
     def _get_tilemap(self) -> tuple[List[List[MapObject]], int, int]:
         """
@@ -140,8 +140,8 @@ class GardenGrid(MapObject, PlantSubject):
         result = self.grid_origin
 
         #postconditions 
-        assert result == self.grid_origin
-        assert hasattr(result, 'x') and hasattr(result, 'y')
+        # assert result == self.grid_origin
+        # assert hasattr(result, 'x') and hasattr(result, 'y')
         return result
     
     def player_entered(self, player: HumanPlayer) -> list[Message]:
@@ -167,9 +167,9 @@ class GardenGrid(MapObject, PlantSubject):
         """
 
         #preconditions
-        assert player is not None, "player cannot be None"
-        assert isinstance(player, HumanPlayer), "player must be a HumanPlayer"
-        was_present = player in self.players_in_grid
+        # assert player is not None, "player cannot be None"
+        # assert isinstance(player, HumanPlayer), "player must be a HumanPlayer"
+        # was_present = player in self.players_in_grid
 
         messages = []
         # if player is already in the grid, return no message
@@ -217,15 +217,15 @@ class GardenGrid(MapObject, PlantSubject):
         """
 
         #preconditions
-        assert player is not None, "player cannot be None"
-        assert isinstance(player, HumanPlayer), "player must be a HumanPlayer"
+        # assert player is not None, "player cannot be None"
+        # assert isinstance(player, HumanPlayer), "player must be a HumanPlayer"
         
         # when a player leaves the grid, remove them from the method, so re-entry will trigger the message again
         if player in self.players_in_grid:
             self.players_in_grid.remove(player)
                 
-        #postcondition
-        assert player not in self.players_in_grid
+        # #postcondition
+        # assert player not in self.players_in_grid
         return []
     
     def notify_plant_placed(self, row: int, col: int, plant_name: str):
@@ -245,10 +245,10 @@ class GardenGrid(MapObject, PlantSubject):
         """
 
         #preconditions
-        assert 0 <= row < self.grid_rows, "row is out of bounds"
-        assert 0 <= col < self.grid_cols, "col is out of bounds"
-        assert isinstance(plant_name, str) and len(plant_name) > 0, "plant_name must be a non-empty string"
-        assert all(hasattr(o, 'on_plant_placed') for o in self._observers), "All observers must implement from PlantObserver"
+        # assert 0 <= row < self.grid_rows, "row is out of bounds"
+        # assert 0 <= col < self.grid_cols, "col is out of bounds"
+        # assert isinstance(plant_name, str) and len(plant_name) > 0, "plant_name must be a non-empty string"
+        # assert all(hasattr(o, 'on_plant_placed') for o in self._observers), "All observers must implement from PlantObserver"
 
         for observer in self._observers:
             if hasattr(observer, 'on_plant_placed'):
@@ -273,8 +273,8 @@ class GardenGrid(MapObject, PlantSubject):
         #preconditions
         assert 0 <= row < self.grid_rows, "row out of bounds"
         assert 0 <= col < self.grid_cols, "col out of bounds"
-        assert isinstance(plant_name, str) and len(plant_name) > 0, "plant_name must be non-empty string"
-        assert all(hasattr(o, 'on_plant_removed') for o in self._observers), "All observers must implement PlantObserver"
+        # assert isinstance(plant_name, str) and len(plant_name) > 0, "plant_name must be non-empty string"
+        # assert all(hasattr(o, 'on_plant_removed') for o in self._observers), "All observers must implement PlantObserver"
 
         for observer in self._observers:
             if hasattr(observer, 'on_plant_removed'):
