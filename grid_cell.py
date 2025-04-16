@@ -30,7 +30,7 @@ class GridCell(MapObject):
             z_index (int): the rendering layer priority for this cell
 
         """
-
+        print(f"Initializing GridCell with: {image_name}, {passable}, {z_index}")
         super().__init__(f'tile/background/{image_name}', passable, z_index)
 
     def player_interacted(self, player: HumanPlayer) -> list[Message]:
