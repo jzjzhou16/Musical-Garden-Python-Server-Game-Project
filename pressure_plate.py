@@ -56,6 +56,7 @@ class ColumnPressurePlate(PressurePlate):
             
             #precondition
             assert isinstance(player, HumanPlayer), "Player must be a HumanPlayer"
+            assert 0 <= self.column_index < 12, "Column index must be between 0 and 11"
             if not manager:
                 return messages
             
