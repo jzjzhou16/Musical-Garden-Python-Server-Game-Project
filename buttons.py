@@ -143,6 +143,9 @@ class PlayButton2(ExtDecor):
         """
         Triggers the Twinkle Twinkle Little Star song  
         
+        Preconditions:
+            - player is not None and is a HumanPlayer instance with get_current_room() 
+        
         Parameters:
             player (HumanPlayer): Player interacting with the button.
             
@@ -178,6 +181,9 @@ class PlayButton3(ExtDecor):
     def player_interacted(self, player: HumanPlayer) -> list[Message]:
         """
         Triggers the Jingle Bells song  
+        
+        Preconditions:
+            - player is not None and is a HumanPlayer instance with get_current_room() 
         
         Parameters:
             player (HumanPlayer): Player interacting with the button.

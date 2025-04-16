@@ -12,6 +12,7 @@ if TYPE_CHECKING:
 
 @pytest.fixture
 def setup() -> tuple[GridCell,GridCellFactory,HumanPlayer,ExampleHouse]: 
+    """test setup"""
     basic_cell = GridCell("dirt3", True, 0)
     factory = GridCellFactory(basic_cell.get_name())
     player = HumanPlayer("test_player") 
@@ -33,6 +34,7 @@ class TestGridCell:
         assert cell_from_factory.get_image_name() == "tile/background/dirt3", "Factory returned cell should have correct image name"
 
     def test_grid_cell_flyweight(self, setup):
+        """Test that GridCell Factory has the correct flyweight implementation """
         _,factory,_,_ = setup
         cell1_from_factory = factory.get_cell("dirt3")
         cell2_from_factory = factory.get_cell("dirt3")
@@ -44,7 +46,8 @@ class TestGridCell:
     
 
     def test_player_interaction(self, monkeypatch, setup):
-        """Test that player interaction returns correct messages"""
+        """Test correct messages returned and player state after interacting with gridcell under 
+        different circumstances"""
         def mock_always_has_plant(*args, **kwargs): # Ignore all inputs
             return True
         def mock_never_has_plant(*args, **kwargs): # Ignore all inputs

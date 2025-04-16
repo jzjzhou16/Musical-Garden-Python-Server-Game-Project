@@ -14,6 +14,7 @@ if TYPE_CHECKING:
 
 @pytest.fixture
 def demo_setup() -> tuple[PlayButton1,PlayButton2,PlayButton3,HumanPlayer,DemoRoom]:
+    """test demo room setup"""
     play_button1 = PlayButton1("playButton")
     play_button2 = PlayButton2("playButton")
     play_button3 = PlayButton3("playButton")
@@ -23,6 +24,7 @@ def demo_setup() -> tuple[PlayButton1,PlayButton2,PlayButton3,HumanPlayer,DemoRo
 
 @pytest.fixture 
 def example_setup() -> tuple[Shovel, HumanPlayer, ExampleHouse]:
+    """test main house setup"""
     shovel = Shovel("Shovel")
     player = HumanPlayer("test_player")
     player._current_room = ExampleHouse()

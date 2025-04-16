@@ -40,6 +40,7 @@ def test_image_size():
         assert plant._get_image_size() == (1,1)
 
 def test_player_plants_interaction(plant_factory):
+    """Test that the player state is correct after interacting with plants."""
     player = HumanPlayer("test player")
     test_plant = plant_factory.get_plant("rose")
     test_plant2 = plant_factory.get_plant("iris")

@@ -11,6 +11,7 @@ if TYPE_CHECKING:
 
 @pytest.fixture
 def setup():
+    """test setup"""
     factory = BackgroundFactory()
     backgroundOptions = BackgroundType.BACKGROUND_OPTIONS
     random_background = BackgroundType.get_random_background_type()
