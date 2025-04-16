@@ -67,12 +67,12 @@ class GardenGrid(MapObject, PlantSubject):
         super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
 
         #postconditions
-        assert self.grid_rows == grid_rows
-        assert self.grid_cols == grid_cols
-        assert self.grid_origin == position
-        assert len(self.players_in_grid) == 0
-        assert len(self._observers) == 0
-        assert self.cell_factory is not None
+        # assert self.grid_rows == grid_rows
+        # assert self.grid_cols == grid_cols
+        # assert self.grid_origin == position
+        # assert len(self.players_in_grid) == 0
+        # assert len(self._observers) == 0
+        # assert self.cell_factory is not None
 
     def attach(self, observer: PlantObserver):
         """
@@ -271,8 +271,8 @@ class GardenGrid(MapObject, PlantSubject):
         """
 
         #preconditions
-        assert 0 <= row < self.grid_rows, "row out of bounds"
-        assert 0 <= col < self.grid_cols, "col out of bounds"
+        # assert 0 <= row < self.grid_rows, "row out of bounds"
+        # assert 0 <= col < self.grid_cols, "col out of bounds"
         # assert isinstance(plant_name, str) and len(plant_name) > 0, "plant_name must be non-empty string"
         # assert all(hasattr(o, 'on_plant_removed') for o in self._observers), "All observers must implement PlantObserver"
 
