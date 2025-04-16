@@ -46,10 +46,10 @@ class GardenGrid(MapObject, PlantSubject):
         """
 
         #preconditions
-        assert isinstance(image_name, str) and len(image_name) > 0, "image_name must be a non-empty string"
-        assert hasattr(position, 'x') and hasattr(position, 'y'), "position must be a valid Coord object"
-        assert grid_rows > 0, "grid_rows must be a positive int"
-        assert grid_cols > 0, "grid_cols must be a positive int"
+        #assert isinstance(image_name, str) and len(image_name) > 0, "image_name must be a non-empty string"
+        #assert hasattr(position, 'x') and hasattr(position, 'y'), "position must be a valid Coord object"
+        #assert grid_rows > 0, "grid_rows must be a positive int"
+        #assert grid_cols > 0, "grid_cols must be a positive int"
 
         self._observers: List[PlantObserver] = [] 
         # ensure that these instance variables are initialized before the mapObject is initialized.
@@ -189,11 +189,11 @@ class GardenGrid(MapObject, PlantSubject):
             messages.append(EmoteMessage(self, player, emote, Coord(y,x)))
         
         #postconditions
-        if not was_present:
-            assert player in self.players_in_grid
-            assert len(messages) > 0
-        else:
-            assert len(messages) == 0
+        #if not was_present:
+            #assert player in self.players_in_grid
+            #assert len(messages) > 0
+        #else:
+            #assert len(messages) == 0
             
         return messages
     

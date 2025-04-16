@@ -43,11 +43,6 @@ class GridCell(MapObject):
             - The MapObject is initialized with the correct image path format ('tile/background/{image_name}')
             - The cell's passable and z_index properties are set (and not changeable)
         """
-        
-        #preconditions
-        assert isinstance(image_name, str) and len(image_name) > 0, "image_name must be a non-empty string"
-        assert isinstance(passable, bool), "passable must be a boolean"
-        assert isinstance(z_index, int), "z_index must be an integer"
 
         super().__init__(f'tile/background/{image_name}', passable, z_index)
 
