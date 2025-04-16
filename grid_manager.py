@@ -146,8 +146,6 @@ class GridManager(PlantObserver):
             - The state of the notes grid may change based on the plant placement
         """
         # dynamically search for note in the grid based on coords
-        #preconditions
-        assert plant_name.lower() in self.PLANT_NOTES, "Invalid plant name"
         grid_row, grid_col = self._convert_to_grid_coords(row, col)
         self.notes_grid[grid_row][grid_col] = plant_name.lower()
         #postconditions
