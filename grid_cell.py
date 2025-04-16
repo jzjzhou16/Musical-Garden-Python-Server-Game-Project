@@ -51,10 +51,6 @@ class GridCell(MapObject):
 
         super().__init__(f'tile/background/{image_name}', passable, z_index)
 
-        #postconditions
-        assert passable == passable
-        assert z_index == z_index
-
     def player_interacted(self, player: HumanPlayer) -> list[Message]:
         """
         Handles player interaction with a grid cell
