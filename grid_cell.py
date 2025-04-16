@@ -52,7 +52,6 @@ class GridCell(MapObject):
         super().__init__(f'tile/background/{image_name}', passable, z_index)
 
         #postconditions
-        assert image_name == f'tile/background/{image_name}'
         assert passable == passable
         assert z_index == z_index
 
