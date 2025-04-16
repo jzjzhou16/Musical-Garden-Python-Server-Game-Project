@@ -65,7 +65,7 @@ class Shovel(ExtDecor):
 
         player.set_state('carrying_shovel', self.__image)
         command = pickUpShovelCommand()
-        result = command.execute("pickup_shovel", player, self.__image)
+        result = command.execute("pickup_shovel", player.get_current_room(), player, self.__image)
     
         #postconditions
         assert player.get_state('carrying_shovel') == self.__image, "Player state not updated."

@@ -66,7 +66,7 @@ class Plant(MapObject):
         player.set_state('carrying_plant', plant_name)
         #postcondition
         assert isinstance(command, pickUpPlantCommand), "Command must be of type pickUpPlantCommand"
-        return command.execute("pickup_plant", player, plant_name)
+        return command.execute("pickup_plant", player.get_current_room(),player, plant_name)
 
 #Flyweight
 class PlantFactory:
