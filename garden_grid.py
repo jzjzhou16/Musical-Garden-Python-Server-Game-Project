@@ -19,35 +19,19 @@ class GardenGrid(MapObject, PlantSubject):
     Combines MapObject functionality with a PlantSubject observer pattern to:
         - Track plant positions in a 2D grid
         - Handle player entry/exit events
-        - Notify observers of plant changes 
-
-    Invariants:
-        - grid_rows and grid_cols > 0 
-        - grid_origin must be a valid Coord object  
+        - Notify observers of plant changes  
     """
 
     def __init__(self, image_name: str, position: Coord, grid_rows: int, grid_cols: int) -> None:
         """
-        Initializes the garden grid with specified dimensions and position
+        Initializes the garden grid with specified dimensions and position 
 
-        Preconditions:
-            - image_name is a non-empty string
-            - position is a valid Coord object
-            - grid_rows > 0
-            - grid_cols > 0
-        
         Parameters:
             image_name (str): Base image for grid cells
             position (Coord): Initial coordinates of grid (top-left corner)
             grid_rows (int): Number of rows in the grid
             grid_cols (int): Number of columns in the grid
-        """
-
-        #preconditions
-        assert isinstance(image_name, str) and len(image_name) > 0, "image_name must be a non-empty string"
-        assert hasattr(position, 'x') and hasattr(position, 'y'), "position must be a valid Coord object"
-        assert grid_rows > 0, "grid_rows must be a positive int"
-        assert grid_cols > 0, "grid_cols must be a positive int"
+        """ 
 
         self._observers: List[PlantObserver] = [] 
         # ensure that these instance variables are initialized before the mapObject is initialized.
@@ -63,11 +47,6 @@ class GardenGrid(MapObject, PlantSubject):
         self.set_position(position)
 
         super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
-
-        #postconditions
-        assert self.grid_rows == grid_rows
-        assert self.grid_cols == grid_cols
-        assert self.grid_origin == position 
 
     def attach(self, observer: PlantObserver):
         """
@@ -170,21 +149,11 @@ class GardenGrid(MapObject, PlantSubject):
         """
         Notifies observers when a plant is placed in the grid
 
-        Preconditions:
-            - 0 <= row < self.grid_rows
-            - 0 <= col < self.grid_cols
-            - plant_name must be a non-empty string 
-
         Parameters:
             row (int): Grid row where plant was placed
             col (int): Grid column where plant was placed
             plant_name (str): Name of the planted item's image
         """
-
-        #preconditions
-        assert 0 <= row < self.grid_rows, "row is out of bounds"
-        assert 0 <= col < self.grid_cols, "col is out of bounds"
-        assert isinstance(plant_name, str) and len(plant_name) > 0, "plant_name must be a non-empty string"
 
         for observer in self._observers:
             if hasattr(observer, 'on_plant_placed'):
@@ -194,21 +163,11 @@ class GardenGrid(MapObject, PlantSubject):
         """
         Notifies observers when a plant is removed from the grid
 
-        Preconditions:
-            - 0 <= row < self.grid_rows
-            - 0 <= col < self.grid_cols
-            - plant_name must be a non-empty string 
-        
         Parameters:
             row (int): Grid row where plant was removed
             col (int): Grid column where plant was removed
             plant_name (str): Name of the removed item's image 
         """
-
-        #preconditions
-        assert 0 <= row < self.grid_rows, "row out of bounds"
-        assert 0 <= col < self.grid_cols, "col out of bounds"
-        assert isinstance(plant_name, str) and len(plant_name) > 0, "plant_name must be non-empty string"
 
         for observer in self._observers:
             if hasattr(observer, 'on_plant_removed'):
