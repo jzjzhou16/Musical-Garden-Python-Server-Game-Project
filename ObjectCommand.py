@@ -63,7 +63,7 @@ class DemoCommand (ObjectCommand):
             - All Coords are valid for the target grid.
             - All plant names are valid MapObject names.
     """
-     pass
+    pass
 
     def get_audio_file(self) -> str:
         """
@@ -89,10 +89,8 @@ class DemoCommand (ObjectCommand):
         3. Returns grid/sound/dialogue messages.
 
         Preconditions:
-            - command_text == self.name (exact match)
-            - map is not None and supports add_to_grid()
-            - player is not None.
-            - All plants in get_demo_layout() exist 
+            - map supports add_to_grid()
+            - All plants in get_demo_layout() exist (in subclass)
         
         Parameters:
             command_text (str): The String that triggers the command execution 
@@ -110,8 +108,6 @@ class DemoCommand (ObjectCommand):
             - SoundMessage and DialogueMessage are returned
         """
         # Preconditions:
-        assert map is not None, "Map cannot be None"
-        assert player is not None, "Player cannot be None"
         assert hasattr(map, 'add_to_grid'), "Map must support add_to_grid()"
 
         messages = []
