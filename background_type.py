@@ -94,8 +94,6 @@ class EmoteType:
         Parameters:
             image_type (str): String that specifies the emote image
         """
-        assert image_type in self.EMOTE_OPTIONS, \
-               f"Invalid emote type: {image_type}. Valid options: {self.EMOTE_OPTIONS}"
         self.image_type = image_type
 
     @classmethod
