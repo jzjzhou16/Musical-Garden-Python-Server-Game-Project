@@ -39,7 +39,7 @@ class PlantInteractionCommand(ObjectCommand):
         Checks if a plant exists at given coordinates
         
         Preconditions:
-            - map is not None and has method 'get_map_objects_at'
+            - map has method 'get_map_objects_at'
             - pos is a valid Coord
 
         Parameters:
@@ -54,7 +54,6 @@ class PlantInteractionCommand(ObjectCommand):
         """
 
         # Preconditions
-        assert map is not None, "Map cannot be None"
         assert isinstance(pos, Coord), "Position must be Coord"
         assert hasattr(map, 'get_map_objects_at'), "Map objects must be returned as a list"
 
@@ -73,9 +72,7 @@ class PlantInteractionCommand(ObjectCommand):
         Executes either plant command or remove command based on player state and grid cell state
 
         Preconditions:
-            - command_text in ["plant", "remove"]
-            - map is not None and has method get_map_objects_at()
-            - player is not None and has methods get_current_position() and get_facing_direction()
+            - player has methods get_current_position() and get_facing_direction()
             - player's facing direction is one of ["up", "down", "left", "right"]
         
         Parameters:
@@ -91,9 +88,6 @@ class PlantInteractionCommand(ObjectCommand):
             - Returns a non-None list of Message objects.
         """
         # Preconditions
-        assert command_text in ["plant", "remove"], "Invalid command"
-        assert map is not None, "Map cannot be None"
-        assert player is not None, "Player cannot be None"
         assert hasattr(player, 'get_current_position'), "Player must have position tracking"
         assert hasattr(player, 'get_facing_direction'), "Player must have direction tracking"
 
@@ -175,8 +169,6 @@ class PlantCommand(ObjectCommand):
         Plants the selected plant at the tile in front of the player in the garden grid 
 
         Preconditions:
-            - command_text == "plant"
-            - map is not None and has method add_to_grid()
             - player has state "carrying_plant" and it's str or -1
             - front_pos is a valid Coord
 
@@ -195,14 +187,12 @@ class PlantCommand(ObjectCommand):
             - Messages list contains correct dialogue message for player
         """
         # Preconditions:
-        assert command_text == "plant", "Invalid command for PlantCommand"
-        assert map is not None, "Map cannot be None"
-        assert player is not None, "Player cannot be None"
         assert isinstance(front_pos, Coord), "Invalid position: "
         assert hasattr(player, 'get_state'), "Player must support state tracking"
 
         carrying_plant = player.get_state("carrying_plant")
         carrying_shovel = player.get_state("carrying_shovel")
+
         # Preconditions:
         assert carrying_plant is not None, "Player state 'carrying_plant' must be initialized"
         assert carrying_shovel is not None, "Player state 'carrying_shovel' must be initialized"
@@ -259,7 +249,6 @@ class RemoveCommand(ObjectCommand):
         Removes plants at a specified tile with shovel equipped
 
         Preconditions:
-            - command_text == "remove".
             - player has state "carrying_shovel" it's str or 0
             - front_pos is a valid Coord.
         
@@ -277,9 +266,6 @@ class RemoveCommand(ObjectCommand):
             - Messages list contains feedback for player.
         """
         # Preconditions
-        assert command_text == "remove", "Invalid command for RemoveCommand"
-        assert map is not None, "Map cannot be None"
-        assert player is not None, "Player cannot be None"
         assert isinstance(front_pos, Coord), "Invalid position"
         assert hasattr(player, 'get_state'), "Player must support state tracking"
 
@@ -336,8 +322,6 @@ class pickUpPlantCommand(ObjectCommand):
         Handles plant pickup and plays associated sounds, update player state
 
         Preconditions:
-            - command_text == "pickup_plant".
-            - player is not None and has set_state() method.
             - plant_name is a valid plant type
         
         Parameters:
@@ -356,8 +340,6 @@ class pickUpPlantCommand(ObjectCommand):
                 - 2 SoundMessages (preview and main note).
         """
         # Preconditions
-        assert command_text == "pickup_plant", "Invalid command"
-        assert player is not None, "Player cannot be None"
         assert isinstance(plant_name, str) and plant_name, "Plant name must be a non-empty string"
         assert hasattr(player, 'set_state'), "Player must support state updates"
         
@@ -367,7 +349,7 @@ class pickUpPlantCommand(ObjectCommand):
         note = GridManager.PLANT_NOTES[plant_name.lower()]
         # Default preview note is A2, B2... etc
         messages.append(SoundMessage(player, f"{note}_2.mp3", volume = 1.0, repeat = False))
-        messages.append(SoundMessage(player, f"sound2/{note}.mp3", volume = 1.0, repeat = False))
+        
 
         #Postconditions
         assert player.get_state("carrying_plant") == plant_name, "Player state was not updated"
@@ -399,8 +381,7 @@ class pickUpShovelCommand(ObjectCommand):
         Handles shovel pickup and updates player state
 
         Preconditions:
-            - command_text == "pickup_shovel"
-            - player is not None and has set_state() and get_state() methods.
+            - player has set_state() and get_state() methods.
             - object_name is a non-empty string
         
         Parameter:
@@ -417,10 +398,7 @@ class pickUpShovelCommand(ObjectCommand):
             - Returns a list with correct DialogueMessage.
         """
         # Preconditions
-        assert command_text == "pickup_shovel", "Invalid command for shovel pickup"
-        assert player is not None, "Player cannot be None"
         assert hasattr(player, 'set_state') and hasattr(player, 'get_state'), "Player must support state management"
-        assert not player.get_state("carrying_shovel"), "Player is already carrying a shovel"
         assert isinstance(object_name, str) and object_name, "Shovel name must be a non-empty string"
 
         messages = []

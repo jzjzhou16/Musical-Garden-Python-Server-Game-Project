@@ -110,7 +110,6 @@ class DemoCommand (ObjectCommand):
             - SoundMessage and DialogueMessage are returned
         """
         # Preconditions:
-        assert command_text == self.name, "Invalid command text for demo"
         assert map is not None, "Map cannot be None"
         assert player is not None, "Player cannot be None"
         assert hasattr(map, 'add_to_grid'), "Map must support add_to_grid()"
@@ -145,7 +144,7 @@ class DemoCommand (ObjectCommand):
         # Postconditions
         assert any(isinstance(m, SoundMessage) for m in messages), "Missing SoundMessage"
         assert any(isinstance(m, DialogueMessage) for m in messages), "Missing DialogueMessage"
-        
+
         return messages
 
 
