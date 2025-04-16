@@ -126,9 +126,6 @@ class GridManager(PlantObserver):
         Returns:
             (tuple[int, int]): The grid coordinates
         """
-        #preconditions
-        assert 0 <= row < self.garden_grid.grid_rows, "Row out of bounds"
-        assert 0 <= col < self.garden_grid.grid_cols, "Column out of bounds"
         return row - self.grid_origin.y, col - self.grid_origin.x
     
     def on_plant_placed(self, row: int, col: int, plant_name: str):
@@ -143,7 +140,6 @@ class GridManager(PlantObserver):
             plant_name (str): The name of the plant being placed
 
         Preconditions:
-            - The plant must be placed at valid coordinates
             - The plant name must be valid
         Postconditions:
             - The notes grid is updated with the plant name
@@ -152,8 +148,6 @@ class GridManager(PlantObserver):
         # dynamically search for note in the grid based on coords
         #preconditions
         assert plant_name.lower() in self.PLANT_NOTES, "Invalid plant name"
-        assert 0 <= row < self.garden_grid.grid_rows, "Row out of bounds"
-        assert 0 <= col < self.garden_grid.grid_cols, "Column out of bounds"
         grid_row, grid_col = self._convert_to_grid_coords(row, col)
         self.notes_grid[grid_row][grid_col] = plant_name.lower()
         #postconditions
@@ -172,7 +166,6 @@ class GridManager(PlantObserver):
             plant_name (str): The name of the plant being removed
 
         Preconditions:
-            - The plant must be removed from valid coordinates
             - The plant name must be valid
         Postconditions:
             - The notes grid is updated to remove the plant name
@@ -181,8 +174,6 @@ class GridManager(PlantObserver):
         # dynamically search for note in the grid based on coords
         #preconditions
         assert plant_name.lower() in self.PLANT_NOTES, "Invalid plant name"
-        assert 0 <= row < self.garden_grid.grid_rows, "Row out of bounds"
-        assert 0 <= col < self.garden_grid.grid_cols, "Column out of bounds"
         grid_row, grid_col = self._convert_to_grid_coords(row, col)
         self.notes_grid[grid_row][grid_col] = None
         #postconditions
