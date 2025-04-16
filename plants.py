@@ -27,6 +27,15 @@ class Plant(MapObject):
         """
         super().__init__(image, passable=False, z_index=0)
         self.__image = image
+
+    def _get_image_size(self) -> tuple[int, int]:
+        """
+        Gets the size of the plant image
+        Returns:
+            (tuple[int, int]): The size of the image
+        """
+        return (1, 1)
+
     
     def get_plant_name(self) -> str:
         """
@@ -91,18 +100,18 @@ class PlantFactory:
         """
 
         plant_info = {
-                "daisy": "daisy.png",
-                "lilac": "lilac.png",
-                "orchid": "orchid.png",
-                "rose": "rose.png",
-                "sunflower": "sunflower.png",
-                "tulip":  "tulip.png",
-                "iris": "iris.png"
+                "daisy",
+                "lilac",
+                "orchid",
+                "rose",
+                "sunflower",
+                "tulip",
+                "iris",
             }
         assert name in plant_info
         if name not in PlantFactory._plants:
             if name in plant_info:
-                PlantFactory._plants[name] = Plant(plant_info[name].lower())
+                PlantFactory._plants[name] = Plant(name.lower())
             else:
                 return None
         return PlantFactory._plants.get(name)
