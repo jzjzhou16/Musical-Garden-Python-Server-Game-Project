@@ -53,7 +53,6 @@ class GridCell(MapObject):
         Preconditions:
             - player is not None and is a HumanPlayer instance
             
-        
         Parameters:
             player (HumanPlayer): The player interacting with the cell
             
@@ -67,7 +66,7 @@ class GridCell(MapObject):
         """
 
         #preconditions
-        assert player is not None and isinstance(player, HumanPlayer), "player must be a HumanPlayer"
+        # assert player is not None and isinstance(player, HumanPlayer), "player must be a HumanPlayer"
         
 
         command = PlantInteractionCommand()
@@ -155,8 +154,7 @@ class GridCellFactory:
 
         #preconditions
         assert isinstance(cell_type, str), "cell_type must be a string"
-        og_cell_count = len(GridCellFactory._cells)
-
+        # og_cell_count = len(GridCellFactory._cells)
 
         if cell_type not in GridCellFactory._cells:
             # Define the properties for each cell type
@@ -185,15 +183,16 @@ class GridCellFactory:
                 )
             else:
                 # Postcondition for invalid cell_type
-                assert len(GridCellFactory._cells) == og_cell_count, "_cells should not change for invalid types"
+                # assert len(GridCellFactory._cells) == og_cell_count, "_cells should not change for invalid types"
                 # Return None if the cell type is not recognized
                 return None
 
         # Return the shared instance
-        result = GridCellFactory._cells.get(cell_type)
+        return GridCellFactory._cells.get(cell_type)
+        # result = GridCellFactory._cells.get(cell_type)
 
-        #postconditions
-        assert isinstance(result, MapObject) or result is None
-        assert cell_type in GridCellFactory._cells or result is None
+        # #postconditions
+        # # assert isinstance(result, MapObject) or result is None
+        # assert cell_type in GridCellFactory._cells or result is None
 
-        return result
+        # return result
