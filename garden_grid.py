@@ -21,35 +21,18 @@ class GardenGrid(MapObject, PlantSubject):
         - Handle player entry/exit events
         - Notify observers of plant changes 
  
-    Invariants:
-        - grid_rows and grid_cols > 0 
-        - grid_origin must be a valid Coord object
-        - players_in_grid can only contain HumanPlayer instances
-        - _observers can only contain PlantObserver instances
     """
 
     def __init__(self, image_name: str, position: Coord, grid_rows: int, grid_cols: int) -> None:
         """
         Initializes the garden grid with specified dimensions and position
 
-        Preconditions:
-            - image_name is a non-empty string
-            - position is a valid Coord object
-            - grid_rows > 0
-            - grid_cols > 0
-        
         Parameters:
             image_name (str): Base image for grid cells
             position (Coord): Initial coordinates of grid (top-left corner)
             grid_rows (int): Number of rows in the grid
             grid_cols (int): Number of columns in the grid
         """
-
-        #preconditions
-        assert isinstance(image_name, str) and len(image_name) > 0, "image_name must be a non-empty string"
-        assert hasattr(position, 'x') and hasattr(position, 'y'), "position must be a valid Coord object"
-        assert grid_rows > 0, "grid_rows must be a positive int"
-        assert grid_cols > 0, "grid_cols must be a positive int"
 
         self._observers: List[PlantObserver] = [] 
         # ensure that these instance variables are initialized before the mapObject is initialized.
@@ -66,45 +49,22 @@ class GardenGrid(MapObject, PlantSubject):
 
         super().__init__(f'tile/background/{image_name}', passable = True, z_index = 0)
 
-        #postconditions
-        assert self.grid_rows == grid_rows
-        assert self.grid_cols == grid_cols
-        assert self.grid_origin == position
-        assert len(self.players_in_grid) == 0
-        assert len(self._observers) == 0
-        assert self.cell_factory is not None
-
     def attach(self, observer: PlantObserver):
         """
         Registers an observer to receive plant change notifications.
 
-        Preconditions:
-            - observer is not None
-            - observer implements PlantObserver protocol
-        
         Parameters:
             observer (PlantObserver): Object implementing PlantObserver protocol
             
         Raises:
             TypeError: If observer doesn't implement required methods
 
-        Postconditions:
-            - observer is in self._observers 
-            - len(self._observers) == original len(self._observers) + 1 (unless an observer already exists)
         """
 
-        #preconditions
-        assert observer is not None, "observer cannot be equal to a value of None"
-        og_observers_count = len(self._observers)
-
         if not hasattr(observer, 'on_plant_placed') or not hasattr(observer, 'on_plant_removed'):
-            raise TypeError("Observer must implement PlantObserver protocol")
-        self._observers.append(observer)
-    
+                raise TypeError("Observer must implement PlantObserver protocol")
         
-        #postconditions 
-        assert observer in self._observers
-        assert len(self._observers) >= og_observers_count
+        self._observers.append(observer)
 
     def _get_tilemap(self) -> tuple[List[List[MapObject]], int, int]:
         """
@@ -137,40 +97,19 @@ class GardenGrid(MapObject, PlantSubject):
         Returns:
             Coord: The origin position of the grid
         """
-
-        result = self.grid_origin
-
-        #postconditions 
-        assert result == self.grid_origin
-        assert hasattr(result, 'x') and hasattr(result, 'y')
-        return result
+        return self.grid_origin 
     
     def player_entered(self, player: HumanPlayer) -> list[Message]:
         """
         Handles player entering the garden grid area
 
-        Preconditions:
-            - player is not None
-            - player is a HumanPlayer instance
-        
         Parameters:
             player (HumanPlayer): The player entering the grid
             
         Returns:
             list[Message]: Emote messages displayed around grid perimeter
 
-        Postconditions:
-            - If player was not already in the garden grid:
-                - add player to self.players_in_grid
-                - Return list of emote messages (to display around grid perimeter)
-            - If player was already in grid:
-                - Return an empty list
         """
-
-        #preconditions
-        assert player is not None, "player cannot be None"
-        assert isinstance(player, HumanPlayer), "player must be a HumanPlayer"
-        was_present = player in self.players_in_grid
 
         messages = []
         # if player is already in the grid, return no message
@@ -188,45 +127,22 @@ class GardenGrid(MapObject, PlantSubject):
         for y, x in coordinates:
             emote = EmoteType.get_random_emote_type()
             messages.append(EmoteMessage(self, player, emote, Coord(y,x)))
-        
-        #postconditions
-        if not was_present:
-            assert player in self.players_in_grid
-            assert len(messages) > 0
-        else:
-            assert len(messages) == 0
-            
+     
         return messages
     
     def player_exited(self, player: HumanPlayer) -> list[Message]:
         """
         Handles player exiting the garden grid area
 
-        Preconditions:
-            - player is not None
-            - player is a HumanPlayer instance
-        
         Parameters:
             player (HumanPlayer): The player entering the grid
-            
-        Returns:
-            list[Message]: Emote messages displayed around grid perimeter
-
-        Postconditions:
-            - player is removed from self.players_in_grid if present
-            - Returns empty list
+         
         """
 
-        #preconditions
-        assert player is not None, "player cannot be None"
-        assert isinstance(player, HumanPlayer), "player must be a HumanPlayer"
-        
         # when a player leaves the grid, remove them from the method, so re-entry will trigger the message again
         if player in self.players_in_grid:
             self.players_in_grid.remove(player)
                 
-        #postcondition
-        assert player not in self.players_in_grid
         return []
     
 
@@ -234,23 +150,12 @@ class GardenGrid(MapObject, PlantSubject):
         """
         Notifies observers when a plant is placed in the grid
 
-        Preconditions:
-            - 0 <= row < self.grid_rows
-            - 0 <= col < self.grid_cols
-            - plant_name must be a non-empty string
-            - All observers must implement from PlantObserver
-        
         Parameters:
             row (int): Grid row where plant was placed
             col (int): Grid column where plant was placed
             plant_name (str): Name of the planted item's image
         """
 
-        #preconditions
-        assert 0 <= row < self.grid_rows, "row is out of bounds"
-        assert 0 <= col < self.grid_cols, "col is out of bounds"
-        assert isinstance(plant_name, str) and len(plant_name) > 0, "plant_name must be a non-empty string"
-        assert all(hasattr(o, 'on_plant_placed') for o in self._observers), "All observers must implement from PlantObserver"
 
         for observer in self._observers:
             if hasattr(observer, 'on_plant_placed'):
@@ -258,27 +163,13 @@ class GardenGrid(MapObject, PlantSubject):
 
     def notify_plant_removed(self, row: int, col: int, plant_name: str):
         """
-        Notifies observers when a plant is removed from the grid
-
-        Preconditions:
-            - 0 <= row < self.grid_rows
-            - 0 <= col < self.grid_cols
-            - plant_name must be a non-empty string
-            - All observers must implement from PlantObserver
-        
+ 
         Parameters:
             row (int): Grid row where plant was removed
             col (int): Grid column where plant was removed
             plant_name (str): Name of the removed item's image 
         """
-
-        #preconditions
-        assert 0 <= row < self.grid_rows, "row out of bounds"
-        assert 0 <= col < self.grid_cols, "col out of bounds"
-        assert isinstance(plant_name, str) and len(plant_name) > 0, "plant_name must be non-empty string"
-        assert all(hasattr(o, 'on_plant_removed') for o in self._observers), "All observers must implement PlantObserver"
-
+ 
         for observer in self._observers:
             if hasattr(observer, 'on_plant_removed'):
                 observer.on_plant_removed(row, col, plant_name)
-
