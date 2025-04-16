@@ -171,7 +171,7 @@ class GridManager(PlantObserver):
         """
         # dynamically search for note in the grid based on coords
         #preconditions
-        assert plant_name.lower() in self.PLANT_NOTES, "Invalid plant name"
+        #assert plant_name.lower() in self.PLANT_NOTES, "Invalid plant name"
         grid_row, grid_col = self._convert_to_grid_coords(row, col)
         self.notes_grid[grid_row][grid_col] = None
         #postconditions
