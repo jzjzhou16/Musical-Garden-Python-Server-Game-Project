@@ -104,7 +104,7 @@ class GridManager(PlantObserver):
         Converts absolute coordinates to grid coordinates.
 
         Preconditions:
-            - The row and column coordinates must be valid
+            - The row and column coords must be greater than zero
 
         Parameters:
             row (int): The absolute row coordinate
@@ -113,6 +113,8 @@ class GridManager(PlantObserver):
         Returns:
             (tuple[int, int]): The grid coordinates
         """
+        #preconditions
+        assert row >= 0 and col >= 0, "Row and column coordinates must be non-negative"
         return row - self.grid_origin.y, col - self.grid_origin.x
     
     def on_plant_placed(self, row: int, col: int, plant_name: str):
@@ -128,8 +130,11 @@ class GridManager(PlantObserver):
 
         Preconditions:
             - The plant name must be valid
+            - Coords must be valid
         """
         # dynamically search for note in the grid based on coords
+        #preconditions
+        assert plant_name in self.PLANT_NOTES, "Invalid plant name"
         grid_row, grid_col = self._convert_to_grid_coords(row, col)
         self.notes_grid[grid_row][grid_col] = plant_name.lower()
             
@@ -146,11 +151,12 @@ class GridManager(PlantObserver):
             plant_name (str): The name of the plant being removed
 
         Preconditions:
-            - The plant name must be valid
+            - The plant must be planted at the Coords
         """
         # dynamically search for note in the grid based on coords
-        
         grid_row, grid_col = self._convert_to_grid_coords(row, col)
+        #preconditions
+        assert self.notes_grid[grid_row][grid_col] is not None
         self.notes_grid[grid_row][grid_col] = None
             
 
