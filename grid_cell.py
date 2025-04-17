@@ -50,8 +50,7 @@ class GridCell(MapObject):
         Handles player interaction with a grid cell 
 
         Preconditions:
-            - player is a HumanPlayer instance
-            - player.get_current_room() returns a valid room/Map
+            - player is a HumanPlayer instance 
 
         Parameters:
             player (HumanPlayer): The player interacting with the cell
@@ -62,8 +61,7 @@ class GridCell(MapObject):
         """
 
         #preconditions
-        assert isinstance(player, HumanPlayer), "player must be a HumanPlayer"
-        assert hasattr(player, 'get_current_room'), "player must have get_current_room method"
+        assert isinstance(player, HumanPlayer), "player must be a HumanPlayer" 
 
         command = PlantInteractionCommand()
 
