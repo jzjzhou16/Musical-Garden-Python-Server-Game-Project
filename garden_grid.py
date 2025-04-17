@@ -189,7 +189,6 @@ class GardenGrid(MapObject, PlantSubject):
             - plant_name must be a non-empty string
             - All observers must implement from PlantObserver
         
-
         Parameters:
             row (int): Grid row where plant was placed
             col (int): Grid column where plant was placed
@@ -215,7 +214,6 @@ class GardenGrid(MapObject, PlantSubject):
             - plant_name must be a non-empty string
             - All observers must implement from PlantObserver
         
- 
         Parameters:
             row (int): Grid row where plant was removed
             col (int): Grid column where plant was removed
