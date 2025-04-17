@@ -56,7 +56,7 @@ class ExampleHouse(Map):
             description="Welcome to the Musical Garden",
             size=(17, 15),
             entry_point=Coord(14, 7),
-            background_tile_image = "grass",
+            background_tile_image = "basicGrass",
         )
 
     def get_objects(self) -> list[tuple[MapObject, Coord]]:
