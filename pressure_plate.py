@@ -144,6 +144,5 @@ class ClearPressurePlate(PressurePlate):
         """
         #precondition
         assert isinstance(player, HumanPlayer), "Player must be a HumanPlayer"
-        assert self.__active, "Pressure plate should be active before exiting"
         self.__active = False
         return []
