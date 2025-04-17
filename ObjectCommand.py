@@ -33,9 +33,6 @@ class ObjectCommand(Command, ABC):
             - command_text is valid for the command (subclass-specific).
             - map is not None and supports required operations.
             - player is not None and has required methods.
-            
-        Postconditions (for subclasses):
-            - Returns a non-empty list of DialogueMessage objects.
         """
 
         pass
@@ -58,10 +55,6 @@ class DemoCommand (ObjectCommand):
         Dict[Coord, str]: A dictionary where:
             - Keys are Coord representing grid positions.
             - Values are plant names (e.g., "daisy", "orchid") to place at those positions.
-
-    Postconditions:
-            - All Coords are valid for the target grid.
-            - All plant names are valid MapObject names.
     """
     pass
 
@@ -75,9 +68,7 @@ class DemoCommand (ObjectCommand):
     
         Returns:
             str: The name of the audio file that we want to demo
-
-        Postconditions:
-            - Returned filename ends with ".mp3".    
+   
     """
         return f"{self.name}.mp3"
     
@@ -102,10 +93,6 @@ class DemoCommand (ObjectCommand):
                 - updates to grid showing the new plant arrangement
                 - demo audio file 
                 - dialogue confirmation
-
-        Postconditions:
-            - Grid is updated with demo plants
-            - SoundMessage and DialogueMessage are returned
         """
         # Preconditions:
         assert hasattr(map, 'add_to_grid'), "Map must support add_to_grid()"
@@ -136,10 +123,6 @@ class DemoCommand (ObjectCommand):
             f"Here is the demo for '{self.name.replace('_', ' ')}'!",
             ""
         ))
-        
-        # Postconditions
-        assert any(isinstance(m, SoundMessage) for m in messages), "Missing SoundMessage"
-        assert any(isinstance(m, DialogueMessage) for m in messages), "Missing DialogueMessage"
 
         return messages
 
