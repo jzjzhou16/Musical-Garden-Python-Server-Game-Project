@@ -1,1 +1,1 @@
-# COMP-303-Group-50
+# Musical Garden Python Server Game Project
